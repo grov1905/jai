@@ -1,0 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400&display=swap');
+
+/* Animaciones */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+/* Estructura principal */
+.header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px 0;
+    margin: 0 auto 50px;
+}
+
+/* Esquina de autenticación */
+.auth-corner {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-corner, .logout-corner {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 12px;
+    padding: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.login-corner:hover {
+    color: #304D80;
+    text-decoration: underline;
+}
+
+.logout-corner {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+.logout-corner:hover {
+    text-decoration: underline;
+}
+
+.user-corner-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-corner-info span {
+    color: #304D80;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Logo */
+.logo-container img {
+    max-width: 400px;
+    transition: opacity 0.3s ease;
+    opacity: 0.8;
+    animation: fadeIn 2s ease-in-out forwards, bounce 1s ease-in-out 2s forwards;
+}
+
+.logo-container img:hover {
+    opacity: 1;
+}
+
+/* Navegación */
+.navbar {
+    display: flex;
+    gap: 20px;
+}
+
+.navbar a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #304D80;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #1E2A47;
+}
+
+/* Botón principal */
+.primary-button {
+    background-color: #304D80;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.primary-button:hover {
+    background-color: #1E2A47;
+}
+
+.primary-button a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        padding-top: 40px; /* Espacio para la esquina auth */
+    }
+    
+    .auth-corner {
+        top: 5px;
+        right: 5px;
+    }
+    
+    .logo-container img {
+        max-width: 300px;
+    }
+    
+    .navbar {
+        margin: 20px 0;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}

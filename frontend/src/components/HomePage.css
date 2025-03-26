@@ -1,0 +1,428 @@
+/* Importación de fuente */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400&display=swap');
+
+/* Definir animaciones */
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+      transform: translateY(0);
+  }
+  50% {
+      transform: translateY(-20px);
+  }
+}
+
+
+
+.home-page {
+    font-family: 'Roboto', sans-serif;
+    background-color: #F5F5F5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* Encabezado */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 20px 0;
+    margin-bottom: 100px; /* Espacio reducido entre el header y el Hero */
+}
+
+.logo-container a {
+  display: inline-block; /* Asegura que el enlace ocupe solo el espacio del logo */
+}
+
+
+/* Aplicar animaciones al logo */
+.logo-container img {
+  max-width: 500px; /* Tamaño del logo en web */
+  transition: opacity 0.3s ease; /* Transición suave */
+  opacity: 0.8; /* Inicia invisible */
+  animation: fadeIn 2s ease-in-out forwards;  /*,  Aparece gradualmente en 2s 
+             bounce 1s ease-in-out 2s forwards; /* Rebote después de 3s */
+}
+
+/* Efectos de hover */
+.logo-container img:hover {
+  animation: fadeIn 2s ease-in-out forwards;  /*,  Aparece gradualmente en 2s 
+             bounce 1s ease-in-out 2s forwards; /* Rebote después de 3s */
+}
+
+.navbar a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #304D80;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.navbar a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #304D80;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+    color: #1E2A47;
+}
+
+.consultation-button {
+    background-color: #1E2A47;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.consultation-button:hover {
+    background-color: #304D80;
+}
+
+/* Sección Hero */
+.hero {
+    background: linear-gradient(135deg, #A2B9D6, #B0C4DE);
+    padding: 50px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+    margin-top: 1px; /* Espacio reducido entre el header y el Hero */
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    color: #1E2A47;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: #1E2A47;
+    margin-bottom: 20px;
+}
+
+.discover-button {
+    background-color: #1E2A47;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.discover-button:hover {
+    background-color: #304D80;
+}
+
+/* Sección Sobre JAI */
+.about {
+    margin-top: 50px;
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+}
+
+.about h2 {
+    font-size: 2rem;
+    color: #1E2A47;
+    margin-bottom: 20px;
+}
+
+.about p {
+    font-size: 1.1rem;
+    color: #304D80;
+    margin-bottom: 30px;
+}
+
+.mission-vision {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.mission-vision .card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    flex: 1;
+}
+
+.mission-vision h3 {
+    font-size: 1.5rem;
+    color: #1E2A47;
+    margin-bottom: 10px;
+}
+
+.mission-vision p {
+    font-size: 1rem;
+    color: #304D80;
+}
+
+/* Sección de Servicios */
+.services {
+    margin-top: 50px;
+    text-align: center;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.services h2 {
+    font-size: 2rem;
+    color: #1E2A47;
+    margin-bottom: 40px;
+}
+
+.service-list {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.service-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    flex: 1;
+}
+
+.service-card span {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.service-card h3 {
+    font-size: 1.5rem;
+    color: #1E2A47;
+    margin-bottom: 10px;
+}
+
+.service-card p {
+    font-size: 1rem;
+    color: #304D80;
+}
+
+/* Llamado a la Acción */
+.call-to-action {
+    margin-top: 50px;
+    text-align: center;
+    width: 100%;
+    background-color: #1E2A47;
+    color: white;
+    padding: 40px 20px;
+    border-radius: 15px;
+}
+
+.call-to-action h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.call-to-action p {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    background-color: #304D80;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.cta-button:hover {
+    background-color: #1E2A47;
+}
+
+/* Pie de Página */
+.footer {
+    margin-top: 50px;
+    width: 100%;
+    background-color: #1E2A47;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.contact-info h3,
+.social-media h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.contact-info p,
+.social-media a {
+    font-size: 1rem;
+    color: white;
+    text-decoration: none;
+}
+
+.social-media a:hover {
+    text-decoration: underline;
+}
+
+.copyright {
+    font-size: 0.9rem;
+    margin-top: 20px;
+}
+
+.social-media {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.social-media h3 {
+  font-size: 1.2rem;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Espacio entre los íconos */
+}
+
+.social-icons a {
+  color: white;
+  font-size: 1.5rem;
+  text-decoration: none;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #A2B9D6; /* Cambia el color al hacer hover */
+  transform: scale(1.2); /* Efecto de escala al hacer hover */
+}
+
+/* Estilos para el botón de inicio de sesión */
+.login-button {
+    background-color: #304D80;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #A2B9D6;
+}
+
+/* Estilos para la información del usuario logueado */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info span {
+    color: white;
+    font-weight: bold;
+}
+
+.user-info button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.user-info button:hover {
+    background-color: #cc0000;
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 20px 0; /* Ajusta el padding si es necesario */
+    }
+
+    .logo-container img {
+        max-width: 300px; /* Logo de 300px en móviles */
+    }
+
+    .logo-container {
+        margin-bottom: 20px; /* Espacio entre el logo y el navbar */
+    }
+
+    .navbar {
+        flex-direction: row; /* Mantén el navbar en fila si prefieres */
+        gap: 20px; /* Espacio entre los enlaces del navbar */
+        margin-top: 10px;
+    }
+
+    .consultation-button {
+        margin-top: 20px; /* Espacio entre el navbar y el botón */
+    }
+
+    .hero h1 {
+        font-size: 2rem; /* Tamaño de fuente más pequeño en móviles */
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .mission-vision {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .service-list {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    .logo-container img {
+      max-width: 300px; /* Tamaño del logo en móviles */
+      animation: fadeIn 2s ease-in-out forwards;  /*,  Aparece gradualmente en 2s 
+                 bounce 1s ease-in-out 2s forwards; /* Rebote después de 3s */
+  }
+    
+}
