@@ -1,15 +1,12 @@
-# Entornos virtuales
-venv/
-.venv/
-env/
-
-# Variables de entorno
+# Archivo .gitignore en la raíz
 .env
-*.env
-
-# Docker
-**/docker-compose.override.yml
-
-# Sistemas operativos
+.venv/
+venv/
+*.sqlite3
+*.py[co]
+__pycache__/
 .DS_Store
-Thumbs.db
+
+# Frontend (general)
+frontend/node_modules/
+frontend/build/

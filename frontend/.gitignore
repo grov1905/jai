@@ -1,16 +1,4 @@
-# Node
 node_modules/
-.npm
-.cache
-
-# Build
 build/
-dist/
-
-# Envs
-.env*
 .env.local
-
-# IDE
-.vscode/
-.idea/
+npm-debug.log*

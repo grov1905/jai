@@ -1,12 +1,6 @@
-# Django
 *.pyc
 __pycache__/
-*.sqlite3
-*.py[co]
-*.log
-local_settings.py
 db.sqlite3
-media/
-
-# VS Code
-.vscode/
+/media/
+/staticfiles/
+local_settings.py
