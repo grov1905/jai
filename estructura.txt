@@ -1,0 +1,79 @@
+
+ESTRUCTURA ESENCIAL DEL PROYECTO:
+jai_project/
+├── estructura.txt
+├── frontend/
+│   ├── package.json
+│   ├── public/
+│   │   ├── logo512.png
+│   │   ├── manifest.json
+│   │   ├── logo192.png
+│   ├── src/
+│   │   ├── reportWebVitals.js
+│   │   ├── App.css
+│   │   ├──  index.js
+│   │   ├── index.css
+│   │   ├── App.test.js
+│   │   ├── routes.js
+│   │   ├── setupTests.js
+│   │   ├──  App.js
+│   │   ├── styles/
+│   │   │   ├── global.css
+│   │   ├── components/
+│   │   │   ├── styles.css
+│   │   │   ├── Footer/
+│   │   │   │   ├── Footer.css
+│   │   │   │   ├── Footer.js
+│   │   │   ├── ServiceCard/
+│   │   │   │   ├── ServiceCard.js
+│   │   │   │   ├── ServiceCard.css
+│   │   │   ├── CallToAction/
+│   │   │   │   ├── CallToAction.js
+│   │   │   │   ├── CallToAction.css
+│   │   │   ├── RegisterModal/
+│   │   │   │   ├── RegisterModal.js
+│   │   │   │   ├── RegisterModal.css
+│   │   │   ├── LoginModal/
+│   │   │   │   ├── LoginModal.js
+│   │   │   │   ├── LoginModal.css
+│   │   │   ├── Header/
+│   │   │   │   ├── Header.js
+│   │   │   │   ├── Header.css
+│   │   ├── assets/
+│   │   │   ├── logo.png
+│   │   ├── pages/
+│   │   │   ├── ServicesPage/
+│   │   │   │   ├── ServicesPage.css
+│   │   │   │   ├── ServicesPage.js
+│   │   │   ├── HomePage/
+│   │   │   │   ├── HomePage.css
+│   │   │   │   ├── HomePage.js
+│   │   │   ├── ContactPage/
+│   │   │   │   ├── ContactPage.js
+│   │   │   │   ├── ContactPage.css
+│   │   │   ├── AboutPage/
+│   │   │   │   ├── AboutPage.css
+│   │   │   │   ├── AboutPage.js
+├── backend/
+│   ├── requirements.txt
+│   ├── manage.py
+│   ├── core/
+│   │   ├── asgi.py
+│   │   ├──  settings.py
+│   │   ├──  urls.py
+│   │   ├── wsgi.py
+│   ├── users/
+│   │   ├──  models.py
+│   │   ├── apps.py
+│   │   ├── admin.py
+│   │   ├──  urls.py
+│   │   ├── api/
+│   │   │   ├── serializers.py
+│   │   │   ├── views.py
+│   ├── authentication/
+│   │   ├──  models.py
+│   │   ├── apps.py
+│   │   ├── admin.py
+│   │   ├── tests.py
+│   │   ├──  urls.py
+│   │   ├── views.py
