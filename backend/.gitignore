@@ -1,0 +1,27 @@
+*.pyc
+__pycache__/
+db.sqlite3
+/media/
+/staticfiles/
+local_settings.py
+
+# Byte-compiled / optimized / DLL files
+*.py[cod]
+*$py.class
+
+# Caches
+*.cache
+
+# Django migrations (excepto __init__.py)
+*/migrations/*.py
+!*/migrations/__init__.py
+
+# Databases
+*.sqlite3
+*.db
+
+# PyCharm
+.idea/
+
+# Virtual environment
+venv/

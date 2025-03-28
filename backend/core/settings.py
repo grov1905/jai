@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'authentication',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "core.wsgi.application"
 
 # Configuración de autenticación
-AUTH_USER_MODEL = 'authentication.User'
+AUTH_USER_MODEL = 'users.User'  # Usando el modelo en apps/users
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -105,7 +106,7 @@ DATABASES = {
         'NAME': os.getenv('DB_NAME'),
         'USER': os.getenv('DB_USER'),
         'PASSWORD': os.getenv('DB_PASSWORD'),
-        'HOST': 'db',
+        'HOST': os.getenv('DB_HOST', 'db'),
         'PORT': '5432',
     }
 }
@@ -133,9 +134,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
-
-TIME_ZONE = "UTC"
+LANGUAGE_CODE = 'es-pe'
+TIME_ZONE = 'America/Lima'
 
 USE_I18N = True
 
@@ -150,3 +150,8 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# settings.py
+# REST_AUTH = {
+#    'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer'
+#} 

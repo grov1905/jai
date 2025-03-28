@@ -1,22 +1,41 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import LoginModal from '../LoginModal/LoginModal';
+import RegisterModal from '../RegisterModal/RegisterModal';
 import './Header.css';
 import logo from '../../assets/logo.png';
 
 const Header = () => {
     const [user, setUser] = useState(null);
     const [showLoginModal, setShowLoginModal] = useState(false);
+    const [showRegisterModal, setShowRegisterModal] = useState(false);
 
     useEffect(() => {
         const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
+        try {
+            if (storedUser) {
+                setUser(JSON.parse(storedUser));
+            }
+        } catch (error) {
+            console.error("Error parsing user data:", error);
+            localStorage.removeItem('user');
+            setUser(null);
         }
     }, []);
 
     const handleLogin = (userData) => {
+        localStorage.setItem('user', JSON.stringify(userData));
         setUser(userData);
+        setShowLoginModal(false);
+    };
+
+    const handleRegisterSuccess = (userData) => {
+        // Solo cerramos los modales sin autenticar
+        setShowRegisterModal(false);
+        setShowLoginModal(false);
+        
+        // Opcional: Mostrar mensaje de éxito
+       // alert(`Usuario ${userData.username} registrado correctamente. Por favor inicia sesión.`);
     };
 
     const handleLogout = () => {
@@ -66,10 +85,26 @@ const Header = () => {
                 </button>
             </div>
             
+            {/* Modales de autenticación */}
             {showLoginModal && (
                 <LoginModal
                     onClose={() => setShowLoginModal(false)}
                     onLogin={handleLogin}
+                    onSwitchToRegister={() => {
+                        setShowLoginModal(false);
+                        setShowRegisterModal(true);
+                    }}
+                />
+            )}
+            
+            {showRegisterModal && (
+                <RegisterModal
+                    onClose={() => setShowRegisterModal(false)}
+                    onRegisterSuccess={handleRegisterSuccess}
+                    onSwitchToLogin={() => {
+                        setShowRegisterModal(false);
+                        setShowLoginModal(true);
+                    }}
                 />
             )}
         </header>
