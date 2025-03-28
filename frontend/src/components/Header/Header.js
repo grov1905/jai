@@ -75,8 +75,8 @@ const Header = () => {
             <nav className="navbar">
                 <Link to="/">Inicio</Link>
                 <Link to="/servicios">Servicios</Link>
-                <Link to="/sobre-nosotros">Sobre Nosotros</Link>
-                <Link to="/contacto">Contacto</Link>
+                <Link to="/about">Sobre Nosotros</Link>
+                <Link to="/contact">Contacto</Link>
             </nav>
             
             <div className="header-buttons">

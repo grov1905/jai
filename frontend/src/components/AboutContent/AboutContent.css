@@ -1,0 +1,11 @@
+.about-content {
+    text-align: left;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .about-content h2 {
+    color: #304d80;
+    margin-top: 20px;
+  }
+  

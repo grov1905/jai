@@ -1,0 +1,17 @@
+.contact-container {
+    text-align: center;
+    padding: 40px 20px;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .contact-container h1 {
+    font-size: 2rem;
+    color: #1e2a47;
+  }
+  
+  .contact-container p {
+    color: #304d80;
+    font-size: 1.2rem;
+  }
+  
