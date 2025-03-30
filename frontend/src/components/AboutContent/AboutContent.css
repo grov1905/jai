@@ -5,7 +5,10 @@
   }
   
   .about-content h2 {
-    color: #304d80;
+    color: #1E2A47; 
     margin-top: 20px;
   }
   
+  .about-content p {
+    color: #304D80; 
+  }
