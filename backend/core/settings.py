@@ -17,6 +17,10 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 #load_dotenv()  # Carga las variables del archivo .env
+# Solo cargar .env si no está en un entorno Docker
+if not os.getenv('DOCKER_ENV'):
+    load_dotenv(BASE_DIR / ".env")  
+
 
 # Luego puedes usarlas así:
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -98,6 +102,8 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 print("DB_HOST:", os.getenv("DB_HOST"))  # Agrega esta línea temporalmente
+print("DB_USER:", os.getenv("DB_USER"))
+print("DB_PASSWORD:", os.getenv("DB_PASSWORD"))
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
