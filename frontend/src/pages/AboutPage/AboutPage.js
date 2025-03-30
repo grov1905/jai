@@ -6,14 +6,14 @@ import "./AboutPage.css";
 
 const AboutPage = () => {
   return (
-    <>
+    <div className="about-page">
       <Header />
       <div className="about-container">
         <h1>Sobre Nosotros</h1>
         <AboutContent />
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 

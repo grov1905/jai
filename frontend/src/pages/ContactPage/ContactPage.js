@@ -6,7 +6,7 @@ import "./ContactPage.css";
 
 const ContactPage = () => {
   return (
-    <>
+    <div className="contact-page">
       <Header />
       <div className="contact-container">
         <h1>Contáctanos</h1>
@@ -14,7 +14,7 @@ const ContactPage = () => {
         <ContactForm />
       </div>
       <Footer />
-    </>
+    </div>
   );
 };
 
