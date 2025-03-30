@@ -1,7 +1,7 @@
 
 ESTRUCTURA ESENCIAL DEL PROYECTO:
 /
-├── estructura.txt
+├── .env
 frontend/
 ├── package.json
 ├── public/
