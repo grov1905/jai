@@ -22,7 +22,6 @@ if not os.getenv('DOCKER_ENV'):
     load_dotenv(BASE_DIR / ".env")  
 
 BASE_DIR / ".env"
-print("BASE_DIR:", BASE_DIR / ".env")
 
 # Luego puedes usarlas así:
 SECRET_KEY = os.getenv('SECRET_KEY')
@@ -106,7 +105,6 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "https://jaiproject.vercel.app",
 ]
-
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
