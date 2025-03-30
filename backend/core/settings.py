@@ -97,6 +97,8 @@ CORS_ALLOWED_ORIGINS = [
 
 ]
 
+print("DB_HOST:", os.getenv("DB_HOST"))  # Agrega esta línea temporalmente
+
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 # Configuración de base de datos
