@@ -109,9 +109,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://www.jaiexperts.com",
 ]
 
-print("NAME:", os.getenv("PGDATABASE"))  # Agrega esta línea temporalmente
-print("USER:", os.getenv("PGUSER"))  # Agrega esta línea temporalmente
-print("HOST:", os.getenv("PGHOST"))  # Agrega esta línea temporalmente
+
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
