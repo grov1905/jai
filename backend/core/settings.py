@@ -39,7 +39,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "jai-production.up.railway.app"  # Agrega el dominio de Railway aquí
+    "jai-production.up.railway.app",  # Agrega el dominio de Railway aquí
+    "https://www.jaiexperts.com",
 ]
 
 
@@ -105,6 +106,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
     "https://jaiproject.vercel.app",
+    "https://www.jaiexperts.com",
 ]
 
 print("NAME:", os.getenv("PGDATABASE"))  # Agrega esta línea temporalmente
