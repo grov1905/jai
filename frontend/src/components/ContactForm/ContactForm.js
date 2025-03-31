@@ -1,23 +1,34 @@
-import React, { useState } from "react";
-import "./ContactForm.css";
+import React, { useState } from 'react';
+import { sendContactForm } from '../../api/contact';
+import './ContactForm.css';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
+      name: '',
+      email: '',
+      message: ''
   });
+  const [status, setStatus] = useState(null);
+  const [statusType, setStatusType] = useState('');
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+      setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Formulario enviado:", formData);
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        await sendContactForm(formData);
+        setStatus('Mensaje enviado con éxito');
+        setStatusType('success');
+        setFormData({ name: '', email: '', message: '' });
+      } catch (error) {
+        setStatus('Error al enviar el mensaje');
+        setStatusType('error');      }
   };
 
   return (
+    <div class="contact-form-container">
     <form className="contact-form" onSubmit={handleSubmit}>
       <input
         type="text"
@@ -44,6 +55,8 @@ const ContactForm = () => {
       />
       <button type="submit">Enviar</button>
     </form>
+    {status && <p className={`status-message ${statusType}`}>{status}</p>}
+    </div>
   );
 };
 

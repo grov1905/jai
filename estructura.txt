@@ -4,9 +4,12 @@ ESTRUCTURA ESENCIAL DEL PROYECTO:
 ├── .env
 frontend/
 ├── package.json
+├── logo.png
 ├── public/
+│   ├── logo192xx.png
 │   ├── logo512.png
 │   ├── manifest.json
+│   ├── logo512xxx.png
 │   ├── logo192.png
 ├── src/
 │   ├── reportWebVitals.js
@@ -21,6 +24,9 @@ frontend/
 │   │   ├── global.css
 │   ├── components/
 │   │   ├── styles.css
+│   │   ├── ServicesContent/
+│   │   │   ├── ServicesContent.js
+│   │   │   ├── ServicesContent.css
 │   │   ├── Footer/
 │   │   │   ├── Footer.css
 │   │   │   ├── Footer.js
@@ -62,6 +68,7 @@ frontend/
 │   │   │   ├── AboutPage.js
 backend/
 ├── requirements.txt
+├── .env
 ├── manage.py
 ├── core/
 │   ├── asgi.py

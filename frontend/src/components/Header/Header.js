@@ -48,7 +48,7 @@ const Header = () => {
     return (
         <header className="header">
             {/* Estado de sesión en esquina superior derecha */}
-            <div className="auth-corner">
+{/*             <div className="auth-corner">
                 {user ? (
                     <div className="user-corner-info">
                         <span>Bienvenido, {user.name || user.email}</span>
@@ -64,7 +64,7 @@ const Header = () => {
                         Iniciar sesión
                     </button>
                 )}
-            </div>
+            </div> */}
 
             <div className="logo-container">
                 <Link to="/">
