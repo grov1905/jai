@@ -3,16 +3,29 @@ import "./AboutContent.css";
 
 const AboutContent = () => {
   return (
-    <div className="about-content">
-      <p>
-        JAI es una empresa líder en innovación tecnológica. Nos especializamos en transformación digital, desarrollo de software e implementación de inteligencia artificial.
-      </p>
-      <h2>Nuestra Misión</h2>
-      <p>Impulsar la tecnología en las empresas para lograr su crecimiento y optimización.</p>
 
-      <h2>Nuestra Visión</h2>
-      <p>Ser referentes en innovación y tecnología a nivel global.</p>
-    </div>
+
+
+            <section className="about">
+                <h2>Sobre JAI</h2>
+                <p>
+                    JAI es una empresa líder en soluciones tecnológicas e innovación. Nuestra misión es transformar
+                    el futuro de las empresas mediante la implementación de tecnologías avanzadas.
+                </p>
+                <div className="mission-vision">
+                    <div className="card">
+                        <h3>Misión</h3>
+                        <p>Impulsar la transformación digital de nuestros clientes.</p>
+                    </div>
+                    <div className="card">
+                        <h3>Visión</h3>
+                        <p>Ser referentes en innovación y tecnología a nivel global.</p>
+                    </div>
+                </div>
+            </section>
+
+
+
   );
 };
 

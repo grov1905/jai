@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import LoginModal from '../../components/LoginModal/LoginModal';
-import ServiceCard from '../../components/ServiceCard/ServiceCard';
 import CallToAction from '../../components/CallToAction/CallToAction';
+import AboutContent from "../../components/AboutContent/AboutContent";
+import ServicesContent from '../../components/ServicesContent/ServicesContent';
 import './HomePage.css';
 
 const HomePage = () => {
@@ -35,39 +36,23 @@ const HomePage = () => {
             {/* Sección Hero */}
             <section className="hero">
                 <h1>Innovación y Tecnología para el Futuro de tu Empresa</h1>
-                <p>Soluciones innovadoras en tecnología e inteligencia artificial.</p>
+                <p>Soluciones innovadoras en tecnología y transformación digital.</p>
                 <button className="discover-button">Descubre nuestros servicios</button>
             </section>
 
             {/* Sección Sobre JAI */}
-            <section className="about">
-                <h2>Sobre JAI</h2>
-                <p>
-                    JAI es una empresa líder en soluciones tecnológicas e innovación. Nuestra misión es transformar
-                    el futuro de las empresas mediante la implementación de tecnologías avanzadas.
-                </p>
-                <div className="mission-vision">
-                    <div className="card">
-                        <h3>Misión</h3>
-                        <p>Impulsar la transformación digital de nuestros clientes.</p>
-                    </div>
-                    <div className="card">
-                        <h3>Visión</h3>
-                        <p>Ser referentes en innovación y tecnología a nivel global.</p>
-                    </div>
-                </div>
-            </section>
+            <AboutContent />
 
             {/* Sección de Servicios */}
-            <section className="services">
+{/*             <section className="services">
                 <h2>Nuestros Servicios</h2>
                 <div className="service-list">
                     <ServiceCard icon="💻" title="Consultoría en Transformación Digital" description="Ayudamos a las empresas a adaptarse a la era digital." />
                     <ServiceCard icon="🛠️" title="Desarrollo de Software" description="Soluciones personalizadas para tus necesidades tecnológicas." />
-                    <ServiceCard icon="🤖" title="Implementación de IA" description="Inteligencia artificial para optimizar tus procesos." />
+                    <ServiceCard icon="🤖" title="Automatización de Procesos" description="Mejora tus operaciones mediante la automatización inteligente." />
                 </div>
-            </section>
-
+            </section> */}
+            <ServicesContent/>
             {/* Llamado a la Acción */}
             <CallToAction />
 

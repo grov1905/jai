@@ -2,16 +2,17 @@ import React from "react";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import AboutContent from "../../components/AboutContent/AboutContent";
+import CallToAction from '../../components/CallToAction/CallToAction';
 import "./AboutPage.css";
 
 const AboutPage = () => {
   return (
     <div className="about-page">
       <Header />
-      <div className="about-container">
-        <h1>Sobre Nosotros</h1>
         <AboutContent />
-      </div>
+      
+        {/* Llamado a la Acción */}
+        <CallToAction />
       <Footer />
     </div>
   );

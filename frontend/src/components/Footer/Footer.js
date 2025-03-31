@@ -7,8 +7,8 @@ const Footer = () => {
             <div className="footer-content">
                 <div className="contact-info">
                     <h3>Contacto</h3>
-                    <p>Email: info@jai.com</p>
-                    <p>Teléfono: +123 456 789</p>
+                    <p><a href="mailto:contacto@jaiexperts.com">Email: contacto@jaiexperts.com</a></p>
+                    <p>Teléfono: +51 977205812</p>
                 </div>
                 <div className="social-media">
                     <h3>Síguenos</h3>

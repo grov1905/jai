@@ -6,12 +6,20 @@
     margin: auto;
   }
   
-  .contact-form input,
-  .contact-form textarea {
-    width: 100%;
+  .contact-form input{
+    width: 95%;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
+
+  }
+  .contact-form textarea {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 60px; /* Altura aumentada */
+    resize: vertical; /* Permite redimensionar solo verticalmente */    
   }
   
   .contact-form button {

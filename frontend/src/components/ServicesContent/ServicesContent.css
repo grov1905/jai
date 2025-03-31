@@ -1,0 +1,25 @@
+.services-section {
+    text-align: center;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 20px;
+}
+
+.services-section h1 {
+    font-size: 2.5rem;
+    color: #1E2A47;
+    margin-bottom: 20px;
+}
+
+.services-description {
+    font-size: 1.2rem;
+    color: #304D80;
+    margin-bottom: 40px;
+}
+
+.services-list {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+}
