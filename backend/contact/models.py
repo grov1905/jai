@@ -17,3 +17,4 @@ class WhatsAppRequest(models.Model):
 
     def __str__(self):
         return f"{self.phone_number} - {self.timestamp.strftime('%Y-%m-%d %H:%M:%S')}"
+    
