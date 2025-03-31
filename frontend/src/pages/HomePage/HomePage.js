@@ -6,6 +6,7 @@ import CallToAction from '../../components/CallToAction/CallToAction';
 import AboutContent from "../../components/AboutContent/AboutContent";
 import ServicesContent from '../../components/ServicesContent/ServicesContent';
 import './HomePage.css';
+import { Link } from 'react-router-dom';
 
 const HomePage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -14,6 +15,9 @@ const HomePage = () => {
     const handleLogin = (email, password) => {
         console.log("Email:", email, "Password:", password);
         setIsLoggedIn(true);
+    };
+    const handleAboutClick = async () => {
+
     };
 
     return (
@@ -37,7 +41,12 @@ const HomePage = () => {
             <section className="hero">
                 <h1>Innovación y Tecnología para el Futuro de tu Empresa</h1>
                 <p>Soluciones innovadoras en tecnología y transformación digital.</p>
-                <button className="discover-button">Descubre nuestros servicios</button>
+                <Link to="/servicios" className="discover-button-link">
+
+                <button className="discover-button">
+                    Descubre nuestros servicios                   
+                </button>
+                </Link>
             </section>
 
             {/* Sección Sobre JAI */}
