@@ -6,11 +6,11 @@ frontend/
 ├── package.json
 ├── logo.png
 ├── public/
-│   ├── logo192xx.png
 │   ├── logo512.png
 │   ├── manifest.json
-│   ├── logo512xxx.png
 │   ├── logo192.png
+│   ├── static/
+│   │   ├── images/
 ├── src/
 │   ├── reportWebVitals.js
 │   ├── App.css
@@ -51,6 +51,8 @@ frontend/
 │   │   ├── AboutContent/
 │   │   │   ├── AboutContent.css
 │   │   │   ├── AboutContent.js
+│   ├── api/
+│   │   ├── contact.js
 │   ├── assets/
 │   │   ├── logo.png
 │   ├── pages/
@@ -68,8 +70,16 @@ frontend/
 │   │   │   ├── AboutPage.js
 backend/
 ├── requirements.txt
-├── .env
 ├── manage.py
+├── contact/
+│   ├──  models.py
+│   ├── serializers.py
+│   ├──  urls.py
+│   ├── views.py
+│   ├── api/
+│   │   ├── serializers.py
+│   │   ├──  urls.py
+│   │   ├── views.py
 ├── core/
 │   ├── asgi.py
 │   ├──  settings.py

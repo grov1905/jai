@@ -81,7 +81,7 @@ const Header = () => {
             
             <div className="header-buttons">
                 <button className="primary-button">
-                    <Link to="/agendar-consulta">Agendar consulta</Link>
+                    <Link to="/agendar-consulta">Solicitar una consulta</Link>
                 </button>
             </div>
             
