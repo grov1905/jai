@@ -1,0 +1,45 @@
+/* Sección Hero */
+.hero {
+    background: linear-gradient(135deg, #A2B9D6, #B0C4DE);
+    padding: 50px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 1000px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    color: #1E2A47;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.2rem;
+    color: #1E2A47;
+    margin-bottom: 20px;
+}
+
+.discover-button {
+    background-color: #1E2A47;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    font-size: 1rem; /* Asegura consistencia en el texto */
+}
+
+.discover-button:hover {
+    background-color: #304D80;
+    color: white; /* Evita cambios de color en el hover */
+
+}
+
+.discover-button-link {
+    text-decoration: none; /* Elimina el subrayado del enlace */
+    display: inline-block; /* Permite que el enlace contenga el botón correctamente */
+}

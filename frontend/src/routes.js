@@ -20,6 +20,3 @@ const AppRoutes = () => {
 
 export default AppRoutes;
 
-
-/*                <Route path="/sobre-nosotros" element={<AboutPage />} />
-                <Route path="/contacto" element={<ContactPage />} /> */

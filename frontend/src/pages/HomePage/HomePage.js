@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+
 import Header from '../../components/Header/Header';
-import Footer from '../../components/Footer/Footer';
 import LoginModal from '../../components/LoginModal/LoginModal';
-import CallToAction from '../../components/CallToAction/CallToAction';
+import Hero from '../../components/Hero/Hero'
 import AboutContent from "../../components/AboutContent/AboutContent";
 import ServicesContent from '../../components/ServicesContent/ServicesContent';
+import CallToAction from '../../components/CallToAction/CallToAction';
+import Footer from '../../components/Footer/Footer';
+
 import './HomePage.css';
-import { Link } from 'react-router-dom';
+
 
 const HomePage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -37,36 +40,17 @@ const HomePage = () => {
                 />
             )}
 
-            {/* Sección Hero */}
-            <section className="hero">
-                <h1>Innovación y Tecnología para el Futuro de tu Empresa</h1>
-                <p>Soluciones innovadoras en tecnología y transformación digital.</p>
-                <Link to="/servicios" className="discover-button-link">
-
-                <button className="discover-button">
-                    Descubre nuestros servicios                   
-                </button>
-                </Link>
-            </section>
-
+            {/* Sección Hero */}            
+            <Hero />
             {/* Sección Sobre JAI */}
             <AboutContent />
-
-            {/* Sección de Servicios */}
-{/*             <section className="services">
-                <h2>Nuestros Servicios</h2>
-                <div className="service-list">
-                    <ServiceCard icon="💻" title="Consultoría en Transformación Digital" description="Ayudamos a las empresas a adaptarse a la era digital." />
-                    <ServiceCard icon="🛠️" title="Desarrollo de Software" description="Soluciones personalizadas para tus necesidades tecnológicas." />
-                    <ServiceCard icon="🤖" title="Automatización de Procesos" description="Mejora tus operaciones mediante la automatización inteligente." />
-                </div>
-            </section> */}
+            {/* Nuestros Servicios JAI */}
             <ServicesContent/>
             {/* Llamado a la Acción */}
             <CallToAction />
-
             {/* Pie de Página */}
             <Footer />
+
         </div>
     );
 };
