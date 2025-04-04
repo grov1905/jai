@@ -1,0 +1,103 @@
+/* Contenedor principal */
+.tags-section {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin: 2rem 0;
+    width: 100%;
+  }
+  
+  /* Título */
+  .tags-title {
+    font-size: 1.1rem;
+    color: #1E2A47;
+    font-weight: 600;
+    margin-bottom: 1rem;
+  }
+  
+  /* Contenedor de tags */
+  .tags-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.8rem;
+  }
+  
+  /* Estilos base del tag */
+  .tag {
+    /* TUS PROPIEDADES ACTUALES (se mantienen igual) */
+    background: #f0f4f9;
+    color: #1E2A47;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    border: 1px solid #e0e6ed;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
+    /* NUEVAS PROPIEDADES A AÑADIR (sin eliminar las anteriores) */
+    min-width: 0; /* ¡IMPORTANTE! Permite el truncado en flex/grid */
+    flex: 1 1 auto; /* Opcional: ayuda en distribución flexible */
+}
+  
+  /* Efecto hover */
+  .tag:hover {
+    transform: translateY(-3px);
+    background: #A2B9D6;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  /* Tag activo */
+  .tag.active {
+    background: #1E2A47;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  /* Media Queries para responsive */
+  
+  /* Tablets */
+  @media (max-width: 768px) {
+    .tags-container {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    
+    .tag {
+      padding: 0.6rem 0.8rem;
+      font-size: 0.85rem;
+    }
+  }
+  
+  /* Móviles pequeños */
+  @media (max-width: 480px) {
+    .tags-container {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .tags-title {
+      font-size: 1rem;
+      text-align: center;
+    }
+    
+    .tag {
+      padding: 0.6rem 0.5rem;
+      font-size: 0.82rem;
+    }
+  }
+  .tag:nth-child(2) {        /* Ajusta el índice según tu array de tags */
+    font-size: 0.78rem;      /* Tamaño un poco más pequeño solo para este tag */
+    letter-spacing: -0.1px;  /* Ajuste fino de espaciado */
+  }
+
+  /* Pantallas muy pequeñas */
+  @media (max-width: 360px) {
+    .tags-container {
+      grid-template-columns: 1fr;
+    }
+  }

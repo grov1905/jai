@@ -1,0 +1,59 @@
+.article-list-container {
+    display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  }
+  
+
+  /* Resto de tus estilos se mantienen igual */
+  
+  .article-card {
+    cursor: pointer; /* Añade esto para indicar que es clickeable */
+    background: white;
+    border-radius: 12px;
+    padding: 1.8rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    border-left: 3px solid transparent;
+  }
+
+  .article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    border-left-color: #A2B9D6;
+
+}
+/*   .article-card.featured {
+    border-left: 5px solid #3f51b5;
+  } */
+  
+  .article-date {
+    color: #6b7280;
+    font-size: 0.8rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  
+  .article-title {
+    color: #1E2A47;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+  
+  .article-content {
+    color: #4b5563;
+    line-height: 1.5;
+    font-size: 0.95rem;
+  }
+  
+  @media (max-width: 480px) {
+    .article-title {
+      font-size: 1rem;
+    }
+    
+    .article-content {
+      font-size: 0.85rem;
+    }
+  }

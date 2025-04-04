@@ -9,23 +9,3 @@
 }
 
 
-
-/* Sección de Servicios */
-.services {
-    margin-top: 50px;
-    text-align: center;
-    width: 100%;
-    max-width: 1000px;
-}
-
-.services h2 {
-    font-size: 2rem;
-    color: #1E2A47;
-    margin-bottom: 40px;
-}
-
-.service-list {
-    display: flex;
-    justify-content: space-around;
-    gap: 20px;
-}

@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className="contact-info">
                     <h3>Contacto</h3>
                     <p><a href="mailto:contacto@jaiexperts.com">Email: contacto@jaiexperts.com</a></p>
-                    <p>Teléfono: +51 977205812</p>
+                    <p>Teléfono: +51 935938821</p>
                 </div>
                 <div className="social-media">
                     <h3>Síguenos</h3>

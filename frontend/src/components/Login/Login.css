@@ -1,0 +1,55 @@
+/* Esquina de autenticación */
+.auth-corner {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.login-corner, .logout-corner {
+    background: none;
+    border: none;
+    color: #666;
+    font-size: 12px;
+    padding: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.login-corner:hover {
+    color: #304D80;
+    text-decoration: underline;
+}
+
+.logout-corner {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+.logout-corner:hover {
+    text-decoration: underline;
+}
+
+.user-corner-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-corner-info span {
+    color: #304D80;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+
+    .auth-corner {
+        top: 5px;
+        right: 5px;
+    }
+}

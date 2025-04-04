@@ -1,22 +1,43 @@
 import React from 'react';
 import './CallToAction.css';
+import { ContactService } from '../../api/contact'; // Ajusta la ruta según tu estructura
 
 const CallToAction = () => {
 
+    const whatsappNumber = "51935938821";
+    const defaultMessage = "Hola somos JAI Experts. Un asesor se pondrá en contacto contigo en breve. Mientras tanto, ¿en qué podemos ayudarte?";
+
     const handleWhatsAppClick = async () => {
-        const phoneNumber = "51977205812";
-        const message = encodeURIComponent("Hola somos JAI Experts. Un asesor se pondrá en contacto contigo en breve. Mientras tanto, ¿en qué podemos ayudarte?");
-        
-        // `${process.env.REACT_APP_API_URL}/api/users/register/`
-        // Notificar al backend que un usuario ha hecho clic
-        await fetch(`${process.env.REACT_APP_API_URL}/api/contact/whatsapp/log/`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ phone_number: phoneNumber, message: "Solicitud enviada" })
-        });
-    
-        // Redirigir a WhatsApp
-        window.open(`https://wa.me/${phoneNumber}?text=${message}`, "_blank");
+        try {
+        // 1. Registrar el click en el backend
+        await ContactService.logWhatsAppClick(
+            whatsappNumber,
+            "Solicitud enviada desde botón header"
+        );
+
+        // 2. Redirigir a WhatsApp
+        window.open(
+            `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`,
+            "_blank"
+        );
+
+        } catch (error) {
+            console.error("Error al registrar el contacto:", error);
+      
+        // Opciones de manejo de errores (elige la que prefieras):
+      
+        // a) Redirigir igualmente a WhatsApp (comportamiento actual)
+        window.open(
+            `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(defaultMessage)}`,
+            "_blank"
+        );
+      
+      // b) Mostrar notificación al usuario
+      // alert("El sistema está ocupado. Serás redirigido a WhatsApp directamente.");
+      
+      // c) Lógica de reintento
+      // if (error.includes("timeout")) { ... }
+        }
     };
 
     return (

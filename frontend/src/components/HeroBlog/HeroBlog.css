@@ -1,0 +1,140 @@
+
+.hero-blog-container{
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 10px;
+
+}
+
+.hero-blog-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.titulo-blog {
+    background: linear-gradient(160deg, #A2B9D6, #B0C4DE);
+    color: white;
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    height: fit-content; /* Ajuste automático de altura */
+  }
+  
+  .titulo-blog h1 {
+    color: #1E2A47;
+    font-size: 2.2rem;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+  }
+  
+  .titulo-blog-subtitle{
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #1E2A47;
+    opacity: 0.95;
+    margin-bottom: 1rem;
+  }
+
+
+  .descripcion-blog{
+    color: #1E2A47;
+    font-size: 1.15rem;
+    margin-bottom: 15px;   
+    padding: 40px;
+    opacity: 0.95;
+
+
+  }
+    .descripcion-blog-subtitle{
+        font-size: 1.15rem;
+        line-height: 1.6;
+        color: #1E2A47;
+        opacity: 0.95;
+        margin-bottom: 2rem;
+    }
+
+/* HeroBlog.css - Añade esto al final de tu archivo existente */
+.content-section {
+    margin-top: 1.5rem;
+    line-height: 1.6;
+  }
+  
+  .content-section h3 {
+    color: #e8eaf6;
+    margin: 1.2rem 0 0.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .content-section ul {
+    padding-left: 1.5rem;
+    margin: 0.5rem 0;
+  }
+  
+  .content-section li {
+    margin-bottom: 0.3rem;
+  }
+  
+  .content-section strong {
+    color: #bbdefb;
+  }
+
+  /* Estilos adicionales para la versión enfocada */
+.hero-blog-container {
+    cursor: pointer;
+  }
+  
+  .article-meta {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .article-meta span {
+    font-size: 0.95rem;
+    color: #1E2A47;
+    opacity: 0.9;
+  }
+  
+  .article-meta strong {
+    color: #1E2A47;
+    font-weight: 600;
+  }
+  
+  .read-more-button {
+    background: none;
+    border: none;
+    color: #1E2A47;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    display: inline-block;
+  }
+  
+  .read-more-button:hover {
+    color: #2c3e50;
+    text-decoration: underline;
+  }
+  
+  /* Estilos responsivos */
+  @media (max-width: 768px) {
+    .article-meta {
+      gap: 10px;
+    }
+    
+    .article-meta span {
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .descripcion-blog-subtitle {
+      font-size: 0.95rem;
+    }
+    
+    .article-meta span {
+      font-size: 0.8rem;
+    }
+  }

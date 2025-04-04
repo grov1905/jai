@@ -1,22 +1,21 @@
 import React from "react";
-import "./Hero.css";
+import "./BannerBlog.css";
 import { Link } from 'react-router-dom';
 
-const Hero = () => {
+const BannerBlog = () => {
     return (
 
-        <section className="hero">
+
+        <section className="BannerBlog">
             <h1>Innovación y Tecnología para el Futuro de tu Empresa</h1>
             <p>Soluciones innovadoras en tecnología y transformación digital.</p>
             <Link to="/servicios" className="discover-button-link">
 
-                <button className="discover-button">
-                    Descubre nuestros servicios                   
-                </button>
+              
             </Link>
         </section>
 
     );
 };
 
-export default Hero;
+export default BannerBlog;

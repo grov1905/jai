@@ -1,0 +1,20 @@
+/* Botón principal */
+.primary-button {
+    background-color: #304D80;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.primary-button:hover {
+    background-color: #1E2A47;
+}
+
+.primary-button a {
+    color: white;
+    text-decoration: none;
+}

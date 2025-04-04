@@ -1,20 +1,50 @@
-// frontend/src/api/contact.js
-
 import axios from 'axios';
 
-// Obtener la URL base desde las variables de entorno
-const API_URL = process.env.REACT_APP_API_URL;
+// Configuración global (opcional, pero recomendado para toda la app)
+const apiClient = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  timeout: 10000, // 10 segundos máximo por petición
+});
 
-export const sendContactForm = async (data) => {
+// Interceptor para manejar errores globalmente
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const errorMessage = error.response?.data?.message || 
+                        error.message || 
+                        'Error de conexión';
+    console.error('Error en la petición:', errorMessage);
+    return Promise.reject(errorMessage);
+  }
+);
+
+// Servicios específicos
+export const ContactService = {
+  sendForm: async (data) => {
     try {
-        const response = await axios.post(`${API_URL}/api/contact/contactform/`, data, {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
-        return response.data;
+      const response = await apiClient.post('/api/contact/contactform/', data);
+      return response.data;
     } catch (error) {
-        console.error('Error sending contact form:', error.response?.data || error.message);
-        throw new Error(error.response?.data?.message || "Error al enviar el formulario de contacto");
+      // El interceptor ya maneja el logging
+      throw error; // Re-lanzamos el error ya formateado
     }
+  },
+
+  logWhatsAppClick: async (phoneNumber, message = "Solicitud enviada") => {
+    try {
+      const response = await apiClient.post('/api/contact/whatsapp/log/', {
+        phone_number: phoneNumber,
+        message: message
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
 };
+
+// Opcional: También puedes exportar la instancia base si otros módulos la necesitan
+export default apiClient;

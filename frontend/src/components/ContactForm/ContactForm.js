@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { sendContactForm } from '../../api/contact';
+import { ContactService } from '../../api/contact';
 import './ContactForm.css';
 
 const ContactForm = () => {
@@ -18,7 +18,7 @@ const ContactForm = () => {
   const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        await sendContactForm(formData);
+        await ContactService(formData);
         setStatus('Mensaje enviado con éxito');
         setStatusType('success');
         setFormData({ name: '', email: '', message: '' });
@@ -28,7 +28,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div class="contact-form-container">
+    <div className="contact-form-container">
     <form className="contact-form" onSubmit={handleSubmit}>
       <input
         type="text"

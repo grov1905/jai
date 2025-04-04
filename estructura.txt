@@ -24,18 +24,30 @@ frontend/
 │   │   ├── global.css
 │   ├── components/
 │   │   ├── styles.css
+│   │   ├── HeroBlog/
+│   │   │   ├── HeroBlog.js
+│   │   │   ├── HeroBlog.css
+│   │   ├── Navbar/
+│   │   │   ├── Navbar.js
+│   │   │   ├── Navbar.css
 │   │   ├── ServicesContent/
 │   │   │   ├── ServicesContent.js
 │   │   │   ├── ServicesContent.css
 │   │   ├── Footer/
 │   │   │   ├── Footer.css
 │   │   │   ├── Footer.js
+│   │   ├── ArticleList/
+│   │   │   ├── ArticleList.css
+│   │   │   ├── ArticleList.js
 │   │   ├── ServiceCard/
 │   │   │   ├── ServiceCard.js
 │   │   │   ├── ServiceCard.css
 │   │   ├── ContactForm/
 │   │   │   ├── ContactForm.js
 │   │   │   ├── ContactForm.css
+│   │   ├── HeaderButton/
+│   │   │   ├── HeaderButton.css
+│   │   │   ├── HeaderButton.js
 │   │   ├── CallToAction/
 │   │   │   ├── CallToAction.js
 │   │   │   ├── CallToAction.css
@@ -45,6 +57,12 @@ frontend/
 │   │   ├── LoginModal/
 │   │   │   ├── LoginModal.js
 │   │   │   ├── LoginModal.css
+│   │   ├── Hero/
+│   │   │   ├── Hero.css
+│   │   │   ├── Hero.js
+│   │   ├── Login/
+│   │   │   ├── Login.css
+│   │   │   ├── Login.js
 │   │   ├── Header/
 │   │   │   ├── Header.js
 │   │   │   ├── Header.css
@@ -68,6 +86,9 @@ frontend/
 │   │   ├── AboutPage/
 │   │   │   ├── AboutPage.css
 │   │   │   ├── AboutPage.js
+│   │   ├── BlogPage/
+│   │   │   ├── BlogPage.js
+│   │   │   ├── BlogPage.css
 backend/
 ├── requirements.txt
 ├── manage.py
