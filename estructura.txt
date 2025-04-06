@@ -39,6 +39,9 @@ frontend/
 │   │   ├── ArticleList/
 │   │   │   ├── ArticleList.css
 │   │   │   ├── ArticleList.js
+│   │   ├── BannerBlog/
+│   │   │   ├── BannerBlog.js
+│   │   │   ├── BannerBlog.css
 │   │   ├── ServiceCard/
 │   │   │   ├── ServiceCard.js
 │   │   │   ├── ServiceCard.css
@@ -48,9 +51,15 @@ frontend/
 │   │   ├── HeaderButton/
 │   │   │   ├── HeaderButton.css
 │   │   │   ├── HeaderButton.js
+│   │   ├── Tags/
+│   │   │   ├── Tags.js
+│   │   │   ├── Tags.css
 │   │   ├── CallToAction/
 │   │   │   ├── CallToAction.js
 │   │   │   ├── CallToAction.css
+│   │   ├── CategoryGrid/
+│   │   │   ├── CategoryGrid.css
+│   │   │   ├── CategoryGrid.js
 │   │   ├── RegisterModal/
 │   │   │   ├── RegisterModal.js
 │   │   │   ├── RegisterModal.css

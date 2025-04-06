@@ -24,8 +24,9 @@ apiClient.interceptors.response.use(
 // Servicios específicos
 export const ContactService = {
   sendForm: async (data) => {
-    try {
-      const response = await apiClient.post('/api/contact/contactform/', data);
+/*     console.log('data:', data); // ← Añade esto */ 
+   try {
+      const response = await apiClient.post('/api/public/contact/contactform/', data);
       return response.data;
     } catch (error) {
       // El interceptor ya maneja el logging
@@ -35,7 +36,7 @@ export const ContactService = {
 
   logWhatsAppClick: async (phoneNumber, message = "Solicitud enviada") => {
     try {
-      const response = await apiClient.post('/api/contact/whatsapp/log/', {
+      const response = await apiClient.post('/api/public/contact/whatsapp/log/', {
         phone_number: phoneNumber,
         message: message
       });

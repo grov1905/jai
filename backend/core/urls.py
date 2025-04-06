@@ -21,7 +21,16 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/auth/', include('authentication.urls')),
-    path('api/users/', include('users.api.urls')),
-    path('api/contact/', include('contact.api.urls')),
+    
+    # Endpoints públicos
+    path('api/public/', include([
+        path('contact/', include('users.api.urls_public'))
+    ])),
+    
+    # Endpoints privados (requieren autenticación)
+    path('api/auth/', include('users.api.urls_private')),
+    
+    # Otras apps
+    path('api/blog/', include('blog.urls')),
 ]
+#  path('api/contact/', include('contact.api.urls')),

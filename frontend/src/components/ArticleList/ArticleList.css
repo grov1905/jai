@@ -1,59 +1,132 @@
-.article-list-container {
-    display: flex;
+/* ArticleList.css - Original Design with Flexible Item Count */
+
+.vertical-article-carousel {
+  display: flex;
   flex-direction: column;
   gap: 1.5rem;
-
-  }
-  
-
-  /* Resto de tus estilos se mantienen igual */
-  
-  .article-card {
-    cursor: pointer; /* Añade esto para indicar que es clickeable */
-    background: white;
-    border-radius: 12px;
-    padding: 1.8rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
-    border-left: 3px solid transparent;
-  }
-
-  .article-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-    border-left-color: #A2B9D6;
-
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
 }
-/*   .article-card.featured {
-    border-left: 5px solid #3f51b5;
-  } */
-  
-  .article-date {
-    color: #6b7280;
-    font-size: 0.8rem;
-    display: block;
-    margin-bottom: 0.5rem;
+
+.articles-viewport {
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+
+.articles-slide-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.article-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  height: 180px;
+  display: flex;
+  flex-direction: column;
+}
+
+.article-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border-left-color: #A2B9D6;
+}
+
+.article-date {
+  color: #6b7280;
+  font-size: 0.8rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.article-title {
+  color: #1E2A47;
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.article-content {
+  color: #4b5563;
+  line-height: 1.5;
+  font-size: 0.95rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.carousel-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.carousel-button {
+  background: #1E2A47;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  min-width: 100px;
+}
+
+.carousel-button:hover:not(:disabled) {
+  background: #2c3e50;
+}
+
+.carousel-button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+.page-indicator {
+  font-size: 0.9rem;
+  color: #6b7280;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .article-card {
+    padding: 1.2rem;
+    height: 160px;
   }
   
   .article-title {
-    color: #1E2A47;
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
-    font-weight: 600;
+    font-size: 1rem;
   }
   
   .article-content {
-    color: #4b5563;
-    line-height: 1.5;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
+    -webkit-line-clamp: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .article-card {
+    padding: 1rem;
+    height: 150px;
   }
   
-  @media (max-width: 480px) {
-    .article-title {
-      font-size: 1rem;
-    }
-    
-    .article-content {
-      font-size: 0.85rem;
-    }
+  .carousel-button {
+    padding: 0.4rem 0.8rem;
+    min-width: 80px;
+    font-size: 0.85rem;
   }
+  
+  .page-indicator {
+    font-size: 0.85rem;
+  }
+}

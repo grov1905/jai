@@ -90,6 +90,7 @@
       font-size: 0.82rem;
     }
   }
+  
   .tag:nth-child(2) {        /* Ajusta el índice según tu array de tags */
     font-size: 0.78rem;      /* Tamaño un poco más pequeño solo para este tag */
     letter-spacing: -0.1px;  /* Ajuste fino de espaciado */

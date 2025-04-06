@@ -56,9 +56,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
-    'authentication',
     'users',
-    'contact',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -95,11 +94,9 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Configuración de autenticación
 AUTH_USER_MODEL = 'users.User'  # Usando el modelo en apps/users
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
-}
+
+
+
 
 # Configuración CORS
 CORS_ALLOWED_ORIGINS = [
@@ -183,4 +180,25 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Cargar desde .env
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Cargar desde .env
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # Usar tu correo como remitente
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # Todos los endpoints requieren auth por defecto
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',  # Ejemplo con JWT
+    ],
+}
 
+
+
+
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': True,
+}

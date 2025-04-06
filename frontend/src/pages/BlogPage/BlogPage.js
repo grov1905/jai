@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import HeroBlog from '../../components/HeroBlog/HeroBlog';
 import ArticleList from '../../components/ArticleList/ArticleList';
 import './BlogPage.css';
@@ -8,78 +8,161 @@ import BannerBlog from '../../components/BannerBlog/BannerBlog';
 import CallToAction from '../../components/CallToAction/CallToAction';
 import Tags from '../../components/Tags/Tags';
 import CategoryGrid from '../../components/CategoryGrid/CategoryGrid';
+import axios from 'axios';
 
 const BlogPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState('Todos');
-  const [featuredArticle, setFeaturedArticle] = useState({
-    id: 1,
-    date: "February 1, 2025",
-    title: "Top 6 Mejores Software de Cobranza de Chile del 2025",
-    subtitle: "Análisis comparativo de las mejores soluciones tecnológicas",
-    summary: "¿Buscas el mejor software de cobranza para 2025? En este artículo analizamos las 6 mejores opciones disponibles en el mercado chileno, comparando características, precios y beneficios para tu empresa.",
-    readTime: "8 min lectura",
-    category: "Tecnología"
-  });
+  const scrollPositionRef = useRef(0);
+  const [selectedCategory, setSelectedCategory] = useState('todos');
+  const [featuredArticle, setFeaturedArticle] = useState(null);
+  const [allArticles, setAllArticles] = useState([]); // All articles for ArticleList
+  const [filteredArticles, setFilteredArticles] = useState([]); // Filtered for CategoryGrid
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch initial data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        
+        const [featuredResponse, articlesResponse, categoriesResponse] = await Promise.all([
+          axios.get(`${process.env.REACT_APP_API_URL}/api/blog/articulos/destacados/`),
+          axios.get(`${process.env.REACT_APP_API_URL}/api/blog/articulos/recientes/`),
+          axios.get(`${process.env.REACT_APP_API_URL}/api/blog/categorias/principales/`)
+        ]);
+
+        if (featuredResponse.data.length > 0) {
+          setFeaturedArticle(featuredResponse.data[0]);
+        }
+        
+        setAllArticles(articlesResponse.data);
+        setFilteredArticles(articlesResponse.data);
+        setCategories(categoriesResponse.data);
+        
+      } catch (err) {
+        setError(err.message || 'Error al cargar los datos');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, []);
 
   const handleArticleClick = (article) => {
-    setFeaturedArticle({
-      ...article,
-      subtitle: article.content || "Descubre más sobre este tema",
-      summary: getArticleSummary(article.title),
-      readTime: getReadTime(article.title),
-      category: getArticleCategory(article.title)
-    });
+    setFeaturedArticle(article);
+    
+    axios.post(`${process.env.REACT_APP_API_URL}/api/blog/articulos/${article.id}/registrar_lectura/`, {
+      tiempo_lectura: article.tiempo_lectura * 60,
+      completado: false
+    }).catch(console.error);
+    
+    axios.get(`${process.env.REACT_APP_API_URL}/api/blog/articulos/${article.id}/visitar/`)
+      .catch(console.error);
   };
 
-  const getArticleSummary = (title) => {
-    const summaries = {
-      "Top 6 Mejores Software de Cobranza de Chile del 2025": "Análisis detallado de las principales soluciones de cobranza disponibles en el mercado chileno, con comparativas de características y precios.",
-      "¿Qué es un director financiero (CFO)?": "Exploramos las funciones clave de un CFO moderno y cómo la tecnología está transformando este rol estratégico en las empresas.",
-      "5 indicadores claves para la gestión de cobranzas": "Los KPIs esenciales que toda empresa debe monitorear para optimizar su proceso de cobranza y mejorar el flujo de caja.",
-      "Gestión de deudas:": "Estrategias comprobadas para reducir el riesgo de impagos y mantener una cartera de clientes saludable."
-    };
-    return summaries[title] || "Descubre más sobre este tema en nuestro artículo completo.";
+  const handleCategorySelect = async (slug) => {
+    scrollPositionRef.current = window.scrollY || document.documentElement.scrollTop;
+    
+    setSelectedCategory(slug);
+    try {
+      setLoading(true);
+      
+      const response = slug === 'todos'
+        ? await axios.get(`${process.env.REACT_APP_API_URL}/api/blog/articulos/recientes/`)
+        : await axios.get(`${process.env.REACT_APP_API_URL}/api/blog/articulos/por-categoria/${slug}/`);
+      
+      setFilteredArticles(response.data.articulos || response.data);
+    } catch (err) {
+      setError(err.message || 'Error al filtrar artículos');
+    } finally {
+      setLoading(false);
+      
+      requestAnimationFrame(() => {
+        window.scrollTo({
+          top: scrollPositionRef.current,
+          behavior: 'instant'
+        });
+      });
+    }
   };
 
-  const getReadTime = (title) => {
-    const times = {
-      "Top 6 Mejores Software de Cobranza de Chile del 2025": "8 min lectura",
-      "¿Qué es un director financiero (CFO)?": "5 min lectura",
-      "5 indicadores claves para la gestión de cobranzas": "6 min lectura",
-      "Gestión de deudas:": "7 min lectura"
-    };
-    return times[title] || "5 min lectura";
-  };
+  if (loading) {
+    return (
+      <div className="blog-page">
+        <Header />
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+          <p>Cargando contenido...</p>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
-  const getArticleCategory = (title) => {
-    const categories = {
-      "Top 6 Mejores Software de Cobranza de Chile del 2025": "Tecnología",
-      "¿Qué es un director financiero (CFO)?": "Gestión",
-      "5 indicadores claves para la gestión de cobranzas": "Finanzas",
-      "Gestión de deudas:": "Estrategia"
-    };
-    return categories[title] || "Artículo";
-  };
+  if (error) {
+    return (
+      <div className="blog-page">
+        <Header />
+        <div className="error-container">
+          <p>{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="retry-button"
+          >
+            Reintentar
+          </button>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="blog-page">
-      <Header/>
-      <BannerBlog />
+      <Header />
+      <BannerBlog 
+        title="Innovación y Tecnología para el Futuro de tu Empresa"
+        subtitle="Soluciones innovadoras en tecnología y transformación digital."
+      />
+      
       <div className="blog-container">
         <div className="blog-columns">
           <div className="blog-hero-column">
-            <HeroBlog article={featuredArticle} />
+            {featuredArticle && (
+              <HeroBlog 
+                article={featuredArticle} 
+                onArticleClick={handleArticleClick}
+              />
+            )}
           </div>
           <div className="blog-articles-column">
-            <ArticleList onArticleClick={handleArticleClick} />
+            <ArticleList 
+              articles={allArticles} 
+              itemsPerPage={3} 
+              onArticleClick={handleArticleClick}
+            />
           </div>
         </div>
         
-        <CallToAction/>
-        <Tags onTagSelect={setSelectedCategory} selectedCategory={selectedCategory} />
-        <CategoryGrid category={selectedCategory} />
+        <CallToAction
+          title="¿Listo para transformar tu empresa?"
+          buttonText="Contáctanos hoy"
+        />
+        
+        <Tags 
+          tags={categories}
+          selectedTag={selectedCategory}
+          onTagSelect={handleCategorySelect}
+        />
+        
+        <CategoryGrid 
+          category={selectedCategory}
+          articles={filteredArticles}
+        />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };

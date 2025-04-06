@@ -1,0 +1,183 @@
+/* ==================== */
+/* ESTILOS BASE */
+/* ==================== */
+.related-articles {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  }
+  
+  .related-title {
+    font-size: 1.3rem;
+    color: #1E2A47;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 2px solid #A2B9D6;
+  }
+  
+ 
+
+  .related-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  /* ==================== */
+  /* TARJETAS RELACIONADAS */
+  /* ==================== */
+  .related-card {
+    display: flex;
+    gap: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .related-card:hover {
+    transform: translateY(-3px);
+  }
+  
+  .related-image-container {
+    flex: 0 0 100px;
+    height: 80px;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  
+  .related-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .related-card:hover .related-image {
+    transform: scale(1.05);
+  }
+  
+  .related-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .related-article-title {
+    font-size: 1rem;
+    color: #1E2A47;
+    margin-bottom: 0.3rem;
+    line-height: 1.3;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .related-article-subtitle {
+    font-size: 0.85rem;
+    color: #6b7280;
+    margin-bottom: 0.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .related-meta {
+    display: flex;
+    gap: 0.8rem;
+    font-size: 0.75rem;
+    color: #6b7280;
+  }
+  
+  .related-date {
+    display: flex;
+    align-items: center;
+  }
+  
+  .related-reading-time {
+    display: flex;
+    align-items: center;
+  }
+  
+  .related-date::before {
+    content: '📅';
+    margin-right: 0.3rem;
+  }
+  
+  .related-reading-time::before {
+    content: '⏱️';
+    margin-right: 0.3rem;
+  }
+  
+  /* ==================== */
+  /* ESTADOS */
+  /* ==================== */
+  .loading-related {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .loading-spinner {
+    border: 3px solid rgba(162, 185, 214, 0.2);
+    border-radius: 50%;
+    border-top: 3px solid #A2B9D6;
+    width: 24px;
+    height: 24px;
+    animation: spin 1s linear infinite;
+  }
+  
+  .error-message,
+  .empty-message {
+    padding: 1rem;
+    text-align: center;
+    color: #6b7280;
+    font-size: 0.9rem;
+  }
+  
+  .error-message {
+    color: #d9534f;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  /* ==================== */
+  /* MEDIA QUERIES */
+  /* ==================== */
+  @media (max-width: 768px) {
+    .related-card {
+      flex-direction: column;
+    }
+    
+    .related-image-container {
+      flex: 0 0 150px;
+      width: 100%;
+    }
+    
+    .related-title {
+      font-size: 1.2rem;
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .related-articles {
+      position: sticky;
+      top: 20px;
+    }
+  }
+
+
+  
+  @media (max-width: 768px) {
+    .related-list {
+      grid-template-columns: 1fr;
+    }
+  }

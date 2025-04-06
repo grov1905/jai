@@ -1,47 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ArticleList.css';
 
-const ArticleList = ({ onArticleClick }) => {
-  const articles = [
-    {
-      id: 1,
-      date: "February 1, 2025",
-      title: "Top 6 Mejores Software de Cobranza de Chile del 2025",
-      content: "¿Buscas el mejor software de cobranza para 2025? ¡Acá lo tienes!"
-    },
-    {
-      id: 2,
-      date: "May 30, 2024",
-      title: "¿Qué es un director financiero (CFO)?",
-      content: "Funciones, capacidades y la tecnología que lo puede ayudar."
-    },
-    {
-      id: 3,
-      date: "May 28, 2024",
-      title: "5 indicadores claves para la gestión de cobranzas",
-      content: "Mide lo que importa para optimizar tu proceso de cobranza."
-    },
-    {
-      id: 4,
-      date: "February 22, 2024",
-      title: "Gestión de deudas:",
-      content: "¿Cómo reducir el riesgo de los impagos de cobranza?"
-    }
-  ];
+const ArticleList = ({ articles, onArticleClick, itemsPerPage = 5 }) => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const totalPages = Math.ceil(articles.length / itemsPerPage);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-ES', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    });
+  };
+
+  const currentArticles = articles.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
+
+  const goToNext = () => setCurrentPage(prev => Math.min(prev + 1, totalPages - 1));
+  const goToPrev = () => setCurrentPage(prev => Math.max(prev - 1, 0));
+
+  // Calculate dynamic height based on item count
+  const viewportHeight = 180 * itemsPerPage + 24 * (itemsPerPage - 1);
 
   return (
-    <div className="article-list-container">
-      {articles.map((article) => (
-        <div 
-          key={article.id} 
-          className="article-card"
-          onClick={() => onArticleClick(article)}
-        >
-          <span className="article-date">{article.date}</span>
-          <h3 className="article-title">{article.title}</h3>
-          {article.content && <p className="article-content">{article.content}</p>}
+    <div className="vertical-article-carousel">
+      <div className="articles-viewport" style={{ height: `${viewportHeight}px` }}>
+        <div className="articles-slide-container">
+          {currentArticles.map((article) => (
+            <div 
+              key={article.id} 
+              className="article-card"
+              onClick={() => onArticleClick(article)}
+            >
+              <span className="article-date">{formatDate(article.fecha_publicacion)}</span>
+              <h3 className="article-title">{article.titulo}</h3>
+              {article.resumen && <p className="article-content">{article.resumen}</p>}
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
+      
+      <div className="carousel-controls">
+        <button 
+          onClick={goToPrev}
+          disabled={currentPage === 0}
+          className="carousel-button"
+        >
+          Anteriores
+        </button>
+        <span className="page-indicator">Página {currentPage + 1} de {totalPages}</span>
+        <button 
+          onClick={goToNext}
+          disabled={currentPage === totalPages - 1}
+          className="carousel-button"
+        >
+          Siguientes
+        </button>
+      </div>
     </div>
   );
 };

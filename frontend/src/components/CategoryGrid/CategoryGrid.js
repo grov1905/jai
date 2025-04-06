@@ -1,97 +1,111 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './CategoryGrid.css';
 
-const CategoryGrid = ({ category }) => {
-  // Base de datos simulada más completa
-  const allPosts = [
-    // Transformación Digital (8 posts)
-    {
-      id: 1, 
-      title: "Guía completa de Transformación Digital para PYMES",
-      excerpt: "Cómo implementar procesos digitales en cobranzas y facturación",
-      date: "Abril 15, 2025",
-      readTime: "8 min",
-      category: "Transformacion Digital"
-    },
-    {
-      id: 2,
-      title: "Automatización de Facturas Electrónicas 2025",
-      excerpt: "Reducción de tiempos con tecnología digital avanzada",
-      date: "Marzo 28, 2025",
-      readTime: "6 min",
-      category: "Transformacion Digital"
-    },
-    // ... +6 posts más para Transformación Digital
-    
-    // Inteligencia Artificial (7 posts)
-    {
-      id: 9,
-      title: "IA para Prevención de Morosidad 2025",
-      excerpt: "Modelos predictivos con machine learning para cobranza",
-      date: "Mayo 5, 2025",
-      readTime: "10 min",
-      category: "Inteligencia Artificial"
-    },
-    // ... +6 posts más para IA
-    
-    // Empresas (9 posts)
-    {
-      id: 17,
-      title: "Top 100 Empresas Digitales 2025",
-      excerpt: "Ranking completo de las empresas más innovadoras",
-      date: "Junio 12, 2025",
-      readTime: "12 min",
-      category: "Empresas"
-    },
-    // ... +8 posts más para Empresas
-    
-    // Tecnología (6 posts)
-    {
-      id: 26,
-      title: "Blockchain en Cobranzas Automatizadas",
-      excerpt: "Cómo está revolucionando los pagos empresariales",
-      date: "Julio 3, 2025",
-      readTime: "7 min",
-      category: "Tecnologia"
-    },
-    // ... +5 posts más para Tecnología
-    
-    // Programación (7 posts)
-    {
-      id: 33,
-      title: "APIs para Integración de Sistemas de Pago",
-      excerpt: "Guía práctica para desarrolladores",
-      date: "Agosto 9, 2025",
-      readTime: "9 min",
-      category: "Programacion"
-    }
-    // ... +6 posts más para Programación
-  ];
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('es-ES', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+};
 
-  // Filtrar posts según categoría seleccionada
-  const filteredPosts = category === 'Todos' 
-    ? allPosts 
-    : allPosts.filter(post => post.category === category);
+const CategoryGrid = ({ category, articles }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const itemsPerSlide = 6; // 3 columnas × 2 filas
+  const totalSlides = Math.ceil(articles.length / itemsPerSlide);
+
+  const currentItems = articles.slice(
+    currentSlide * itemsPerSlide,
+    (currentSlide + 1) * itemsPerSlide
+  );
+
+  // Dividir en 2 filas de 3 artículos cada una
+  const row1 = currentItems.slice(0, 3);
+  const row2 = currentItems.slice(3, 6);
+
+  const goToNext = () => {
+    setCurrentSlide(prev => Math.min(prev + 1, totalSlides - 1));
+  };
+
+  const goToPrev = () => {
+    setCurrentSlide(prev => Math.max(prev - 1, 0));
+  };
 
   return (
-    <div className="category-grid">
-      <h3 className="grid-title">
-        {category === 'Todos' ? 'Últimas Publicaciones' : `Publicaciones sobre ${category}`}
-      </h3>
-      <div className="grid-container">
-        {filteredPosts.map(post => (
-          <div key={post.id} className="post-card">
-            <div className="post-header">
-              <span className="post-date">{post.date}</span>
-              <span className="read-time">{post.readTime}</span>
-            </div>
-            <h4>{post.title}</h4>
-            <p className="post-excerpt">{post.excerpt}</p>
-            <div className="post-footer">
-              <a href="#" className="read-more">Leer más →</a>
-              <span className="post-category">{post.category}</span>
-            </div>
+    <div className="category-carousel">
+      <h2 className="carousel-title">
+        {category === 'todos' ? 'Últimas Publicaciones' : `Publicaciones sobre ${category}`}
+      </h2>
+      
+      <div className="carousel-wrapper">
+        <button 
+          onClick={goToPrev}
+          disabled={currentSlide === 0}
+          className="carousel-arrow prev"
+        >
+          ‹
+        </button>
+        
+        <div className="carousel-slide">
+          {/* Fila 1 */}
+          <div className="carousel-row">
+            {row1.map(article => (
+              <div key={article.id} className="grid-item">
+                <div className="post-card">
+                  <div className="post-header">
+                    <span className="post-date">{formatDate(article.fecha_publicacion)}</span>
+                    <span className="read-time">{article.tiempo_lectura}</span>
+                  </div>
+                  <h3>{article.titulo}</h3>
+                  <p className="post-excerpt">{article.resumen}</p>
+                  <div className="post-footer">
+                    <a href={`blog/articulo/${article.id}`} className="read-more">Leer más →</a>
+                    <span className="post-category">{article.categoria}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
+          
+          {/* Fila 2 */}
+          <div className="carousel-row">
+            {row2.map(article => (
+              <div key={`${article.id}-2`} className="grid-item">
+                <div className="post-card">
+                  <div className="post-header">
+                    <span className="post-date">{formatDate(article.fecha_publicacion)}</span>
+                    <span className="read-time">{article.tiempo_lectura}</span>
+                  </div>
+                  <h3>{article.titulo}</h3>
+                  <p className="post-excerpt">{article.resumen}</p>
+                  <div className="post-footer">
+                    <a href={`blog/articulo/${article.id}`} className="read-more">Leer más →</a>
+                    <span className="post-category">{article.categoria}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        
+        <button 
+          onClick={goToNext}
+          disabled={currentSlide === totalSlides - 1}
+          className="carousel-arrow next"
+        >
+          ›
+        </button>
+      </div>
+      
+      <div className="carousel-dots">
+        {Array.from({ length: totalSlides }).map((_, index) => (
+          <button
+            key={index}
+            className={`dot ${currentSlide === index ? 'active' : ''}`}
+            onClick={() => setCurrentSlide(index)}
+            aria-label={`Ir a slide ${index + 1}`}
+          />
         ))}
       </div>
     </div>

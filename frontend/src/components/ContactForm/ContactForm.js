@@ -18,7 +18,7 @@ const ContactForm = () => {
   const handleSubmit = async (e) => {
       e.preventDefault();
       try {
-        await ContactService(formData);
+        await ContactService.sendForm(formData);
         setStatus('Mensaje enviado con éxito');
         setStatusType('success');
         setFormData({ name: '', email: '', message: '' });

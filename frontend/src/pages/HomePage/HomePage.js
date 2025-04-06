@@ -7,7 +7,6 @@ import AboutContent from "../../components/AboutContent/AboutContent";
 import ServicesContent from '../../components/ServicesContent/ServicesContent';
 import CallToAction from '../../components/CallToAction/CallToAction';
 import Footer from '../../components/Footer/Footer';
-import HeaderButton from '../../components/HeaderButton/HeaderButton';
 import './HomePage.css';
 
 
@@ -28,9 +27,8 @@ const HomePage = () => {
                 isLoggedIn={isLoggedIn}
                 setIsLoggedIn={setIsLoggedIn}
                 setShowLoginModal={setShowLoginModal}
-            >
-              <HeaderButton />  
-            </Header>
+            />
+
            
             {/* Modal de Inicio de Sesión */}
             {showLoginModal && (
