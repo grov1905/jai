@@ -16,7 +16,7 @@ const Header = () => {
 
 
             {/* Estado de sesión en esquina superior derecha */}
-  {/*     <Login/>  */}
+      <Login/>  
             
             <div className="logo-container">
                 <Link to="/">

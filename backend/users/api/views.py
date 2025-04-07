@@ -28,10 +28,6 @@ from users.api.serializers import (
 )
 
 
-
-
-
-
 User = get_user_model()
 
 class CustomTokenObtainPairView(TokenObtainPairView):

@@ -28,7 +28,7 @@ urlpatterns = [
     ])),
     
     # Endpoints privados (requieren autenticación)
-    path('api/auth/', include('users.api.urls_private')),
+    path('api/private/', include('users.api.urls_private')),
     
     # Otras apps
     path('api/blog/', include('blog.urls')),

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import LoginModal from '../LoginModal/LoginModal';
 import RegisterModal from '../RegisterModal/RegisterModal';
+import axios from 'axios';
 import './Login.css';
 
 const Login = () => {
@@ -8,65 +9,61 @@ const Login = () => {
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [showRegisterModal, setShowRegisterModal] = useState(false);
 
-    
     useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        try {
-            if (storedUser) {
-                setUser(JSON.parse(storedUser));
+        const fetchUserData = async () => {
+            const token = localStorage.getItem('access_token');
+            if (token) {
+                try {
+                    const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/private/me/`, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    });
+                    setUser(response.data);
+                } catch (error) {
+                    console.error("Error fetching user data:", error);
+                    handleLogout();
+                }
             }
-        } catch (error) {
-            console.error("Error parsing user data:", error);
-            localStorage.removeItem('user');
-            setUser(null);
-        }
+        };
+
+        fetchUserData();
     }, []);
 
     const handleLogin = (userData) => {
-        localStorage.setItem('user', JSON.stringify(userData));
         setUser(userData);
         setShowLoginModal(false);
     };
 
-    const handleRegisterSuccess = (userData) => {
-        // Solo cerramos los modales sin autenticar
+    const handleRegisterSuccess = () => {
         setShowRegisterModal(false);
-        setShowLoginModal(false);
-        
-        // Opcional: Mostrar mensaje de éxito
-       // alert(`Usuario ${userData.username} registrado correctamente. Por favor inicia sesión.`);
+        setShowLoginModal(true);
     };
-
 
     const handleLogout = () => {
         localStorage.removeItem('access_token');
         localStorage.removeItem('refresh_token');
-        localStorage.removeItem('user');
         setUser(null);
     };
 
     return (
-
-        <div className="auth-corner">
-
-        {user ? (
-            <div className="user-corner-info">
-                <span>Bienvenido, {user.name || user.email}</span>
-                <button className="logout-corner" onClick={handleLogout}>
-                    Cerrar sesión
+        <div className="auth-container">
+            {user ? (
+                <div className="user-info">
+                    <span className="welcome-msg">Bienvenido, {user.username || user.email}</span>
+                    <button className="logout-link" onClick={handleLogout}>
+                        Cerrar sesión
+                    </button>
+                </div>
+            ) : (
+                <button 
+                    className="login-link" 
+                    onClick={() => setShowLoginModal(true)}
+                >
+                    Iniciar sesión
                 </button>
-            </div>
-        ) : (
-            <button 
-                className="login-corner" 
-                onClick={() => setShowLoginModal(true)}
-            >
-                Iniciar sesión
-            </button>
-        )}
+            )}
 
-
-            {/* Modales de autenticación */}
             {showLoginModal && (
                 <LoginModal
                     onClose={() => setShowLoginModal(false)}
@@ -88,11 +85,7 @@ const Login = () => {
                     }}
                 />
             )}
-
-    </div> 
-
-
-
+        </div>
     );
 };
 

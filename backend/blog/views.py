@@ -222,7 +222,7 @@ class VotoArticuloViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(voto)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    @action(detail=False, methods=['get'], url_path='promedio/(?P<articulo_id>[^/.]+)')
+    @action(detail=False, methods=['get'], url_path='promedio/(?P<articulo_id>[^/.]+)', permission_classes=[AllowAny])
     def promedio(self, request, articulo_id=None):
         articulo = get_object_or_404(Articulo, pk=articulo_id)
         promedio = VotoArticulo.objects.filter(articulo=articulo).aggregate(

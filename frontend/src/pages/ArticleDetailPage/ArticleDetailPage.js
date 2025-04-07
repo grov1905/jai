@@ -17,6 +17,7 @@ const ArticleDetailPage = () => {
   const [error, setError] = useState(null);
   const [rating, setRating] = useState(0);
   const [userRating, setUserRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -25,35 +26,39 @@ const ArticleDetailPage = () => {
         const response = await axios.get(
           `${process.env.REACT_APP_API_URL}/api/blog/articulos/${slug}/`
         );
-         console.log('response.data: ', response.data);
-         setArticle(response.data);
-        console.log('Article :', article);
+        setArticle(response.data);
 
+        // Registrar lectura
         await axios.post(
           `${process.env.REACT_APP_API_URL}/api/blog/articulos/${response.data.id}/registrar_lectura/`,
           { tiempo_lectura: response.data.tiempo_lectura * 60, completado: true }
         );
         
+        // Obtener rating promedio (público)
+        const ratingResponse = await axios.get(
+          `${process.env.REACT_APP_API_URL}/api/blog/votos/promedio/${response.data.id}/`
+        );
+        setRating(ratingResponse.data.promedio || 0);
+        
+        // Obtener valoración del usuario (si está autenticado)
         if (localStorage.getItem('access_token')) {
           try {
-            const ratingResponse = await axios.get(
-              `${process.env.REACT_APP_API_URL}/api/blog/votos/promedio/${response.data.id}/`
-            );
-            setRating(ratingResponse.data.promedio || 0);
-            
             const userRatingResponse = await axios.get(
-              `${process.env.REACT_APP_API_URL}/api/blog/votos/usuario/${response.data.id}/`,
+              `${process.env.REACT_APP_API_URL}/api/blog/votos/${response.data.id}/`,
               {
                 headers: {
                   'Authorization': `Bearer ${localStorage.getItem('access_token')}`
                 }
               }
             );
-            if (userRatingResponse.data.puntuacion) {
+            if (userRatingResponse.data && userRatingResponse.data.puntuacion) {
               setUserRating(userRatingResponse.data.puntuacion);
             }
           } catch (err) {
-            console.error('Error al obtener valoraciones:', err);
+            // No hacer nada si es 404 (usuario no ha votado)
+            if (err.response?.status !== 404) {
+              console.error('Error al obtener valoración del usuario:', err);
+            }
           }
         }
         
@@ -85,6 +90,7 @@ const ArticleDetailPage = () => {
       );
       setUserRating(newRating);
       
+      // Actualizar rating promedio después de votar
       const ratingResponse = await axios.get(
         `${process.env.REACT_APP_API_URL}/api/blog/votos/promedio/${article.id}/`
       );
@@ -102,6 +108,10 @@ const ArticleDetailPage = () => {
     if (e.target.src !== DEFAULT_ARTICLE_IMAGE) {
       e.target.src = DEFAULT_ARTICLE_IMAGE;
     }
+  };
+
+  const getDisplayRating = () => {
+    return hoverRating || userRating || rating;
   };
 
   if (loading) {
@@ -193,7 +203,7 @@ const ArticleDetailPage = () => {
           
           <footer className="article-footer">
 
-{/*             {article.etiquetas && article.etiquetas.length > 0 && (
+            {/*             {article.etiquetas && article.etiquetas.length > 0 && (
               <div className="article-tags">
                 <h3>Etiquetas:</h3>
                 <div className="tags-list">
@@ -205,6 +215,7 @@ const ArticleDetailPage = () => {
             )}
               luego se desarrollara las etiquetas
              */}
+
             <div className="article-rating">
               <h3>Valora este artículo:</h3>
               <div className="rating-info">
@@ -212,10 +223,10 @@ const ArticleDetailPage = () => {
                   {[1, 2, 3, 4, 5].map(star => (
                     <span 
                       key={star}
-                      className={`star ${star <= (userRating || rating) ? 'active' : ''}`}
+                      className={`star ${star <= getDisplayRating() ? 'active' : ''}`}
                       onClick={() => handleRateArticle(star)}
-                      onMouseEnter={() => !userRating && setRating(star)}
-                      onMouseLeave={() => !userRating && setRating(rating)}
+                      onMouseEnter={() => !userRating && setHoverRating(star)}
+                      onMouseLeave={() => !userRating && setHoverRating(0)}
                     >
                       ★
                     </span>
@@ -234,22 +245,22 @@ const ArticleDetailPage = () => {
         </article>
         
         <aside className="article-sidebar">
-
-        <RelatedArticles 
+          <RelatedArticles 
             articleId={article.id} 
             currentSlug={slug}
-            categories={article.categorias || []}  // Pasa el array completo de categorías
-        />
-
+            categories={article.categorias || []}
+          />
         </aside>
       </div>
       
- {/*      <CommentsSection articleId={article.id} /> // luego se implementara esta funcionalidad */} 
+       {/*      <CommentsSection articleId={article.id} /> // luego se implementara esta funcionalidad */} 
+
+
+      <CallToAction
+        title="¿Listo para transformar tu empresa?"
+        buttonText="Contáctanos hoy"
+      />
       
- <CallToAction
-          title="¿Listo para transformar tu empresa?"
-          buttonText="Contáctanos hoy"
-        />
       <Footer />
     </div>
   );
