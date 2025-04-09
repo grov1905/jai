@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.db import transaction
 # Create your views here.
 from rest_framework import viewsets, generics, status
 from rest_framework.response import Response
@@ -8,6 +8,7 @@ from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from django.db.models import Count, Avg, Q
 from django.utils import timezone
+
 from .models import (
     Categoria, Etiqueta, Articulo, ArticuloCategoria, ArticuloEtiqueta,
     Comentario, Adjunto, VersionArticulo, ArticuloRelacionado,
@@ -63,19 +64,116 @@ class ArticuloViewSet(viewsets.ModelViewSet):
             return ArticuloCreateSerializer
         return super().get_serializer_class()
 
+    @transaction.atomic
     def perform_create(self, serializer):
-        serializer.save(autor=self.request.user)
+        """Creación de artículo con manejo de relaciones"""
+        try:
+            articulo = serializer.save(autor=self.request.user)
+            self._handle_relaciones(articulo, serializer.validated_data)
+        except Exception as e:
+            raise serializers.ValidationError(
+                {'error': str(e)},
+                code=status.HTTP_400_BAD_REQUEST
+            )
+    
+ #       serializer.save(autor=self.request.user)
 
+    @transaction.atomic
     def perform_update(self, serializer):
-        articulo = self.get_object()
-        # Guardar versión anterior antes de actualizar
-        VersionArticulo.objects.create(
-            articulo=articulo,
-            contenido=articulo.contenido,
-            usuario=self.request.user,
-            motivo_cambio=f"Actualización vía API - {self.request.data.get('motivo_cambio', 'Sin motivo especificado')}"
+        """Actualización de artículo con manejo de relaciones"""
+        try:
+            articulo = self.get_object()
+            # Guardar versión anterior
+            VersionArticulo.objects.create(
+                articulo=articulo,
+                contenido=articulo.contenido,
+                usuario=self.request.user,
+                motivo_cambio=f"Actualización vía API - {self.request.data.get('motivo_cambio', 'Sin motivo especificado')}"
+            )
+            articulo = serializer.save()
+            self._handle_relaciones(articulo, serializer.validated_data)
+        except Exception as e:
+            raise serializers.ValidationError(
+                {'error': str(e)},
+                code=status.HTTP_400_BAD_REQUEST
+            )
+        
+    def _handle_relaciones(self, articulo, validated_data):
+        """Manejo optimizado de relaciones many-to-many"""
+        with transaction.atomic():
+            # Procesar categorías
+            if 'categorias' in validated_data:
+                self._procesar_categorias(articulo, validated_data['categorias'])
+            
+            # Procesar etiquetas
+            if 'etiquetas' in validated_data:
+                self._procesar_etiquetas(articulo, validated_data['etiquetas'])
+
+    def _procesar_categorias(self, articulo, categorias_data):
+        """Procesamiento optimizado de categorías"""
+        # Obtener categorías existentes
+        categorias_existentes = Categoria.objects.filter(id__in=categorias_data)
+        
+        # Eliminar relaciones que ya no están en la lista
+        ArticuloCategoria.objects.filter(articulo=articulo).exclude(
+            categoria__in=categorias_existentes
+        ).delete()
+        
+        # Identificar relaciones que ya existen
+        existing_relations = set(
+            ArticuloCategoria.objects.filter(
+                articulo=articulo,
+                categoria__in=categorias_existentes
+            ).values_list('categoria_id', flat=True)
         )
-        serializer.save()
+        
+        # Preparar nuevas relaciones para bulk_create
+        nuevas_relaciones = [
+            ArticuloCategoria(
+                articulo=articulo,
+                categoria=categoria,
+                es_principal=(idx == 0),  # Primera categoría como principal
+                orden=idx
+            )
+            for idx, categoria in enumerate(categorias_existentes)
+            if categoria.id not in existing_relations
+        ]
+        
+        if nuevas_relaciones:
+            ArticuloCategoria.objects.bulk_create(nuevas_relaciones)
+
+    def _procesar_etiquetas(self, articulo, etiquetas_data):
+        """Procesamiento optimizado de etiquetas"""
+        # Obtener etiquetas existentes
+        etiquetas_existentes = Etiqueta.objects.filter(id__in=etiquetas_data)
+        
+        # Eliminar relaciones que ya no están en la lista
+        ArticuloEtiqueta.objects.filter(articulo=articulo).exclude(
+            etiqueta__in=etiquetas_existentes
+        ).delete()
+        
+        # Identificar relaciones que ya existen
+        existing_relations = set(
+            ArticuloEtiqueta.objects.filter(
+                articulo=articulo,
+                etiqueta__in=etiquetas_existentes
+            ).values_list('etiqueta_id', flat=True)
+        )
+        
+        # Preparar nuevas relaciones para bulk_create
+        nuevas_relaciones = [
+            ArticuloEtiqueta(
+                articulo=articulo,
+                etiqueta=etiqueta,
+                relevancia=1.0
+            )
+            for etiqueta in etiquetas_existentes
+            if etiqueta.id not in existing_relations
+        ]
+        
+        if nuevas_relaciones:
+            ArticuloEtiqueta.objects.bulk_create(nuevas_relaciones)
+
 
     @action(detail=False, methods=['get'])
     def destacados(self, request):

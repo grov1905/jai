@@ -2,6 +2,7 @@
 ESTRUCTURA ESENCIAL DEL PROYECTO:
 /
 ├── .env
+├── Documentacion_tablas_blog.txt 
 frontend/
 ├── package.json
 ├── logo.png
@@ -9,6 +10,7 @@ frontend/
 │   ├── logo512.png
 │   ├── manifest.json
 │   ├── logo192.png
+│   ├── images/
 │   ├── static/
 │   │   ├── images/
 ├── src/
@@ -24,6 +26,9 @@ frontend/
 │   │   ├── global.css
 │   ├── components/
 │   │   ├── styles.css
+│   │   ├── CommentsSection/
+│   │   │   ├── CommentsSection.css
+│   │   │   ├── CommentsSection.js
 │   │   ├── HeroBlog/
 │   │   │   ├── HeroBlog.js
 │   │   │   ├── HeroBlog.css
@@ -66,6 +71,9 @@ frontend/
 │   │   ├── LoginModal/
 │   │   │   ├── LoginModal.js
 │   │   │   ├── LoginModal.css
+│   │   ├── RelatedArticles/
+│   │   │   ├── RelatedArticles.js
+│   │   │   ├── RelatedArticles.css
 │   │   ├── Hero/
 │   │   │   ├── Hero.css
 │   │   │   ├── Hero.js
@@ -95,38 +103,36 @@ frontend/
 │   │   ├── AboutPage/
 │   │   │   ├── AboutPage.css
 │   │   │   ├── AboutPage.js
+│   │   ├── ArticleDetailPage/
+│   │   │   ├── ArticleDetailPage.css
+│   │   │   ├── ArticleDetailPage.js
 │   │   ├── BlogPage/
 │   │   │   ├── BlogPage.js
 │   │   │   ├── BlogPage.css
 backend/
 ├── requirements.txt
 ├── manage.py
-├── contact/
-│   ├──  models.py
-│   ├── serializers.py
-│   ├──  urls.py
-│   ├── views.py
-│   ├── api/
-│   │   ├── serializers.py
-│   │   ├──  urls.py
-│   │   ├── views.py
 ├── core/
 │   ├── asgi.py
 │   ├──  settings.py
 │   ├──  urls.py
 │   ├── wsgi.py
-├── users/
+├── blog/
 │   ├──  models.py
-│   ├── apps.py
-│   ├── admin.py
-│   ├── api/
-│   │   ├── serializers.py
-│   │   ├──  urls.py
-│   │   ├── views.py
-├── authentication/
-│   ├──  models.py
+│   ├── serializers.py
 │   ├── apps.py
 │   ├── admin.py
 │   ├── tests.py
 │   ├──  urls.py
 │   ├── views.py
+├── users/
+│   ├──  models.py
+│   ├── apps.py
+│   ├── admin.py
+│   ├── tests.py
+│   ├── views.py
+│   ├── api/
+│   │   ├── serializers.py
+│   │   ├── urls_private.py
+│   │   ├── urls_public.py
+│   │   ├── views.py

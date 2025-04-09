@@ -1,0 +1,44 @@
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .create-btn {
+    padding: 0.75rem 1.5rem;
+    background: #1E2A47;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  
+  .create-btn:hover {
+    background: #A2B9D6;
+  }
+  
+  .tag-type {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  
+  .tag-type.tema {
+    background: #dbeafe;
+    color: #1e40af;
+  }
+  
+  .tag-type.ubicacion {
+    background: #f0fdf4;
+    color: #15803d;
+  }
+  
+  .tag-type.persona {
+    background: #fef3c7;
+    color: #92400e;
+  }

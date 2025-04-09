@@ -1,0 +1,21 @@
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .create-btn {
+    padding: 0.75rem 1.5rem;
+    background: #1E2A47;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.2s;
+  }
+  
+  .create-btn:hover {
+    background: #A2B9D6;
+  }

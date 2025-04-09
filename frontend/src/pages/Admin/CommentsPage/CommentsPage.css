@@ -1,0 +1,63 @@
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .comment-content {
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .comment-status {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+  }
+  
+  .comment-status.pendiente {
+    background: #fef3c7;
+    color: #92400e;
+  }
+  
+  .comment-status.aprobado {
+    background: #d1fae5;
+    color: #065f46;
+  }
+  
+  .comment-status.rechazado {
+    background: #fee2e2;
+    color: #b91c1c;
+  }
+  
+  .approve-btn {
+    background: #d1fae5;
+    color: #065f46;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 0.5rem;
+  }
+  
+  .approve-btn:hover {
+    background: #a7f3d0;
+  }
+  
+  .reject-btn {
+    background: #fee2e2;
+    color: #b91c1c;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .reject-btn:hover {
+    background: #fecaca;
+  }

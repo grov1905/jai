@@ -37,9 +37,46 @@ class ArticuloSerializer(serializers.ModelSerializer):
         return f"{obj.tiempo_lectura} min" if obj.tiempo_lectura else None
 
 class ArticuloCreateSerializer(serializers.ModelSerializer):
+    categorias = serializers.ListField(
+        child=serializers.UUIDField(),
+        write_only=True,
+        required=False,
+        help_text="Lista de IDs de categorías"
+    )
+    etiquetas = serializers.ListField(
+        child=serializers.UUIDField(),
+        write_only=True,
+        required=False,
+        help_text="Lista de IDs de etiquetas"
+    )
     class Meta:
         model = Articulo
-        fields = ['titulo', 'subtitulo', 'contenido', 'resumen', 'estado', 'imagen_portada_url', 'destacado']
+        fields = ['titulo', 'subtitulo', 'contenido', 'resumen', 'estado', 'imagen_portada_url', 'destacado','categorias', 'etiquetas']
+
+    def validate_categorias(self, value):
+        """Validación para categorías"""
+        if value:
+            categorias_existentes = Categoria.objects.filter(id__in=value)
+            if len(categorias_existentes) != len(value):
+                ids_existentes = set(str(c.id) for c in categorias_existentes)
+                ids_faltantes = [str(id) for id in value if str(id) not in ids_existentes]
+                raise serializers.ValidationError(
+                    f"Las siguientes categorías no existen: {', '.join(ids_faltantes)}"
+                )
+        return value
+
+    def validate_etiquetas(self, value):
+        """Validación para etiquetas"""
+        if value:
+            etiquetas_existentes = Etiqueta.objects.filter(id__in=value)
+            if len(etiquetas_existentes) != len(value):
+                ids_existentes = set(str(e.id) for e in etiquetas_existentes)
+                ids_faltantes = [str(id) for id in value if str(id) not in ids_existentes]
+                raise serializers.ValidationError(
+                    f"Las siguientes etiquetas no existen: {', '.join(ids_faltantes)}"
+                )
+        return value
+
 
 class ArticuloCategoriaSerializer(serializers.ModelSerializer):
     class Meta:

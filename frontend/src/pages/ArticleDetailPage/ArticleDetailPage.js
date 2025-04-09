@@ -4,7 +4,7 @@ import axios from 'axios';
 import './ArticleDetailPage.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-import CommentsSection from '../../components/CommentsSection/CommentsSection';
+/* import CommentsSection from '../../components/CommentsSection/CommentsSection'; */
 import RelatedArticles from '../../components/RelatedArticles/RelatedArticles';
 import CallToAction from '../../components/CallToAction/CallToAction';
 
