@@ -2,14 +2,45 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
+import { mergeAttributes } from '@tiptap/core'
 import { useEffect } from 'react'
 import './RichTextEditor.css'
+
+// Extensión personalizada de Image con controles de tamaño
+const CustomImage = Image.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      width: {
+        default: '100%',
+        parseHTML: element => element.getAttribute('width') || '100%',
+        renderHTML: attributes => {
+          return { width: attributes.width }
+        },
+      },
+      height: {
+        default: 'auto',
+        parseHTML: element => element.getAttribute('height') || 'auto',
+        renderHTML: attributes => {
+          return { height: attributes.height }
+        },
+      },
+      style: {
+        default: 'max-width: 100%; height: auto;',
+        parseHTML: element => element.getAttribute('style'),
+        renderHTML: attributes => {
+          return { style: attributes.style }
+        },
+      }
+    }
+  }
+})
 
 const RichTextEditor = ({ value, onChange }) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
-      Image,
+      CustomImage, // Usamos la extensión personalizada en lugar de Image
       Link.configure({
         openOnClick: false,
         HTMLAttributes: {
@@ -33,7 +64,14 @@ const RichTextEditor = ({ value, onChange }) => {
   const addImage = () => {
     const url = window.prompt('Enter the URL of the image:')
     if (url) {
-      editor.chain().focus().setImage({ src: url }).run()
+      const width = window.prompt('Width (e.g., 100%, 500px):', '100%')
+      const height = window.prompt('Height (e.g., auto, 300px):', 'auto')
+      
+      editor.chain().focus().setImage({ 
+        src: url,
+        width: width || '100%',
+        height: height || 'auto'
+      }).run()
     }
   }
 
