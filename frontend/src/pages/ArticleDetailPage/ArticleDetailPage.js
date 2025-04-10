@@ -274,6 +274,20 @@ const ArticleDetailPage = () => {
           />
           
           <footer className="article-footer">
+            
+{/*             {article.etiquetas && article.etiquetas.length > 0 && (
+              <div className="article-tags">
+                <h3>Etiquetas:</h3>
+                <div className="tags-list">
+                  {article.etiquetas.map(tag => (
+                    <a key={tag.id} href={`/etiqueta/${tag.slug}`} className="tag">{tag.nombre}</a>
+                  ))}
+                </div>
+              </div>
+            )}
+              luego se desarrollara las etiquetas
+             */}
+
             <div className="article-rating">
               <h3>Valora este artículo:</h3>
               <div className="rating-info">
@@ -310,7 +324,9 @@ const ArticleDetailPage = () => {
           />
         </aside>
       </div>
-      
+
+      {/*      <CommentsSection articleId={article.id} /> // luego se implementara esta funcionalidad */} 
+
       <CallToAction
         title="¿Listo para transformar tu empresa?"
         buttonText="Contáctanos hoy"
