@@ -3,6 +3,7 @@ import StarterKit from '@tiptap/starter-kit'
 import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
 import { mergeAttributes } from '@tiptap/core'
+import CustomVideo from '../VideoComponent/extensions/CustomVideo' // Asegúrate de que la ruta sea correcta
 import { useEffect } from 'react'
 import './RichTextEditor.css'
 
@@ -40,7 +41,8 @@ const RichTextEditor = ({ value, onChange }) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
-      CustomImage, // Usamos la extensión personalizada en lugar de Image
+      CustomImage,
+      CustomVideo, // Asegúrate de que esta extensión esté correctamente importada
       Link.configure({
         openOnClick: false,
         HTMLAttributes: {
@@ -89,6 +91,35 @@ const RichTextEditor = ({ value, onChange }) => {
     }
 
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
+  }
+
+  const addVideo = () => {
+    if (!editor) return
+  
+    const type = window.prompt('Enter video type (youtube/local/github):', 'youtube')
+    
+    if (type === 'youtube') {
+      const youtubeId = window.prompt('Enter YouTube Video ID (e.g., dQw4w9WgXcQ):')
+      if (youtubeId) {
+        editor.commands.setVideo({  // Eliminado el .run() aquí
+          type: 'youtube',
+          youtubeId,
+          width: '100%',
+          height: '500px'
+        })
+      }
+    } else {
+      const src = window.prompt('Enter video URL:')
+      if (src) {
+        editor.commands.setVideo({  // Eliminado el .run() aquí
+          type: type || 'local',
+          src,
+          width: '100%',
+          height: 'auto',
+          controls: true
+        })
+      }
+    }
   }
 
   if (!editor) {
@@ -145,6 +176,9 @@ const RichTextEditor = ({ value, onChange }) => {
         </button>
         <button onClick={addImage}>
           <span className="material-icons">image</span>
+        </button>
+        <button onClick={addVideo}>
+          <span className="material-icons">video_library</span>
         </button>
         <button onClick={() => editor.chain().focus().undo().run()}>
           <span className="material-icons">undo</span>

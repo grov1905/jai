@@ -70,8 +70,8 @@ const DataTable = ({
           </thead>
           <tbody>
             {currentItems.length > 0 ? (
-              currentItems.map((item) => (
-                <tr key={item.id}>
+              currentItems.map((item,index) => (
+                <tr key={`row-${index}-${item.id}`}>
                   {columns.map((column) => (
                     <td key={`${item.id}-${column.key}`}>
                       {column.render ? column.render(item) : item[column.key]}

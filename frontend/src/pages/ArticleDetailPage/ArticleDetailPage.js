@@ -4,9 +4,9 @@ import axios from 'axios';
 import './ArticleDetailPage.css';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
-/* import CommentsSection from '../../components/CommentsSection/CommentsSection'; */
 import RelatedArticles from '../../components/RelatedArticles/RelatedArticles';
 import CallToAction from '../../components/CallToAction/CallToAction';
+import BannerBlog from '../../components/BannerBlog/BannerBlog';
 
 const DEFAULT_ARTICLE_IMAGE = process.env.PUBLIC_URL + '/images/default-article-image.jpg';
 
@@ -18,29 +18,35 @@ const ArticleDetailPage = () => {
   const [rating, setRating] = useState(0);
   const [userRating, setUserRating] = useState(0);
   const [hoverRating, setHoverRating] = useState(0);
+  const [imgSrc, setImgSrc] = useState(DEFAULT_ARTICLE_IMAGE); // Estado para manejo seguro de imágenes
 
-  useEffect(() => {
-    const fetchArticle = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/api/blog/articulos/${slug}/`
-        );
-        setArticle(response.data);
+  // Función para cargar el artículo (optimizada para pre-render)
+  const fetchArticle = async () => {
+    if (typeof window === 'undefined') return; // No ejecutar durante pre-render
 
+    try {
+      setLoading(true);
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/api/blog/articulos/${slug}/`
+      );
+      setArticle(response.data);
+      setImgSrc(response.data.imagen_portada_url || DEFAULT_ARTICLE_IMAGE);
+
+      // Las siguientes llamadas solo se ejecutan en el cliente
+      if (typeof window !== 'undefined') {
         // Registrar lectura
         await axios.post(
           `${process.env.REACT_APP_API_URL}/api/blog/articulos/${response.data.id}/registrar_lectura/`,
           { tiempo_lectura: response.data.tiempo_lectura * 60, completado: true }
         );
         
-        // Obtener rating promedio (público)
+        // Obtener rating promedio
         const ratingResponse = await axios.get(
           `${process.env.REACT_APP_API_URL}/api/blog/votos/promedio/${response.data.id}/`
         );
         setRating(ratingResponse.data.promedio || 0);
         
-        // Obtener valoración del usuario (si está autenticado)
+        // Obtener valoración del usuario si está autenticado
         if (localStorage.getItem('access_token')) {
           try {
             const userRatingResponse = await axios.get(
@@ -55,20 +61,21 @@ const ArticleDetailPage = () => {
               setUserRating(userRatingResponse.data.puntuacion);
             }
           } catch (err) {
-            // No hacer nada si es 404 (usuario no ha votado)
             if (err.response?.status !== 404) {
               console.error('Error al obtener valoración del usuario:', err);
             }
           }
         }
-        
-        setLoading(false);
-      } catch (err) {
-        setError(err.message);
-        setLoading(false);
       }
-    };
-    
+      
+      setLoading(false);
+    } catch (err) {
+      setError(err.message);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchArticle();
   }, [slug]);
 
@@ -103,16 +110,84 @@ const ArticleDetailPage = () => {
     }
   };
 
-  const handleImageError = (e) => {
-    e.target.onerror = null;
-    if (e.target.src !== DEFAULT_ARTICLE_IMAGE) {
-      e.target.src = DEFAULT_ARTICLE_IMAGE;
-    }
+  const handleImageError = () => {
+    setImgSrc(DEFAULT_ARTICLE_IMAGE);
   };
 
   const getDisplayRating = () => {
     return hoverRating || userRating || rating;
   };
+
+  // Función para extraer y renderizar el video del contenido (optimizada)
+  const renderVideoOrImage = () => {
+    if (!article) return null;
+
+    if (!article.contenido) {
+      return (
+        <div className="image-container">
+          <img 
+            src={imgSrc} 
+            alt={article.titulo} 
+            className="article-image"
+            onError={handleImageError}
+            loading="lazy"
+          />
+          {article.imagen_descripcion && (
+            <p className="image-caption">{article.imagen_descripcion}</p>
+          )}
+        </div>
+      );
+    }
+
+    const videoDivRegex = /<div[^>]*data-video[^>]*data-youtube-id="([^"]*)"[^>]*>/;
+    const match = article.contenido.match(videoDivRegex);
+    
+    if (match && match[1]) {
+      const youtubeId = match[1];
+      return (
+        <div className="video-container">
+          <iframe
+            width="100%"
+            height="500"
+            src={`https://www.youtube.com/embed/${youtubeId}?rel=0`}
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            title="YouTube video player"
+            loading="lazy"
+          />
+        </div>
+      );
+    }
+
+    return (
+      <div className="image-container">
+        <img 
+          src={imgSrc}
+          alt={article.titulo}
+          className="article-image"
+          onError={handleImageError}
+          loading="lazy"
+        />
+        {article.imagen_descripcion && (
+          <p className="image-caption">{article.imagen_descripcion}</p>
+        )}
+      </div>
+    );
+  };
+
+  // Render para pre-render (sin datos)
+  if (typeof window === 'undefined') {
+    return (
+      <div className="article-detail-page">
+        <Header />
+        <div className="article-container">
+          <h1>Cargando artículo...</h1>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   if (loading) {
     return (
@@ -145,6 +220,11 @@ const ArticleDetailPage = () => {
     return (
       <div className="article-detail-page">
         <Header />
+        <BannerBlog 
+        title="Innovación y Tecnología para el Futuro de tu Empresa"
+        subtitle="Soluciones innovadoras en tecnología y transformación digital."
+      />
+      
         <div className="not-found-container">
           <h2>Artículo no encontrado</h2>
           <p>El artículo que buscas no existe o ha sido eliminado.</p>
@@ -158,6 +238,10 @@ const ArticleDetailPage = () => {
   return (
     <div className="article-detail-page">
       <Header />
+      <BannerBlog 
+        title="Innovación y Tecnología para el Futuro de tu Empresa"
+        subtitle="Soluciones innovadoras en tecnología y transformación digital."
+      />
       
       <div className="article-container">
         <article className="articulo-content">
@@ -181,19 +265,7 @@ const ArticleDetailPage = () => {
               <span className="visits">{article.visitas} visitas</span>
             </div>
             
-            {article.imagen_portada_url && (
-              <div className="image-container">
-                <img 
-                  src={article.imagen_portada_url} 
-                  alt={article.titulo} 
-                  className="article-image"
-                  onError={handleImageError}
-                />
-                {article.imagen_descripcion && (
-                  <p className="image-caption">{article.imagen_descripcion}</p>
-                )}
-              </div>
-            )}
+            {renderVideoOrImage()}
           </header>
           
           <div 
@@ -202,20 +274,6 @@ const ArticleDetailPage = () => {
           />
           
           <footer className="article-footer">
-
-            {/*             {article.etiquetas && article.etiquetas.length > 0 && (
-              <div className="article-tags">
-                <h3>Etiquetas:</h3>
-                <div className="tags-list">
-                  {article.etiquetas.map(tag => (
-                    <a key={tag.id} href={`/etiqueta/${tag.slug}`} className="tag">{tag.nombre}</a>
-                  ))}
-                </div>
-              </div>
-            )}
-              luego se desarrollara las etiquetas
-             */}
-
             <div className="article-rating">
               <h3>Valora este artículo:</h3>
               <div className="rating-info">
@@ -253,9 +311,6 @@ const ArticleDetailPage = () => {
         </aside>
       </div>
       
-       {/*      <CommentsSection articleId={article.id} /> // luego se implementara esta funcionalidad */} 
-
-
       <CallToAction
         title="¿Listo para transformar tu empresa?"
         buttonText="Contáctanos hoy"
