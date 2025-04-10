@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {  // No necesita `login` como pro
     try {
       const result = await api.login(credentials);
       if (result.access) {
-        console.log("access ", result.access);
+//        console.log("access ", result.access);
         localStorage.setItem('authToken', result.access);
         setAuthToken(result.access);
         navigate('/admin');  // Redirige después del login
