@@ -21,36 +21,15 @@
     "react-hook-form": "^7.55.0",
     "react-router-dom": "^7.4.0",
     "react-scripts": "5.0.1",
-    "react-snap": "^1.23.0",
     "web-vitals": "^2.1.4",
     "yup": "^1.6.1"
   },
-
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "postbuild": "react-snap"
+    "eject": "react-scripts eject"
   },
-  "reactSnap": {
-    "inlineCss": true,
-    "puppeteerArgs": ["--no-sandbox", "--disable-setuid-sandbox"],
-    "skipThirdPartyRequests": true,
-    "cacheAjaxRequests": true,
-    "source": "build",
-    "minifyHtml": {
-      "collapseWhitespace": true,
-      "keepClosingSlash": true
-    },
-    "preconnectThirdParty": false,
-    "fixWebpackChunksIssue": true,
-    "concurrency": 1,
-    "puppeteerIgnoreHTTPSErrors": true,
-    "waitForTimeout": 10000,
-    "snapshotDelay": 500
-  },
-
   "eslintConfig": {
     "extends": [
       "react-app",

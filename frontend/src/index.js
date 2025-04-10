@@ -1,29 +1,20 @@
+
 import React from 'react';
-import { hydrateRoot, createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import './styles/global.css';
+import './styles/global.css'; // Importar estilos globales
 
-const container = document.getElementById('root');
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
 
-// Verificar si hay contenido pre-renderizado (react-snap)
-if (container?.hasChildNodes()) {
-  // Hidratación para pre-render (producción)
-  hydrateRoot(
-    container,
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
-} else {
-  // Renderizado normal (desarrollo)
-  createRoot(container).render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  );
-}
 
-// Opcional: Medición de performance (se mantiene igual)
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
