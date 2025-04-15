@@ -106,7 +106,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:3001",
     "https://jaiproject.vercel.app",
     "https://www.jaiexperts.com",
-    "https://jai-production.up.railway.app"
+    "https://jai-production.up.railway.app",
+    "https://jai-next-grovs-projects.vercel.app",
+    "https://jai-next.vercel.app"
 ]
 
 
