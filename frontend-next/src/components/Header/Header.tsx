@@ -49,7 +49,7 @@ export default function Header() {
                 alt="JAI Logo"
                 width={400}
                 height={400}
-                className="w-[180px] sm:w-[220px] md:w-[250px] lg:w-[600px]"
+                className="w-[220px] sm:w-[220px] md:w-[250px] lg:w-[600px]"
                 priority
               />
             </motion.div>
