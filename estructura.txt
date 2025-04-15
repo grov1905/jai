@@ -22,6 +22,9 @@ frontend/
 │   ├── routes.js
 │   ├── setupTests.js
 │   ├──  App.js
+│   ├── contexts/
+│   │   ├── AuthContext.js
+│   │   ├── AdminContext.js
 │   ├── styles/
 │   │   ├── global.css
 │   ├── components/
@@ -53,6 +56,44 @@ frontend/
 │   │   ├── ContactForm/
 │   │   │   ├── ContactForm.js
 │   │   │   ├── ContactForm.css
+│   │   ├── Admin/
+│   │   │   ├── FormTag/
+│   │   │   │   ├── FormTag.css
+│   │   │   │   ├── FormTag.js
+│   │   │   ├── AdminSidebar/
+│   │   │   │   ├── AdminSidebar.css
+│   │   │   │   ├── AdminSidebar.js
+│   │   │   ├── RichTextEditor/
+│   │   │   │   ├── RichTextEditor.js
+│   │   │   │   ├── RichTextEditor.css
+│   │   │   ├── AdminLayout/
+│   │   │   │   ├── AdminLayout.js
+│   │   │   │   ├── AdminLayout.css
+│   │   │   ├── FormPermission/
+│   │   │   │   ├── FormPermission.js
+│   │   │   │   ├── FormPermission.css
+│   │   │   ├── FormArticle/
+│   │   │   │   ├── FormArticle.css
+│   │   │   │   ├── FormArticle.js
+│   │   │   ├── DashboardStats/
+│   │   │   │   ├── DashboardStats.js
+│   │   │   │   ├── DashboardStats.css
+│   │   │   ├── FormRole/
+│   │   │   │   ├── FormRole.js
+│   │   │   │   ├── FormRole.css
+│   │   │   ├── VideoComponent/
+│   │   │   │   ├── VideoComponent.jsx
+│   │   │   │   ├── extensions/
+│   │   │   │   │   ├── CustomVideo.js
+│   │   │   ├── FormCategory/
+│   │   │   │   ├── FormCategory.js
+│   │   │   │   ├── FormCategory.css
+│   │   │   ├── FormUser/
+│   │   │   │   ├── FormUser.js
+│   │   │   │   ├── FormUser.css
+│   │   │   ├── DataTable/
+│   │   │   │   ├── DataTable.js
+│   │   │   │   ├── DataTable.css
 │   │   ├── HeaderButton/
 │   │   │   ├── HeaderButton.css
 │   │   │   ├── HeaderButton.js
@@ -62,6 +103,8 @@ frontend/
 │   │   ├── CallToAction/
 │   │   │   ├── CallToAction.js
 │   │   │   ├── CallToAction.css
+│   │   ├── PrivateRoute/
+│   │   │   ├── PrivateRoute.js
 │   │   ├── CategoryGrid/
 │   │   │   ├── CategoryGrid.css
 │   │   │   ├── CategoryGrid.js
@@ -77,6 +120,9 @@ frontend/
 │   │   ├── Hero/
 │   │   │   ├── Hero.css
 │   │   │   ├── Hero.js
+│   │   ├── Modal/
+│   │   │   ├── Modal.css
+│   │   │   ├── Modal.js
 │   │   ├── Login/
 │   │   │   ├── Login.css
 │   │   │   ├── Login.js
@@ -87,7 +133,9 @@ frontend/
 │   │   │   ├── AboutContent.css
 │   │   │   ├── AboutContent.js
 │   ├── api/
+│   │   ├── users.js
 │   │   ├── contact.js
+│   │   ├── admin.js
 │   ├── assets/
 │   │   ├── logo.png
 │   ├── pages/
@@ -100,9 +148,41 @@ frontend/
 │   │   ├── ContactPage/
 │   │   │   ├── ContactPage.js
 │   │   │   ├── ContactPage.css
+│   │   ├── LoginPage/
+│   │   │   ├── LoginPage.js
+│   │   │   ├── LoginPage.css
+│   │   ├── Admin/
+│   │   │   ├── CommentsPage/
+│   │   │   │   ├── CommentsPage.css
+│   │   │   │   ├── CommentsPage.js
+│   │   │   ├── DashboardPage/
+│   │   │   │   ├── DashboardPage.css
+│   │   │   │   ├── DashboardPage.js
+│   │   │   ├── NewsletterPage/
+│   │   │   │   ├── NewsletterPage.css
+│   │   │   │   ├── NewsletterPage.js
+│   │   │   ├── CategoriesPage/
+│   │   │   │   ├── CategoriesPage.js
+│   │   │   │   ├── CategoriesPage.css
+│   │   │   ├── TagsPage/
+│   │   │   │   ├── TagsPage.css
+│   │   │   │   ├── TagsPage.js
+│   │   │   ├── ArticlesPage/
+│   │   │   │   ├── ArticlesPage.js
+│   │   │   │   ├── ArticlesPage.css
 │   │   ├── AboutPage/
 │   │   │   ├── AboutPage.css
 │   │   │   ├── AboutPage.js
+│   │   ├── Users/
+│   │   │   ├── PermissionsPage/
+│   │   │   │   ├── PermissionsPage.css
+│   │   │   │   ├── PermissionsPage.js
+│   │   │   ├── RolesPage/
+│   │   │   │   ├── RolesPage.js
+│   │   │   │   ├── RolesPage.css
+│   │   │   ├── UsersPage/
+│   │   │   │   ├── UsersPage.css
+│   │   │   │   ├── UsersPage.js
 │   │   ├── ArticleDetailPage/
 │   │   │   ├── ArticleDetailPage.css
 │   │   │   ├── ArticleDetailPage.js
@@ -129,6 +209,7 @@ backend/
 │   ├──  models.py
 │   ├── apps.py
 │   ├── admin.py
+│   ├── utils.py
 │   ├── tests.py
 │   ├── views.py
 │   ├── api/
@@ -136,3 +217,109 @@ backend/
 │   │   ├── urls_private.py
 │   │   ├── urls_public.py
 │   │   ├── views.py
+│   ├── templates/
+│   │   ├── emails/
+├── authentication/
+frontend-next/
+├── .env.local
+├── postcss.config.mjs
+├── next-env.d.ts
+├── tailwind.config.ts
+├── package.json
+├── tsconfig.json
+├── eslint.config.mjs
+├── .eslintrc.json
+├── next.config.ts
+├── public/
+│   ├── logo512.png
+│   ├── logo192.png
+│   ├── images/
+│   │   ├── logo512.png
+│   │   ├── logo192.png
+│   ├── static/
+│   │   ├── images/
+├── src/
+│   ├── middleware.ts
+│   ├── types/
+│   │   ├── axios.d.ts
+│   │   ├── blog.ts
+│   │   ├── api.ts
+│   │   ├── index.ts
+│   │   ├── auth.ts
+│   ├── context/
+│   │   ├── AuthContext.tsx
+│   ├── app/
+│   │   ├── layout.tsx
+│   │   ├── page.tsx
+│   │   ├── globals.css
+│   │   ├── contact/
+│   │   │   ├── page.tsx
+│   │   ├── about/
+│   │   │   ├── page.tsx
+│   │   ├── pages/
+│   │   │   ├── auth/
+│   │   │   ├── admin/
+│   │   │   ├── blog/
+│   │   │   │   ├── page.tsx
+│   │   │   │   ├── articlePage/
+│   │   ├── services/
+│   │   │   ├── page.tsx
+│   ├── constants/
+│   │   ├── index.ts
+│   ├── utils/
+│   │   ├── api.ts
+│   ├── styles/
+│   │   ├── animations.css
+│   ├── components/
+│   │   ├── HeroBlog/
+│   │   │   ├── HeroBlog.tsx
+│   │   ├── Navbar/
+│   │   │   ├── Navbar.tsx
+│   │   ├── ServicesContent/
+│   │   │   ├── ServicesContent.tsx
+│   │   ├── Footer/
+│   │   │   ├── Footer.tsx
+│   │   ├── ArticleList/
+│   │   │   ├── ArticleList.tsx
+│   │   ├── BannerBlog/
+│   │   │   ├── BannerBlog.tsx
+│   │   ├── ServiceCard/
+│   │   │   ├── ServiceCard.tsx
+│   │   ├── ContactForm/
+│   │   │   ├── ContacForm.tsx
+│   │   ├── HeaderButton/
+│   │   │   ├── HeaderButton.tsx
+│   │   ├── Tags/
+│   │   │   ├── Tags.tsx
+│   │   ├── CallToAction/
+│   │   │   ├── CallToAction.tsx
+│   │   ├── CategoryGrid/
+│   │   │   ├── CategoryGrid.tsx
+│   │   ├── RelatedArticles/
+│   │   │   ├── RelatedArticles.tsx
+│   │   ├── Hero/
+│   │   │   ├── Hero.tsx
+│   │   ├── Login/
+│   │   │   ├── LoginModal.tsx
+│   │   │   ├── Login.tsx
+│   │   │   ├── RegisterModal.tsx
+│   │   │   ├── AuthModals.tsx
+│   │   │   ├── ForgotPasswordModal.tsx
+│   │   │   ├── index.ts
+│   │   ├── Header/
+│   │   │   ├── Header.tsx
+│   │   ├── AboutContent/
+│   │   │   ├── AboutContent.tsx
+│   │   ├── ArticleContent/
+│   │   │   ├── ArticleContent.tsx
+│   ├── hooks/
+│   │   ├── useContact.ts
+│   │   ├── useCategories.ts
+│   │   ├── useCategoryArticles.ts
+│   │   ├── useAuth.ts
+│   │   ├── useArticleContent.ts
+│   │   ├── useRelatedArticles.ts
+│   │   ├── useFeaturedArticle.ts
+│   │   ├── useRecentArticles.ts
+│   ├── lib/
+│   ├── api/

@@ -24,9 +24,6 @@
 }
 
 
-
-
-
 /* Logo */
 .logo-container img {
     max-width: 400px;
@@ -46,8 +43,6 @@
         flex-direction: column;
         padding-top: 40px; /* Espacio para la esquina auth */
     }
-    
-
     
     .logo-container img {
         max-width: 300px;

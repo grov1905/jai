@@ -23,9 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     # Endpoints públicos
-    path('api/public/', include([
-        path('contact/', include('users.api.urls_public'))
-    ])),
+        path('api/public/', include([path('contact/', include('users.api.urls_public'))])),
     
     # Endpoints privados (requieren autenticación)
     path('api/private/', include('users.api.urls_private')),

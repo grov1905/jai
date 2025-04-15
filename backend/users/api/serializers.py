@@ -44,6 +44,16 @@ class UserUpdateSerializer(serializers.ModelSerializer):
         model = User
         fields = ['first_name', 'last_name', 'avatar_url', 'biografia', 'phone', 'company']
 
+class PasswordResetSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+    
+    def validate_email(self, value):
+        try:
+            user = User.objects.get(email=value)
+        except User.DoesNotExist:
+            raise serializers.ValidationError("No existe un usuario con este email.")
+        return value
+
 class RolSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rol

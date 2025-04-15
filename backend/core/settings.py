@@ -102,6 +102,8 @@ AUTH_USER_MODEL = 'users.User'  # Usando el modelo en apps/users
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3001",
     "https://jaiproject.vercel.app",
     "https://www.jaiexperts.com",
     "https://jai-production.up.railway.app"
@@ -180,6 +182,11 @@ EMAIL_USE_SSL = False  # No uses SSL, usa TLS en su lugar
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # Cargar desde .env
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')  # Cargar desde .env
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER  # Usar tu correo como remitente
+
+# Configuración secundaria para support
+SUPPORT_EMAIL_HOST_USER =  os.getenv('SUPPORT_EMAIL_HOST_USER')  # Cargar desde .env
+SUPPORT_EMAIL_HOST_PASSWORD =  os.getenv('SUPPORT_EMAIL_HOST_PASSWORD')  # Cargar desde .env
+
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [

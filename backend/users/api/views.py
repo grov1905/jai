@@ -1,6 +1,7 @@
 # users/api/views.py
 from rest_framework import viewsets, status, generics, permissions,views
 from django.conf import settings
+from django.core.mail import get_connection
 from django.core.mail import send_mail
 from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -9,7 +10,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from rest_framework.permissions import AllowAny  # Añade esta línea
 from django.utils.timezone import now
+from users.utils import send_password_reset_email
 import json
+import secrets
+import string
 
 from django.contrib.auth import get_user_model
 from users.models import Rol, Permiso, UsuarioRol, RolPermiso, ContactForm, WhatsAppRequest
@@ -24,7 +28,8 @@ from users.api.serializers import (
     RolPermisoSerializer,
     UserWithRolesSerializer,
     RolWithPermissionsSerializer,
-    ContactFormSerializer
+    ContactFormSerializer,
+    PasswordResetSerializer
 )
 
 
@@ -47,6 +52,46 @@ class UserViewSet(viewsets.ModelViewSet):
         if self.action == 'create':
             return [permissions.AllowAny()]
         return [permissions.IsAuthenticated()]
+    
+
+class PasswordResetView(views.APIView):
+    permission_classes = [permissions.AllowAny]
+    
+    def patch(self, request, *args, **kwargs):
+        serializer = PasswordResetSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            email = serializer.validated_data['email']
+            user = User.objects.get(email=email)
+            
+            # Generar nueva contraseña
+            alphabet = string.ascii_letters + string.digits
+            new_password = ''.join(secrets.choice(alphabet) for i in range(12))
+            user.set_password(new_password)
+            user.save()
+            
+            # Enviar email con diseño corporativo
+            send_password_reset_email(user, new_password)
+            
+            return Response(
+                {"message": "Se ha enviado una nueva contraseña al correo electrónico proporcionado."},
+                status=status.HTTP_200_OK
+            )
+            
+        except User.DoesNotExist:
+            return Response(
+                {"error": "No existe un usuario con este email."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+        except Exception as e:
+            print(f"Error al enviar correo: {str(e)}")  # Log en consola
+            return Response(
+                {"error": "Ocurrió un error inesperado"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+        
 
 class RolViewSet(viewsets.ModelViewSet):
     queryset = Rol.objects.all()

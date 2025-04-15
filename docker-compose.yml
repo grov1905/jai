@@ -35,6 +35,36 @@ services:
     stdin_open: true
     tty: true
 
+#  frontend-next:
+#    build: ./frontend-next
+#    ports:
+#      - "3001:3000"
+#    env_file:
+#      - .env
+#    depends_on:
+#      - backend
+#    volumes:
+#      - ./frontend-next:/app
+#      - /app/node_modules
+#    stdin_open: true
+#    tty: true
+  frontend-next:
+    build:
+      context: ./frontend-next
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./frontend-next:/app
+#      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true # Importante para watch en Docker
+      - WATCHPACK_POLLING=true # Necesario para algunos entornos
+
+
+
 volumes:
   pgdata:
   

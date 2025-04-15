@@ -10,7 +10,8 @@ from users.api.views import (
     RolPermisoViewSet,
     CurrentUserView,
     UserRolesView,
-    RolPermissionsView
+    RolPermissionsView,
+    PasswordResetView
 )
 
 router = DefaultRouter()
@@ -25,5 +26,8 @@ urlpatterns = [
     path('login/', CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('me/', CurrentUserView.as_view(), name='current-user'),
     path('usuarios/<int:pk>/roles/', UserRolesView.as_view(), name='user-roles'),
-    path('roles/<int:rol_id>/permissions/', RolPermissionsView.as_view(), name='role-permissions')
+    path('roles/<int:rol_id>/permissions/', RolPermissionsView.as_view(), name='role-permissions'),
+    path('forgot-password/', PasswordResetView.as_view(), name='password-reset')
+
+
 ]

@@ -30,10 +30,35 @@ const ArticleDetailPage = () => {
         setArticle(response.data);
         setImgSrc(response.data.imagen_portada_url || DEFAULT_ARTICLE_IMAGE);
         // Registrar lectura
-        await axios.post(
-          `${process.env.REACT_APP_API_URL}/api/blog/articulos/${response.data.id}/registrar_lectura/`,
-          { tiempo_lectura: response.data.tiempo_lectura * 60, completado: true }
-        );
+        try {
+          const accessToken = localStorage.getItem('access_token');
+          
+          // Configuración básica de la petición
+          const requestConfig = {
+            tiempo_lectura: response.data.tiempo_lectura * 60, 
+            completado: true
+          };
+        
+          // Solo añadir headers si hay token
+          const axiosConfig = accessToken ? {
+            headers: {
+              'Authorization': `Bearer ${accessToken}`
+            }
+          } : {};
+        
+          // Realizar la petición y no esperar por ella (usar catch vacío)
+          axios.post(
+            `${process.env.REACT_APP_API_URL}/api/blog/articulos/${response.data.id}/registrar_lectura/`,
+            requestConfig,
+            axiosConfig
+          ).catch(() => {}); // Ignorar cualquier error
+        
+        } catch (error) {
+          // Ignorar errores también en el try-catch externo
+          console.log("Error al intentar registrar lectura, pero continuando...");
+        }
+        
+        // El código continuará ejecutándose aquí independientemente del resultado de la petición
         
         // Obtener rating promedio (público)
         const ratingResponse = await axios.get(

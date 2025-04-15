@@ -2,7 +2,8 @@ from django.urls import path
 from rest_framework.permissions import AllowAny
 from .views import (
     ContactFormView,
-    WhatsAppLogView  # Necesitarás convertir la función en una clase-based view
+    WhatsAppLogView,  # Necesitarás convertir la función en una clase-based view
+    PasswordResetView
 )
 
 urlpatterns = [
