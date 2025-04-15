@@ -3,7 +3,7 @@
 
 import React from 'react';
 import useCategories from '@/hooks/useCategories';
-import { Category } from '@/types/blog';
+
 
 interface TagsProps {
   selectedTag: string;

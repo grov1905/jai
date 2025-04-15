@@ -3,10 +3,10 @@ export interface ApiErrorResponse {
     message: string;
     statusCode?: number;
     error?: string;
-    details?: any;
+    details?: string;
   }
   
-  export interface ApiSuccessResponse<T = any> {
+  export interface ApiSuccessResponse<T = unknown> {
     data: T;
     message?: string;
   }

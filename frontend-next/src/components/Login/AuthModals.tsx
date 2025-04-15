@@ -31,11 +31,10 @@ export default function AuthModals({
     try {
       const success = await login({ username, password });
       if (success) {
-        onClose(); // Cerrar solo si es exitoso
+        onClose();
       }
       return success;
-    } catch (error) {
-      // El error ya está manejado por useAuth
+    } catch {
       return false;
     }
   };
@@ -48,21 +47,18 @@ export default function AuthModals({
     try {
       const success = await register(formData);
       if (success) {
-        setMode('login'); // Cambiar a login después de registro
+        setMode('login');
       }
       return success;
-    } catch (error) {
+    } catch {
       return false;
     }
   };
 
-
-
   const handleForgotPassword = async (email: string): Promise<boolean> => {
     try {
-      const success = await forgotPassword(email);
-      return success;
-    } catch (error) {
+      return await forgotPassword(email);
+    } catch {
       return false;
     }
   };
@@ -74,7 +70,7 @@ export default function AuthModals({
           isOpen={true}
           onClose={onClose}
           onLogin={handleLogin}
-          error={authError?.message} // Solo pasa el mensaje
+          error={authError?.message}
           clearError={clearError}
           onSwitchToRegister={() => {
             clearError();
@@ -93,7 +89,7 @@ export default function AuthModals({
           isOpen={true}
           onClose={onClose}
           onRegister={handleRegister}
-          error={authError?.message} // Solo pasa el mensaje
+          error={authError?.message}
           clearError={clearError}
           onSwitchToLogin={() => {
             clearError();
@@ -108,7 +104,7 @@ export default function AuthModals({
           isOpen={true}
           onClose={onClose}
           onSubmit={handleForgotPassword}
-          error={authError?.message} // Solo pasa el mensaje
+          error={authError?.message}
           clearError={clearError}
           onSwitchToLogin={() => {
             clearError();
@@ -117,21 +113,6 @@ export default function AuthModals({
           isLoading={combinedIsLoading}
         />
       )}
-      {mode === 'forgot' && (
-        <ForgotPasswordModal
-        isOpen={true}
-        onClose={onClose}
-        onSubmit={handleForgotPassword}
-        error={authError?.message}
-        clearError={clearError}
-        onSwitchToLogin={() => {
-          clearError();
-          setMode('login');
-      }}
-      isLoading={combinedIsLoading}
-  />
-)}
     </>
   );
 }
-

@@ -3,13 +3,11 @@
 
 import useAuth from '@/hooks/useAuth';
 import Header from '@/components/Header/Header';
-import AboutContent from '@/components/AboutContent/AboutContent';
-import CallToAction from '@/components/CallToAction/CallToAction';
 import Footer from '@/components/Footer/Footer';
 import { ContactForm } from '@/components/ContactForm/ContacForm';
 
 export default function ContactPage() {
-  const { user, isLoading } = useAuth();
+  const {  isLoading } = useAuth();
 
   if (isLoading) {
     return (

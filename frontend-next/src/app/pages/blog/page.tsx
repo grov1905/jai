@@ -14,7 +14,7 @@ import CategoryGrid from '@/components/CategoryGrid/CategoryGrid';
 
 export default function BlogPage() {
   const scrollPositionRef = useRef(0);
-  const { user, isLoading } = useAuth();
+  const { isLoading } = useAuth();
   const [featuredArticle, setFeaturedArticle] = useState<Article | null>(null);
   const [selectedTag, setSelectedTag] = useState('todos');
 

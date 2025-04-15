@@ -1,14 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+//import { usePathname } from 'next/navigation';
 import HeaderButton from '../HeaderButton/HeaderButton';
 import Navbar from '../Navbar/Navbar';
 import Login from '../Login/Login';
 import { motion } from 'framer-motion';
 
 export default function Header() {
-  const pathname = usePathname();
-  const isBlogPage = pathname?.includes('/blog');
+  //const pathname = usePathname();
+  //const isBlogPage = pathname?.includes('/blog');
 
   return (
     <header className="

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useFeaturedArticle } from '@/hooks/useFeaturedArticle';
 import { DEFAULT_IMAGE } from '@/constants';
 import { Article } from '@/types/blog';
+import Image from 'next/image';
 
 interface HeroBlogProps {
   featuredArticle?: Article | null;
@@ -47,16 +48,24 @@ export const HeroBlog = ({ featuredArticle: propFeaturedArticle }: HeroBlogProps
       onClick={handleClick}
     >
       <div className="w-full h-[300px] overflow-hidden">
-        <img 
-          src={article.imagen_portada_url || DEFAULT_IMAGE}
-          alt={article.titulo}
-          className="
-            w-full h-full object-cover
-            transition-transform duration-500 ease-[ease]
-            group-hover:scale-[1.05]
-          "
-          onError={handleImageError}
-        />
+      <Image
+    src={article.imagen_portada_url || DEFAULT_IMAGE}
+    alt={article.titulo}
+    width={600}  // Double the display size for better retina display
+    height={300} // Matches container height (1:1 ratio)
+    className="
+      w-full h-full object-cover
+      transition-transform duration-500 ease-[ease]
+      group-hover:scale-[1.05]
+    "
+    onError={handleImageError}
+    unoptimized={true} // Maintains original image behavior
+    style={{
+      maxWidth: '100%',
+      height: 'auto',
+      objectFit: 'cover' // Ensures same behavior as object-cover
+    }}
+  />
       </div>
       
       <div className="p-8 bg-white">

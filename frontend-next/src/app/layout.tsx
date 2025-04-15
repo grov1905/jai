@@ -1,8 +1,8 @@
-import type { Metadata } from 'next';
-import {  Roboto } from 'next/font/google';
+import type { Metadata, Viewport } from 'next';
+import { Roboto } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from '@/context/AuthContext';
-import GoogleAnalytics from '@/components/Common/GoogleAnalytics';
+import Script from 'next/script';
 
 const roboto = Roboto({
   weight: '400',
@@ -11,8 +11,18 @@ const roboto = Roboto({
   adjustFontFallback: true,
 });
 
+export const viewport: Viewport = {
+  themeColor: '#304D80',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export const metadata: Metadata = {
-  title: 'JAI Experts - Innovación Tecnológica y Consultoría en Transformación Digital',
+  title: {
+    default: 'JAI Experts - Innovación Tecnológica y Consultoría en Transformación Digital',
+    template: '%s | JAI Experts'
+  },
   description: 'JAI Experts te ayuda a transformar digitalmente tu empresa con soluciones innovadoras en tecnología y consultoría IT. ¡Potencia tu negocio!',
   keywords: ['transformación digital', 'innovación tecnológica', 'desarrollo web', 'software empresarial', 'consultoría IT', 'soluciones digitales'],
   authors: [{ name: 'JAI Experts' }],
@@ -39,13 +49,10 @@ export const metadata: Metadata = {
     images: ['https://www.jaiexperts.com/static/images/twitter-image.jpg'],
     creator: '@jaiexperts',
   },
-  themeColor: '#304D80',
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-  },
   metadataBase: new URL('https://www.jaiexperts.com'),
+  alternates: {
+    canonical: '/',
+  },
 };
 
 export default function RootLayout({
@@ -57,9 +64,10 @@ export default function RootLayout({
     <html lang="es">
       <head>
         {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
         <link rel="manifest" href="/site.webmanifest" />
+        <meta name="msapplication-TileColor" content="#304D80" />
         
         {/* Schema.org markup */}
         <script type="application/ld+json">
@@ -72,7 +80,7 @@ export default function RootLayout({
             "description": "Consultoría en innovación tecnológica y transformación digital.",
             "contactPoint": {
               "@type": "ContactPoint",
-              "telephone": "+51 935938821",
+              "telephone": "+51 977205812",
               "contactType": "customer service",
               "areaServed": "Worldwide",
               "availableLanguage": ["Spanish", "English"]
@@ -81,11 +89,20 @@ export default function RootLayout({
         </script>
       </head>
       <body className={`${roboto.className} bg-light-bg flex flex-col items-center min-h-screen p-5`}>
-        {/* Google Analytics Script */}
-        <GoogleAnalytics />
         <AuthProvider>
           {children}
         </AuthProvider>
+
+        {/* Google Analytics - Implementación recomendada por Next.js */}
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-G6ZFT7T80X" strategy="afterInteractive" />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-G6ZFT7T80X');
+          `}
+        </Script>
       </body>
     </html>
   );

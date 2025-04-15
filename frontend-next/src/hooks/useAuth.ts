@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { User, AuthResponse, AuthError } from '@/types/auth';
 
-
 export default function useAuth() {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,12 +39,25 @@ export default function useAuth() {
 
       setUser(normalizedUser);
       return normalizedUser;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error al obtener datos del usuario:', error);
+      
+      let status: number | undefined;
+      let details: string | Record<string, unknown> | undefined;
+
+      if (axios.isAxiosError(error)) {
+        status = error.response?.status;
+        details = error.response?.data;
+      }
+
       setAuthError({
         message: 'Error al cargar datos del usuario',
-        status: error.response?.status,
-        details: error.response?.data
+        status,
+        details: details 
+          ? typeof details === 'string' 
+            ? details 
+            : JSON.stringify(details)
+          : undefined
       });
       return null;
     }
@@ -87,9 +99,7 @@ export default function useAuth() {
         {
           headers: { 'Content-Type': 'application/json' },
           timeout: 10000,
-          validateStatus: function (status) {
-            return status === 200; // Solo considera 200 como éxito
-          }
+          validateStatus: (status) => status === 200
         }
       );
 
@@ -101,19 +111,27 @@ export default function useAuth() {
 
       setUser(userData);
       return true;
-    } catch (error: any) {
-      if (error.response) {
-        setAuthError({ 
-          message: error.response.data?.detail || 
-                 (error.response.status === 401 ? 'Credenciales incorrectas' : 'Error en el servidor'),
-          status: error.response.status,
-          details: error.response.data
-        });
-      } else {
-        setAuthError({ 
-          message: error.message || 'Error de conexión'
-        });
+    } catch (error) {
+      let message = 'Error de conexión';
+      let status: number | undefined;
+      let details: string | undefined;
+
+      if (axios.isAxiosError(error)) {
+        message = error.response?.data?.detail || 
+                 (error.response?.status === 401 ? 'Credenciales incorrectas' : 'Error en el servidor');
+        status = error.response?.status;
+        details = typeof error.response?.data === 'object' 
+          ? JSON.stringify(error.response.data)
+          : error.response?.data;
+      } else if (error instanceof Error) {
+        message = error.message;
       }
+
+      setAuthError({ 
+        message,
+        status,
+        details
+      });
       return false;
     } finally {
       setIsLoading(false);
@@ -129,7 +147,7 @@ export default function useAuth() {
       setIsLoading(true);
       setAuthError(null);
   
-      const response = await axios.post(
+      await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/api/private/usuarios/`,
         userData,
         {
@@ -139,35 +157,33 @@ export default function useAuth() {
       );
   
       return true;
-    } catch (error: any) {
-      let errorMessage = 'Error en el registro';
-      let fieldErrors: Record<string, string[]> = {};
-  
-      if (error.response) {
-        // Manejar errores de campo específicos (como username)
-        if (error.response.data && typeof error.response.data === 'object') {
-          // Extraer errores por campo si existen
-          fieldErrors = error.response.data;
-          
-          // Construir mensajes de error para cada campo
-          const fieldMessages = Object.entries(fieldErrors)
-            .map(([field, messages]) => `${field}: ${messages.join(', ')}`)
+    } catch (error) {
+      let message = 'Error en el registro';
+      let status: number | undefined;
+      let details: string | undefined;
+
+      if (axios.isAxiosError(error)) {
+        status = error.response?.status;
+        const responseData = error.response?.data;
+
+        if (typeof responseData === 'object' && responseData !== null) {
+          const fieldErrors = Object.entries(responseData)
+            .map(([field, messages]) => `${field}: ${Array.isArray(messages) ? messages.join(', ') : messages}`)
             .join('; ');
-  
-          errorMessage = fieldMessages || errorMessage;
+          
+          details = fieldErrors;
+          message = fieldErrors || message;
         } else {
-          // Manejar otros tipos de errores
-          errorMessage = error.response.data?.detail || 
-                        error.response.data?.message || 
-                        error.response.statusText || 
-                        errorMessage;
+          message = typeof responseData === 'string' 
+            ? responseData 
+            : message;
         }
       }
-  
+
       setAuthError({
-        message: errorMessage,
-        status: error.response?.status,
-        details: error.response?.data || fieldErrors
+        message,
+        status,
+        details
       });
       
       return false;
@@ -183,41 +199,46 @@ export default function useAuth() {
     setAuthError(null);
   };
 
-  // En useAuth.ts - Añade esta función al hook
-const forgotPassword = async (email: string): Promise<boolean> => {
-  try {
-    setIsLoading(true);
-    setAuthError(null);
+  const forgotPassword = async (email: string): Promise<boolean> => {
+    try {
+      setIsLoading(true);
+      setAuthError(null);
 
-    await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/api/private/forgot-password/`,
-      { email },
-      {
-        headers: { 'Content-Type': 'application/json' },
-        timeout: 5000
+      await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/private/forgot-password/`,
+        { email },
+        {
+          headers: { 'Content-Type': 'application/json' },
+          timeout: 5000
+        }
+      );
+
+      return true;
+    } catch (error) {
+      let message = 'Error al solicitar recuperación';
+      let status: number | undefined;
+      let details: string | undefined;
+
+      if (axios.isAxiosError(error)) {
+        message = typeof error.response?.data?.detail === 'string'
+          ? error.response.data.detail
+          : message;
+        status = error.response?.status;
+        details = typeof error.response?.data === 'object'
+          ? JSON.stringify(error.response.data)
+          : error.response?.data;
       }
-    );
 
-    return true;
-  } catch (error: any) {
-    let errorMessage = 'Error al solicitar recuperación';
-    if (error.response) {
-      errorMessage = error.response.data?.detail || 
-                    error.response.data?.message || 
-                    'Error en el servidor';
+      setAuthError({
+        message,
+        status,
+        details
+      });
+      return false;
+    } finally {
+      setIsLoading(false);
     }
-
-    setAuthError({
-      message: errorMessage,
-      status: error.response?.status,
-      details: error.response?.data
-    });
-    return false;
-  } finally {
-    setIsLoading(false);
-  }
-};
-
+  };
 
   return { 
     user, 

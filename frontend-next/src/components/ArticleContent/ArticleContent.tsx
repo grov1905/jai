@@ -1,8 +1,8 @@
 'use client';
 
 import { useArticleContent } from '@/hooks/useArticleContent';
-import { Article } from '@/types/blog';
-import { useState } from 'react';
+//import { useState } from 'react';
+import Image from 'next/image';
 
 interface ArticleContentProps {
   articleId: string;
@@ -12,7 +12,7 @@ const DEFAULT_IMAGE = '/images/default-article-image.jpg';
 
 export const ArticleContent = ({ articleId }: ArticleContentProps) => {
   const { article, isLoading, error } = useArticleContent(articleId);
-  const [imgSrc, setImgSrc] = useState<string | null>(null);
+  //const [imgSrc, setImgSrc] = useState<string | null>(null);
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     const target = e.target as HTMLImageElement;
@@ -27,13 +27,22 @@ export const ArticleContent = ({ articleId }: ArticleContentProps) => {
     if (!article.contenido) {
       return (
         <div className="my-8 rounded-lg overflow-hidden shadow-md">
-          <img 
-            src={article.imagen_portada_url || DEFAULT_IMAGE}
-            alt={article.titulo}
-            className="w-full h-auto max-h-[500px] object-cover rounded-lg"
-            onError={handleImageError}
-            loading="lazy"
-          />
+           <Image
+    src={article.imagen_portada_url || DEFAULT_IMAGE}
+    alt={article.titulo}
+    fill
+    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px"
+    className="object-cover rounded-lg"
+    onError={handleImageError}
+    loading="lazy"
+    unoptimized={process.env.NODE_ENV !== 'production'} // Optimize in production
+    style={{
+      position: 'absolute',
+      inset: 0,
+      height: '100%',
+      width: '100%'
+    }}
+  />
           {article.imagen_descripcion && (
             <p className="text-sm text-gray-500 italic text-center mt-2">
               {article.imagen_descripcion}
@@ -68,13 +77,16 @@ export const ArticleContent = ({ articleId }: ArticleContentProps) => {
     if (article.imagen_portada_url) {
       return (
         <div className="my-8 rounded-lg overflow-hidden shadow-md">
-          <img 
-            src={article.imagen_portada_url}
-            alt={article.titulo}
-            className="w-full h-auto max-h-[500px] object-cover rounded-lg"
-            onError={handleImageError}
-            loading="lazy"
-          />
+          <Image
+  src={article.imagen_portada_url || DEFAULT_IMAGE}
+  alt={article.titulo}
+  width={800}  // Base width
+  height={500} // Matches your max height
+  className="w-full h-auto max-h-[500px] object-cover rounded-lg"
+  onError={handleImageError}
+  loading="lazy"
+  unoptimized={true}
+/>
           {article.imagen_descripcion && (
             <p className="text-sm text-gray-500 italic text-center mt-2">
               {article.imagen_descripcion}

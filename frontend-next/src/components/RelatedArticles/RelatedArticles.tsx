@@ -2,7 +2,8 @@
 
 import { useRouter } from 'next/navigation';
 import { useRelatedArticles } from '@/hooks/useRelatedArticles';
-import { Article } from '@/types/blog';
+
+import Image from 'next/image';
 
 const DEFAULT_IMAGE = '/images/default-article-image.jpg';
 
@@ -81,15 +82,16 @@ export const RelatedArticles = ({ currentArticleId }: RelatedArticlesProps) => {
               max-md:flex-col"
           >
             <div className="flex-none w-[150px] max-md:w-full">
-              <img 
-                src={article.imagen_portada_url || DEFAULT_IMAGE}
-                alt={article.titulo}
-                className="w-full h-full object-cover
-                  transition-transform duration-300 ease-in-out
-                  group-hover:scale-105"
-                onError={handleImageError}
-                loading="lazy"
-              />
+            <Image 
+                    src={article.imagen_portada_url || DEFAULT_IMAGE}
+                    alt={article.titulo}
+                    width={150}
+                    height={100}
+                    className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                    onError={handleImageError}
+                    loading="lazy"
+                    unoptimized={true} 
+                />
             </div>
             <div className="flex flex-col justify-between flex-1">
               <h4 className="text-[15px] text-primary mb-[0.3rem] leading-[1.3] line-clamp-2">

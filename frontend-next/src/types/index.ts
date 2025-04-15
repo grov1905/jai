@@ -17,7 +17,7 @@
   }
  
   
-  interface AuthResponse {
+ /*  interface AuthResponse {
     access: string;
     refresh: string;
   }
@@ -25,8 +25,8 @@
   interface AuthError {
     message: string;
     status?: number;
-    details?: any;
-  }
+    details?: string |null;
+  } */
 
 export type ContactFormData = {
     name: string;
@@ -37,5 +37,5 @@ export type ContactFormData = {
   export type ApiError = {
     message: string;
     status?: number;
-    details?: any;
+    details?: unknown;
   };

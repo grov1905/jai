@@ -23,5 +23,5 @@ export interface User {
  export interface AuthError {
     message: string;
     status?: number;
-    details?: any;
+    details?: string;
   }

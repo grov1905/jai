@@ -42,5 +42,5 @@ export interface Article {
   tiempo_lectura: number;
   tiempo_lectura_minutos: string;
   visitas: number;
-  imagen_descripcion?:any;
+  imagen_descripcion?:string | null;
 }

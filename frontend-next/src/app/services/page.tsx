@@ -7,7 +7,7 @@ import CallToAction from '@/components/CallToAction/CallToAction';
 import Footer from '@/components/Footer/Footer';
 
 export default function ServicesPage() {
-  const { user, isLoading } = useAuth();
+  const {  isLoading } = useAuth();
 
   if (isLoading) {
     return (
