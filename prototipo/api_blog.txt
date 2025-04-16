@@ -1,0 +1,120 @@
+CategoriaViewSet
+GET /api/blog/categorias/ - Listar todas las categorías (Admin)
+
+POST /api/blog/categorias/ - Crear nueva categoría (Admin)
+
+GET /api/blog/categorias/{id}/ - Detalle de categoría (Admin)
+
+PUT /api/blog/categorias/{id}/ - Actualizar categoría (Admin)
+
+PATCH /api/blogcategorias/{id}/ - Actualización parcial de categoría (Admin)
+
+DELETE /api/blog/categorias/{id}/ - Eliminar categoría (Admin)
+
+GET /api/blog/categorias/principales/ - Top 10 categorías principales (Público)
+
+EtiquetaViewSet
+GET /api/blog/etiquetas/ - Listar todas las etiquetas (Admin)
+
+POST /api/blog/etiquetas/ - Crear nueva etiqueta (Admin)
+
+GET /api/blog/etiquetas/{id}/ - Detalle de etiqueta (Admin)
+
+PUT /api/blog/etiquetas/{id}/ - Actualizar etiqueta (Admin)
+
+PATCH /api/blog/etiquetas/{id}/ - Actualización parcial de etiqueta (Admin)
+
+DELETE /api/blog/etiquetas/{id}/ - Eliminar etiqueta (Admin)
+
+GET /api/blog/etiquetas/populares/ - Top 20 etiquetas populares (Público)
+
+ArticuloViewSet
+GET /api/blog/articulos/ - Listar todos los artículos (Público)
+
+POST /api/blog/articulos/ - Crear nuevo artículo (Autenticado)
+
+GET /api/blog/articulos/{id}/ - Detalle de artículo (Público)
+
+PUT /api/blog/articulos/{id}/ - Actualizar artículo (Autenticado, autor o admin)
+
+PATCH /api/blog/articulos/{id}/ - Actualización parcial de artículo (Autenticado, autor o admin)
+
+DELETE /api/blog/articulos/{id}/ - Eliminar artículo (Autenticado, autor o admin)
+
+GET /api/blog/articulos/destacados/ - Artículos destacados (Público)
+
+GET /api/blog/articulos/recientes/ - Artículos recientes (Público)
+
+GET /api/blog/articulos/por-categoria/{slug}/ - Artículos por categoría (Público)
+
+GET /api/blog/articulos/por-etiqueta/{slug}/ - Artículos por etiqueta (Público)
+
+GET /api/blog/articulos/buscar/?q=query - Buscar artículos (Público)
+
+POST /api/blog/articulos/{id}/registrar_lectura/ - Registrar lectura (Público, autenticado para guardar)
+
+GET /api/blog/articulos/{id}/visitar/ - Registrar visita (Público)
+
+ComentarioViewSet
+GET /api/comentarios/ - Listar todos los comentarios (Público)
+
+POST /api/comentarios/ - Crear nuevo comentario (Autenticado)
+
+GET /api/comentarios/{id}/ - Detalle de comentario (Público)
+
+PUT /api/comentarios/{id}/ - Actualizar comentario (Autenticado, autor o admin)
+
+PATCH /api/comentarios/{id}/ - Actualización parcial de comentario (Autenticado, autor o admin)
+
+DELETE /api/comentarios/{id}/ - Eliminar comentario (Autenticado, autor o admin)
+
+GET /api/comentarios/por-articulo/{articulo_id}/ - Comentarios por artículo (Público)
+
+VotoArticuloViewSet
+GET /api/blog/votos/ - Listar todos los votos (Autenticado)
+
+POST /api/blog/votos/ - Crear/actualizar voto (Autenticado)
+{
+    "articulo": 4,
+    "puntuacion": 2
+}  
+
+GET /api/blog/votos/{id}/ - Detalle de voto (Autenticado)
+
+PUT /api/blog/votos/{id}/ - Actualizar voto (Autenticado, autor)
+
+PATCH /api/blog/votos/{id}/ - Actualización parcial de voto (Autenticado, autor)
+
+DELETE /api/blog/votos/{id}/ - Eliminar voto (Autenticado, autor)
+
+GET /api/blog/votos/promedio/{articulo_id}/ - Promedio de votos por artículo (Público)
+
+
+NewsletterViewSet
+GET /api/newsletters/ - Listar suscripciones (Público)
+
+POST /api/newsletters/ - Suscribirse (Público)
+
+GET /api/newsletters/{id}/ - Detalle de suscripción (Público)
+
+PUT /api/newsletters/{id}/ - Actualizar suscripción (Público)
+
+PATCH /api/newsletters/{id}/ - Actualización parcial de suscripción (Público)
+
+DELETE /api/newsletters/{id}/ - Cancelar suscripción (Público)
+
+GET /api/newsletters/{id}/confirmar/{token}/ - Confirmar suscripción (Público)
+
+Notas:
+
+Las rutas asumen que la API está bajo /api/ (esto puede variar según tu configuración)
+
+Los permisos se indican entre paréntesis:
+
+(Admin) = Requiere ser administrador
+
+(Autenticado) = Requiere estar logueado
+
+(Público) = Accesible sin autenticación
+
+(Autor) = Solo el creador del recurso o admin puede acceder

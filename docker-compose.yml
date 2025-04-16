@@ -10,6 +10,19 @@ services:
     ports:
       - "5432:5432"
 
+  chatbot:
+    build: ./chatbot
+    ports:
+      - "8010:8000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+    volumes:
+      - ./chatbot:/app
+    command: sh -c "uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+
+
   backend:
     build: ./backend
     ports:
@@ -62,6 +75,7 @@ services:
       - NODE_ENV=development
       - CHOKIDAR_USEPOLLING=true # Importante para watch en Docker
       - WATCHPACK_POLLING=true # Necesario para algunos entornos
+
 
 
 

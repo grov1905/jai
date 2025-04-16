@@ -2,7 +2,6 @@
 ESTRUCTURA ESENCIAL DEL PROYECTO:
 /
 ├── .env
-├── Documentacion_tablas_blog.txt 
 frontend/
 ├── package.json
 ├── logo.png
@@ -189,6 +188,18 @@ frontend/
 │   │   ├── BlogPage/
 │   │   │   ├── BlogPage.js
 │   │   │   ├── BlogPage.css
+chatbot/
+├──  models.py
+├── requirements.txt
+├── database.py
+├── .env
+├── main.py
+├── routers/
+│   ├── webhook.py
+├── utils/
+├── services/
+│   ├── openai_service.py
+│   ├── twilio_service.py
 backend/
 ├── requirements.txt
 ├── manage.py
@@ -223,12 +234,12 @@ backend/
 frontend-next/
 ├── .env.local
 ├── postcss.config.mjs
+├── tsconfig.tsbuildinfo
 ├── next-env.d.ts
 ├── tailwind.config.ts
 ├── package.json
 ├── tsconfig.json
 ├── eslint.config.mjs
-├── .eslintrc.json
 ├── next.config.ts
 ├── public/
 │   ├── logo512.png
@@ -238,6 +249,7 @@ frontend-next/
 │   │   ├── logo192.png
 │   ├── static/
 │   │   ├── images/
+│   │   │   ├── logo.png
 ├── src/
 │   ├── middleware.ts
 │   ├── types/
@@ -253,6 +265,8 @@ frontend-next/
 │   │   ├── page.tsx
 │   │   ├── globals.css
 │   │   ├── contact/
+│   │   │   ├── page.tsx
+│   │   ├── chatbot/
 │   │   │   ├── page.tsx
 │   │   ├── about/
 │   │   │   ├── page.tsx

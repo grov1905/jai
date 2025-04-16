@@ -1,0 +1,59 @@
+<mxfile>
+  <diagram name="Modelo ER - Gestor de Contenidos" id="0">
+    <mxGraphModel>
+      <root>
+        <!-- Tablas de Usuarios y Roles -->
+        <mxCell id="usuario" value="&lt;table border='1' cellspacing='0'&gt;&#10;  &lt;tr&gt;&lt;td colspan='2' bgcolor='#1E2A47' align='center'&gt;&lt;font color='white'&gt;&lt;b&gt;USUARIO&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;usuario_id&lt;/td&gt;&lt;td&gt;PK&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;email&lt;/td&gt;&lt;td&gt;VARCHAR(255)&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;password_hash&lt;/td&gt;&lt;td&gt;VARCHAR(255)&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;nombre&lt;/td&gt;&lt;td&gt;VARCHAR(100)&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;apellido&lt;/td&gt;&lt;td&gt;VARCHAR(100)&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;avatar_url&lt;/td&gt;&lt;td&gt;VARCHAR(255)&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;biografia&lt;/td&gt;&lt;td&gt;TEXT&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;estado&lt;/td&gt;&lt;td&gt;ENUM&lt;/td&gt;&lt;/tr&gt;&#10;&lt;/table&gt;" style="shape=table" vertex="1" parent="1">
+          <mxGeometry x="100" y="100" width="200" height="240" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="rol" value="&lt;table border='1' cellspacing='0'&gt;&#10;  &lt;tr&gt;&lt;td colspan='2' bgcolor='#1E2A47' align='center'&gt;&lt;font color='white'&gt;&lt;b&gt;ROL&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;rol_id&lt;/td&gt;&lt;td&gt;PK&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;nombre&lt;/td&gt;&lt;td&gt;VARCHAR(50)&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;descripcion&lt;/td&gt;&lt;td&gt;TEXT&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;nivel_prioridad&lt;/td&gt;&lt;td&gt;INT&lt;/td&gt;&lt;/tr&gt;&#10;&lt;/table&gt;" style="shape=table" vertex="1" parent="1">
+          <mxGeometry x="350" y="100" width="200" height="160" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="usuario_rol" value="&lt;table border='1' cellspacing='0'&gt;&#10;  &lt;tr&gt;&lt;td colspan='2' bgcolor='#A2B9D6' align='center'&gt;&lt;b&gt;USUARIO_ROL&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;usuario_id&lt;/td&gt;&lt;td&gt;FK → USUARIO&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;rol_id&lt;/td&gt;&lt;td&gt;FK → ROL&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;fecha_asignacion&lt;/td&gt;&lt;td&gt;TIMESTAMP&lt;/td&gt;&lt;/tr&gt;&#10;&lt;/table&gt;" style="shape=table" vertex="1" parent="1">
+          <mxGeometry x="225" y="150" width="200" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Tablas de Contenido -->
+        <mxCell id="articulo" value="&lt;table border='1' cellspacing='0'&gt;&#10;  &lt;tr&gt;&lt;td colspan='2' bgcolor='#1E2A47' align='center'&gt;&lt;font color='white'&gt;&lt;b&gt;ARTÍCULO&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;articulo_id&lt;/td&gt;&lt;td&gt;PK&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;titulo&lt;/td&gt;&lt;td&gt;VARCHAR(255)&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;contenido&lt;/td&gt;&lt;td&gt;TEXT&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;slug&lt;/td&gt;&lt;td&gt;VARCHAR(255)&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;estado&lt;/td&gt;&lt;td&gt;ENUM&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;autor_id&lt;/td&gt;&lt;td&gt;FK → USUARIO&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;visitas&lt;/td&gt;&lt;td&gt;INT&lt;/td&gt;&lt;/tr&gt;&#10;&lt;/table&gt;" style="shape=table" vertex="1" parent="1">
+          <mxGeometry x="100" y="400" width="200" height="220" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="categoria" value="&lt;table border='1' cellspacing='0'&gt;&#10;  &lt;tr&gt;&lt;td colspan='2' bgcolor='#1E2A47' align='center'&gt;&lt;font color='white'&gt;&lt;b&gt;CATEGORÍA&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;categoria_id&lt;/td&gt;&lt;td&gt;PK&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;nombre&lt;/td&gt;&lt;td&gt;VARCHAR(100)&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;slug&lt;/td&gt;&lt;td&gt;VARCHAR(100)&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;parent_id&lt;/td&gt;&lt;td&gt;FK → CATEGORÍA&lt;/td&gt;&lt;/tr&gt;&#10;&lt;/table&gt;" style="shape=table" vertex="1" parent="1">
+          <mxGeometry x="350" y="400" width="200" height="160" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="articulo_categoria" value="&lt;table border='1' cellspacing='0'&gt;&#10;  &lt;tr&gt;&lt;td colspan='2' bgcolor='#A2B9D6' align='center'&gt;&lt;b&gt;ARTÍCULO_CATEGORÍA&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;articulo_id&lt;/td&gt;&lt;td&gt;FK → ARTÍCULO&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;categoria_id&lt;/td&gt;&lt;td&gt;FK → CATEGORÍA&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;es_principal&lt;/td&gt;&lt;td&gt;BOOLEAN&lt;/td&gt;&lt;/tr&gt;&#10;&lt;/table&gt;" style="shape=table" vertex="1" parent="1">
+          <mxGeometry x="225" y="450" width="200" height="120" as="geometry"/>
+        </mxCell>
+
+        <!-- Tablas Complementarias -->
+        <mxCell id="comentario" value="&lt;table border='1' cellspacing='0'&gt;&#10;  &lt;tr&gt;&lt;td colspan='2' bgcolor='#1E2A47' align='center'&gt;&lt;font color='white'&gt;&lt;b&gt;COMENTARIO&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;comentario_id&lt;/td&gt;&lt;td&gt;PK&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;articulo_id&lt;/td&gt;&lt;td&gt;FK → ARTÍCULO&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;usuario_id&lt;/td&gt;&lt;td&gt;FK → USUARIO&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;parent_id&lt;/td&gt;&lt;td&gt;FK → COMENTARIO&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;estado&lt;/td&gt;&lt;td&gt;ENUM&lt;/td&gt;&lt;/tr&gt;&#10;&lt;/table&gt;" style="shape=table" vertex="1" parent="1">
+          <mxGeometry x="600" y="100" width="200" height="180" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="adjunto" value="&lt;table border='1' cellspacing='0'&gt;&#10;  &lt;tr&gt;&lt;td colspan='2' bgcolor='#1E2A47' align='center'&gt;&lt;font color='white'&gt;&lt;b&gt;ADJUNTO&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;adjunto_id&lt;/td&gt;&lt;td&gt;PK&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;articulo_id&lt;/td&gt;&lt;td&gt;FK → ARTÍCULO&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;tipo&lt;/td&gt;&lt;td&gt;VARCHAR(50)&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;url&lt;/td&gt;&lt;td&gt;VARCHAR(255)&lt;/td&gt;&lt;/tr&gt;&#10;&lt;/table&gt;" style="shape=table" vertex="1" parent="1">
+          <mxGeometry x="600" y="300" width="200" height="160" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="metadato_seo" value="&lt;table border='1' cellspacing='0'&gt;&#10;  &lt;tr&gt;&lt;td colspan='2' bgcolor='#1E2A47' align='center'&gt;&lt;font color='white'&gt;&lt;b&gt;METADATO_SEO&lt;/b&gt;&lt;/font&gt;&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;articulo_id&lt;/td&gt;&lt;td&gt;PK, FK → ARTÍCULO&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;meta_titulo&lt;/td&gt;&lt;td&gt;VARCHAR(255)&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;meta_descripcion&lt;/td&gt;&lt;td&gt;VARCHAR(255)&lt;/td&gt;&lt;/tr&gt;&#10;  &lt;tr&gt;&lt;td&gt;og_image&lt;/td&gt;&lt;td&gt;VARCHAR(255)&lt;/td&gt;&lt;/tr&gt;&#10;&lt;/table&gt;" style="shape=table" vertex="1" parent="1">
+          <mxGeometry x="600" y="500" width="200" height="160" as="geometry"/>
+        </mxCell>
+
+        <!-- Relaciones -->
+        <mxCell id="rel1" source="usuario" target="usuario_rol" style="edgeStyle=none;endArrow=none;dashed=1;" edge="1" parent="1"/>
+        <mxCell id="rel2" source="rol" target="usuario_rol" style="edgeStyle=none;endArrow=none;dashed=1;" edge="1" parent="1"/>
+        <mxCell id="rel3" source="usuario" target="articulo" style="edgeStyle=none;endArrow=open;" edge="1" parent="1"/>
+        <mxCell id="rel4" source="articulo" target="articulo_categoria" style="edgeStyle=none;endArrow=none;dashed=1;" edge="1" parent="1"/>
+        <mxCell id="rel5" source="categoria" target="articulo_categoria" style="edgeStyle=none;endArrow=none;dashed=1;" edge="1" parent="1"/>
+        <mxCell id="rel6" source="articulo" target="comentario" style="edgeStyle=none;endArrow=open;" edge="1" parent="1"/>
+        <mxCell id="rel7" source="usuario" target="comentario" style="edgeStyle=none;endArrow=open;" edge="1" parent="1"/>
+        <mxCell id="rel8" source="articulo" target="adjunto" style="edgeStyle=none;endArrow=open;" edge="1" parent="1"/>
+        <mxCell id="rel9" source="articulo" target="metadato_seo" style="edgeStyle=none;endArrow=open;" edge="1" parent="1"/>
+        <mxCell id="rel10" source="categoria" target="categoria" style="edgeStyle=none;endArrow=none;dashed=1;rounded=1;" edge="1" parent="1"/>
+        <mxCell id="rel11" source="comentario" target="comentario" style="edgeStyle=none;endArrow=none;dashed=1;rounded=1;" edge="1" parent="1"/>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

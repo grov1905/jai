@@ -1,0 +1,17 @@
+chatbot/
+├── main.py                         # Punto de entrada de la app FastAPI
+├── database.py                    # Configuración y conexión a PostgreSQL con Tortoise ORM
+├── config.py                      # Carga de variables de entorno y configuración global
+├── models.py                      # Definición de modelos de base de datos (ORM)
+├── schemas.py                     # Esquemas Pydantic (entrada/salida de datos)
+├── services/                      # Lógica externa (OpenAI, Twilio, etc.)
+│   ├── openai_service.py          # Función que llama a ChatGPT
+│   └── twilio_service.py          # Envío/respuesta desde/hacia Twilio
+├── routers/                       # Endpoints (Rutas de FastAPI)
+│   └── webhook.py                 # Webhook que recibe mensajes de Twilio
+├── utils/                         # Funciones auxiliares (opcional pero útil)
+│   └── helpers.py                 # Ejemplo: validaciones, formateo, etc.
+├── .env                           # Variables de entorno (nunca subir al repo)
+├── .gitignore                     # Ignorar archivos como .env, __pycache__, etc.
+├── requirements.txt               # Lista de dependencias del proyecto
+└── README.md                      # Documentación básica del proyecto

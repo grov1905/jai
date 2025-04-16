@@ -21,7 +21,7 @@ export default function HeaderButton() {
     <button 
       onClick={handleWhatsAppClick} 
       className="
-        bg-[#304D80] text-white 
+        bg-primary text-white 
         border-none 
         px-6 py-2
         rounded-lg
@@ -29,7 +29,7 @@ export default function HeaderButton() {
         cursor-pointer 
         transition-all
         duration-200
-        hover:bg-primary
+        hover:bg-[#304D80]
         text-sm sm:text-base
         whitespace-nowrap
         hover:scale-105

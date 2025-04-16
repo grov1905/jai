@@ -38,8 +38,6 @@ const config: Config = {
         'xl': '1280px',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        montserrat: ['Montserrat', 'sans-serif'],
         roboto: ['Roboto', 'sans-serif']
       },
     },

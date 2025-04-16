@@ -31,7 +31,7 @@ export const ContactForm = () => {
 
 <div className="text-center py-1 px-1 max-w-[800px] mx-auto">
   <h1 className="text-[32px] text-[#1e2a47]">Contáctanos</h1>
-  <p className="text-[#304d80] text-[19.2px]">Déjanos un mensaje y te responderemos lo antes posible.</p>
+  <p className="text-[#1e2a47] text-[19.2px]">Déjanos un mensaje y te responderemos lo antes posible.</p>
 
   <div className="
     flex flex-col items-center justify-center
@@ -94,10 +94,10 @@ export const ContactForm = () => {
         type="submit"
         disabled={isLoading}
         className="
-          w-[95%] p-3 bg-[#304d80] text-white // Mismo 95% que los inputs
+          w-[95%] p-3 bg-[#1e2a47] text-white // Mismo 95% que los inputs
           border-none rounded text-base
           transition-colors duration-300
-          hover:bg-[#1e2a47] disabled:opacity-70 disabled:cursor-not-allowed
+          hover:bg-[#304d80] disabled:opacity-70 disabled:cursor-not-allowed   
         "
       >
         {isLoading ? 'Enviando...' : 'Enviar'}

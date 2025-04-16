@@ -1,0 +1,73 @@
+Listado completo de endpoints:
+
+📍 Endpoints Públicos (No requieren autenticación)
+
+Copy
+POST   /api/public/contacto/          - Enviar formulario de contacto
+POST   /api/public/whatsapp/log/      - Registrar interacción de WhatsApp
+
+
+🔐 Endpoints Privados (Requieren autenticación)
+
+Autenticación:
+
+Copy
+POST   /api/private/login/            - Obtener token JWT
+Usuario Actual:
+
+Copy
+GET    /api/private/me/               - Obtener información del usuario logueado
+Gestión de Usuarios:
+
+Copy
+GET    /api/private/usuarios/         - Listar todos los usuarios
+POST   /api/private/usuarios/         - Crear nuevo usuario
+GET    /api/private/usuarios/{id}/    - Obtener usuario específico
+PUT    /api/private/usuarios/{id}/    - Actualizar usuario
+PATCH  /api/private/usuarios/{id}/    - Actualizar parcialmente usuario
+DELETE /api/private/usuarios/{id}/    - Eliminar usuario
+GET    /api/private/usuarios/{id}/roles/ - Obtener roles de un usuario
+
+Gestión de Roles:
+
+Copy
+GET    /api/private/roles/            - Listar todos los roles
+POST   /api/private/roles/            - Crear nuevo rol
+GET    /api/private/roles/{id}/       - Obtener rol específico
+PUT    /api/private/roles/{id}/       - Actualizar rol
+PATCH  /api/private/roles/{id}/       - Actualizar parcialmente rol
+DELETE /api/private/roles/{id}/       - Eliminar rol
+GET    /api/private/roles/{id}/permisos/ - Obtener permisos de un rol
+Gestión de Permisos:
+
+Copy
+GET    /api/private/permisos/         - Listar todos los permisos
+POST   /api/private/permisos/         - Crear nuevo permiso
+GET    /api/private/permisos/{id}/    - Obtener permiso específico
+PUT    /api/private/permisos/{id}/    - Actualizar permiso
+PATCH  /api/private/permisos/{id}/    - Actualizar parcialmente permiso
+DELETE /api/private/permisos/{id}/    - Eliminar permiso
+Asignaciones:
+
+Copy
+GET    /api/private/usuario-roles/    - Listar asignaciones usuario-rol
+POST   /api/private/usuario-roles/    - Crear asignación usuario-rol
+... (CRUD completo para asignaciones)
+
+GET    /api/private/rol-permisos/     - Listar asignaciones rol-permiso
+POST   /api/private/rol-permisos/     - Crear asignación rol-permiso
+... (CRUD completo para asignaciones)
+🖥 Admin
+
+Copy
+/admin/                              - Panel de administración Django
+✍️ Blog (si existe)
+
+Copy
+/api/blog/...                       - Endpoints del blog
+Esta estructura ofrece:
+
+Separación clara entre endpoints públicos/privados
+Documentación completa de todos los endpoints
+Organización modular para fácil mantenimiento
+Seguridad adecuada (protección de endpoints privados)
