@@ -9,7 +9,7 @@ import os
 def init_db(app: FastAPI):
     register_tortoise(
         app,
-        db_url="postgres://{user}:{password}@{host}:{port}/jai_chatbotdb".format(
+        db_url="postgres://{user}:{password}@{host}:{port}/{database}".format(
             user=os.getenv("PGUSER"),
             password=os.getenv("PGPASSWORD"),
             host=os.getenv("PGHOST"),
@@ -23,7 +23,7 @@ def init_db(app: FastAPI):
 
 async def init():
     await Tortoise.init(
-       db_url="postgres://{user}:{password}@{host}:{port}/jai_chatbotdb".format(
+       db_url="postgres://{user}:{password}@{host}:{port}/{database}".format(
             user=os.getenv("PGUSER"),
             password=os.getenv("PGPASSWORD"),
             host=os.getenv("PGHOST"),
