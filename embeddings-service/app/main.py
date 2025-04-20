@@ -20,6 +20,7 @@ app.include_router(chunker.router, prefix="/api")
 app.include_router(_embedding.router, prefix="/api")
 app.include_router(s_embedding.router, prefix="/api/embeddings", tags=["embeddings"])
 
+
 @app.get("/ping")
 def ping():
     return {"status": "ok"}
