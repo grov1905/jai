@@ -26,6 +26,7 @@ class EmbeddingsService:
             response = await self.client.post(
                 url,
                 json={"query": query, "top_k": top_k}
+                timeout=90.0  # Timeout específico para esta petición
             )
             response.raise_for_status()
            # logger.info(f"response busqueda semantica: {response.json()}")
