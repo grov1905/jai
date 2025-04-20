@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional
+from core.config import settings  # Importa tu configuración
 
 class EmbeddingBase(BaseModel):
     model_config = ConfigDict(from_attributes=True, populate_by_name=True)
@@ -16,13 +17,13 @@ class EmbeddingSavedResponse(BaseModel):
 class EmbeddingCreate(EmbeddingBase):
     content: str = Field(..., max_length=5000, alias="chunk")
     # Cambia de 384 a 1024 dimensiones:
-    embedding: List[float] = Field(..., min_items=1024, max_items=1024)
+    embedding: List[float] = Field(..., min_items=settings.EMBEDDING_DIM, max_items=settings.EMBEDDING_DIM)
 
 class EmbeddingRead(EmbeddingBase):
     id: int
     content: str = Field(..., alias="chunk")
     # Actualiza aquí también:
-    embedding: List[float] = Field(..., min_items=1024, max_items=1024)
+    embedding: List[float] = Field(..., min_items=settings.EMBEDDING_DIM, max_items=settings.EMBEDDING_DIM)
 
 class EmbeddingUpdate(EmbeddingBase):
     content: Optional[str] = Field(None, alias="chunk")  # Mapea content a chunk
@@ -30,7 +31,7 @@ class EmbeddingUpdate(EmbeddingBase):
 
 class SearchRequest(BaseModel):
     query: str
-    top_k: int = 5
+    top_k: int = settings.EMBEDDING_DIM
 
 class SearchResult(BaseModel):
     id: int

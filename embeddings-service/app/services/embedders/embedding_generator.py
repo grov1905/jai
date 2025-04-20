@@ -17,7 +17,7 @@ def get_device():
     return "cpu"
 
 def load_model():
-    model = SentenceTransformer(settings.EMBEDDING_MODEL)
+    #model = SentenceTransformer(settings.EMBEDDING_MODEL)
 
   #  model_name = os.getenv("EMBEDDING_MODEL", "BAAI/bge-large-en")
     device = get_device()
