@@ -20,7 +20,8 @@ class EmbeddingsService:
             top_k = top_k or int(os.getenv("EMBEDDINGS_TOP_K", 3))
             url = f"{self.base_url}/api/embeddings/search"
 
-            #logger.info(f"RUTA WEB : {url}")
+            logger.info(f"RUTA WEB : {url}")
+            logger.info(f"TOP_K : {top_k}")
 
             response = await self.client.post(
                 url,
