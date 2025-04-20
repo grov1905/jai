@@ -1,0 +1,86 @@
+¡Perfecto! Aquí te dejo un esqueleto básico para la documentación de las APIs que hemos implementado hasta ahora. Esta documentación utiliza el formato estándar de OpenAPI, que FastAPI genera automáticamente, pero te proporciono una versión más detallada que puedes usar como referencia para tu equipo.
+Documentación de API
+1. Limpiar texto crudo
+Ruta: /clean
+Método: POST
+Descripción: Limpia el texto crudo, eliminando caracteres no deseados, espacios adicionales, etc.
+Cuerpo de la solicitud:
+{
+  "text": "Texto crudo a limpiar."
+}
+Respuesta exitosa (200 OK):
+{
+  "cleaned_text": "Texto limpio después de la limpieza."
+}
+2. Subir archivo y extraer texto
+Ruta: /upload
+Método: POST
+Descripción: Recibe un archivo (PDF, DOCX, TXT, CSV, XLSX) y extrae el texto.
+Cuerpo de la solicitud (multipart/form-data):
+file: El archivo a subir y extraer el texto.
+Respuesta exitosa (200 OK):
+{
+  "extracted_text": "Texto extraído del archivo."
+}
+3. Dividir texto en chunks
+Ruta: /chunk
+Método: POST
+Descripción: Recibe un texto plano y lo divide en chunks de tamaño adecuado para ser procesados.
+Cuerpo de la solicitud:
+{
+  "text": "Texto para dividir en chunks."
+}
+Respuesta exitosa (200 OK):
+{
+  "chunks": [
+    "Chunk 1",
+    "Chunk 2",
+    "Chunk 3"
+  ]
+}
+4. Generar embeddings
+Ruta: /embedding
+Método: POST
+Descripción: Recibe una lista de textos (chunks) y devuelve sus embeddings correspondientes generados con sentence-transformers.
+Cuerpo de la solicitud:
+{
+  "texts": [
+    "Texto para generar embedding 1",
+    "Texto para generar embedding 2",
+    "Texto para generar embedding 3"
+  ]
+}
+Respuesta exitosa (200 OK):
+{
+  "vectors": [
+    [0.123, 0.456, 0.789], 
+    [0.987, 0.654, 0.321], 
+    [0.567, 0.234, 0.890]
+  ]
+}
+5. Guardar embeddings en la base de datos
+Ruta: /embed/chunks
+Método: POST
+Descripción: Recibe un conjunto de chunks y sus embeddings y los guarda en la base de datos.
+Cuerpo de la solicitud:
+{
+  "chunks": [
+    "Chunk 1",
+    "Chunk 2",
+    "Chunk 3"
+  ],
+  "embeddings": [
+    [0.123, 0.456, 0.789],
+    [0.987, 0.654, 0.321],
+    [0.567, 0.234, 0.890]
+  ]
+}
+Respuesta exitosa (200 OK):
+{
+  "message": "Chunks vectorizados y guardados en la base de datos."
+}
+Notas adicionales:
+Formato de entrada: Las solicitudes que requieren texto, como las de /clean, /chunk, y /embedding, deben enviar cadenas de texto o listas de texto en formato JSON.
+Formato de salida: Las respuestas de las APIs devolverán objetos JSON. En el caso de los embeddings, se devolverá una lista de vectores con las representaciones generadas por el modelo.
+Configuración:
+Modelo de Embedding:

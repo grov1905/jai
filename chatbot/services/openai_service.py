@@ -1,3 +1,5 @@
+#chatbot/services/deepseek_service.py
+
 import os
 import openai
 import logging
@@ -18,26 +20,28 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-async def get_openai_response(prompt: str) -> str:
-    
+async def get_response(self, prompt: str, system_message: str = None, **kwargs) -> str:
     try:
-        logger.info(f"Enviando mensajes a OpenAI. Modelo: {MODEL}")
-        response = await openai.ChatCompletion.acreate(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "Eres un asistente útil que responde de forma clara y concisa."},
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0.7,
-            max_tokens=500
-        )
-        logger.info("Respuesta recibida correctamente desde OpenAI")
-        return response.choices[0].message["content"].strip()
+        
+        messages = [
+               { system_message }
+        ]
+        logger.info(f"PROMPT A OPENAI : {messages}")
 
-    except openai.error.OpenAIError as e:
-        logger.error(f"Error de OpenAI: {e}")
-        return "Lo siento, hubo un error al procesar tu mensaje. Intenta nuevamente."
-    
+        response = await self.client.chat.completions.create(
+            model=self.model,
+            messages=messages,
+            temperature=kwargs.get("temperature", 0.7),
+            max_tokens=kwargs.get("max_tokens", 500)
+        )
+        logger.info(f"RESPUESTA DE OPENAI : {response.choices[0].message.content.strip()}")
+        return response.choices[0].message.content.strip()
     except Exception as e:
-        logger.exception("Error inesperado en get_chatgpt_response:")
-        return "Se produjo un error inesperado. Por favor, intenta más tarde."
+        raise AIServiceError(f"OpenAI Error: {str(e)}")
+    
+    
+    
+"""             messages = [
+            {"role": "system", "content": system_message or "Eres un asistente útil."},
+            {"role": "user", "content": prompt}
+        ] """

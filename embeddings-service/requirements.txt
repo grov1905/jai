@@ -1,0 +1,31 @@
+# FastAPI y servidor
+fastapi
+uvicorn
+
+# Extracción de texto
+PyMuPDF             # PDF
+python-docx         # DOCX
+pandas              # CSV, XLSX
+openpyxl            # XLSX
+python-multipart    # Soporte para UploadFile
+
+# Embeddings
+sentence-transformers  # Para MiniLM y similares
+
+# Vector store (FAISS o Chroma)
+faiss-cpu             # Solo si usas FAISS
+# chromadb            # Alternativa a FAISS (comenta uno u otro según tu elección)
+
+# Otros
+python-dotenv         # Opcional, para cargar config desde .env
+
+
+pytest
+pydantic-settings
+sqlalchemy
+asyncpg
+psycopg2-binary
+pgvector
+alembic>=1.7.5
+sentence-transformers>=2.2.2
+torch>=2.0.0

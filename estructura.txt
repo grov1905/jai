@@ -2,7 +2,9 @@
 ESTRUCTURA ESENCIAL DEL PROYECTO:
 /
 ├── .env
+├── docker-compose.yml
 frontend/
+├──  Dockerfile
 ├── package.json
 ├── logo.png
 ├── public/
@@ -191,17 +193,25 @@ frontend/
 chatbot/
 ├──  models.py
 ├── requirements.txt
+├──  Dockerfile
 ├── database.py
-├── .env
 ├── main.py
 ├── routers/
 │   ├── webhook.py
 ├── utils/
 ├── services/
 │   ├── openai_service.py
+│   ├── deepseek_service.py
+│   ├── embeddings_service.py
 │   ├── twilio_service.py
+│   ├── ai/
+│   │   ├── factory.py
+│   │   ├── openai.py
+│   │   ├── deepseek.py
+│   │   ├── base.py
 backend/
 ├── requirements.txt
+├──  Dockerfile
 ├── manage.py
 ├── core/
 │   ├── asgi.py
@@ -234,6 +244,7 @@ backend/
 frontend-next/
 ├── .env.local
 ├── postcss.config.mjs
+├──  Dockerfile
 ├── tsconfig.tsbuildinfo
 ├── next-env.d.ts
 ├── tailwind.config.ts
@@ -268,6 +279,8 @@ frontend-next/
 │   │   │   ├── page.tsx
 │   │   ├── chatbot/
 │   │   │   ├── page.tsx
+│   │   │   ├── v1/
+│   │   │   │   ├── page.tsx
 │   │   ├── about/
 │   │   │   ├── page.tsx
 │   │   ├── pages/
@@ -337,3 +350,57 @@ frontend-next/
 │   │   ├── useRecentArticles.ts
 │   ├── lib/
 │   ├── api/
+embeddings-service/
+├── requirements.txt
+├──  Dockerfile
+├── app/
+│   ├── main.py
+│   ├── core/
+│   │   ├── config.py
+│   ├── utils/
+│   ├── models/
+│   │   ├── embedding.py
+│   ├── schemas/
+│   │   ├── embedding.py
+│   ├── crud/
+│   │   ├── crud_embedding.py
+│   ├── db/
+│   │   ├── database.py
+│   │   ├── base.py
+│   │   ├── init_db.py
+│   ├── api/
+│   │   ├── clean.py
+│   │   ├── embed.py
+│   │   ├── upload.py
+│   │   ├── chunker.py
+│   │   ├── _embedding.py
+│   │   ├── routes/
+│   │   │   ├── s_embedding.py
+│   ├── services/
+│   │   ├── cleaners/
+│   │   │   ├── text_cleaner.py
+│   │   ├── chunkers/
+│   │   │   ├── splitter.py
+│   │   ├── embedders/
+│   │   │   ├── embedding_generator.py
+│   │   ├── extractors/
+│   │   │   ├── docx.py
+│   │   │   ├── txt.py
+│   │   │   ├── pdf.py
+│   │   │   ├── factory.py
+│   │   │   ├── csv.py
+│   │   │   ├── xlsx.py
+│   │   │   ├── base.py
+├── .pytest_cache/
+│   ├── v/
+│   │   ├── cache/
+├── tests/
+│   ├── test_docx_extractor.py
+│   ├── test_csv_extractor.py
+│   ├── test_pdf_extractor.py
+│   ├── test_xlsx_extractor.py
+│   ├── test_txt_extractor.py
+├── alembic/
+│   ├── script.py.mako
+│   ├── env.py
+│   ├── versions/

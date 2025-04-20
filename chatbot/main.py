@@ -1,3 +1,4 @@
+#chatbot/main.py
 from fastapi import FastAPI
 from database import init
 from dotenv import load_dotenv
@@ -11,9 +12,9 @@ from routers import webhook
 load_dotenv()
 
 # Opcional: Verificar que las variables están cargadas
-print("🟢 Base de datos:", os.getenv("PGDATABASE"))
+""" print("🟢 Base de datos:", os.getenv("PGDATABASE"))
 print("🟢 Twilio SID:", os.getenv("TWILIO_ACCOUNT_SID"))
-print("🟢 OpenAI Key cargada:", "Sí" if os.getenv("OPENAI_API_KEY") else "No")
+print("🟢 OpenAI Key cargada:", "Sí" if os.getenv("OPENAI_API_KEY") else "No") """
 
 
 # Crear instancia de la app

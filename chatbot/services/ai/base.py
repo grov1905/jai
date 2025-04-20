@@ -1,3 +1,4 @@
+#chatbot/services/ai/base.py
 from abc import ABC, abstractmethod
 import logging
 from typing import Optional
@@ -9,9 +10,10 @@ class AIProvider(ABC):
         self.model = model
     
     @abstractmethod
-    async def get_response(self, prompt: str, **kwargs) -> str:
+    async def get_response(self, prompt: str, system_message: Optional[str] = None, **kwargs) -> str:
         pass
 
 class AIServiceError(Exception):
     """Excepción base para errores de servicios de IA"""
     pass
+
