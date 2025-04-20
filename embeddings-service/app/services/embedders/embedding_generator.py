@@ -17,8 +17,6 @@ def get_device():
 def load_model():
     model_name = os.getenv("EMBEDDING_MODEL", "BAAI/bge-large-en")
     device = get_device()
-    logger.info(f"EMBEDDING_MODEL:  {model_name} ")
-    logger.info(f"EMBEDDING_DIM: {model.get_sentence_embedding_dimension()}")
     # Correct initialization parameters
     model = SentenceTransformer(
         model_name_or_path=model_name,
@@ -31,6 +29,8 @@ def load_model():
         'batch_size': 32 if device == "cuda" else 8
     }
     
+    logger.info(f"EMBEDDING_MODEL:  {model_name} ")
+    logger.info(f"EMBEDDING_DIM: {model.get_sentence_embedding_dimension()}")
     return model
 
 model = load_model()
