@@ -1,29 +1,26 @@
+# Usar imagen base de Python 3.10
 FROM python:3.10-slim
 
 # Crear directorio de trabajo
 WORKDIR /app
 
-# Instala dependencias systema (necesarias para torch y pgvector)
+# Instalar dependencias del sistema necesarias para torch y pgvector
 RUN apt-get update && apt-get install -y \
     gcc \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copiar requirements y luego instalar
+# Copiar requirements.txt primero para aprovechar el cache de Docker
 COPY requirements.txt .
+
+# Instalar las dependencias desde requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install --upgrade sentence-transformers torch numpy
-# Copiar el resto del código
+
+# Copiar todo el código fuente al contenedor
 COPY . .
 
-# Dar permisos al script de entrada
-#RUN chmod +x /app/entrypoint.sh
+# Exponer el puerto de la aplicación (por defecto, FastAPI usa el puerto 8000)
+EXPOSE 8000
 
-# Establecer el script como entrypoint
-#ENTRYPOINT ["/app/entrypoint.sh"]
-
-# Variables de entorno para optimizar torch en Apple Silicon
-ENV PYTORCH_ENABLE_MPS_FALLBACK=1
-ENV PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.0
-
+# Comando para ejecutar la aplicación con uvicorn
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

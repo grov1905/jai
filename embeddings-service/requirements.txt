@@ -19,7 +19,6 @@ faiss-cpu             # Solo si usas FAISS
 # Otros
 python-dotenv         # Opcional, para cargar config desde .env
 
-
 pytest
 pydantic-settings
 sqlalchemy
@@ -29,3 +28,4 @@ pgvector
 alembic>=1.7.5
 sentence-transformers>=2.2.2
 torch>=2.0.0
+
