@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field, ConfigDict
 from typing import List, Optional
-from core.config import settings  # Importa tu configuración
+from app.core.config import settings
 
 class EmbeddingBase(BaseModel):
     model_config = ConfigDict(from_attributes=True, populate_by_name=True)
