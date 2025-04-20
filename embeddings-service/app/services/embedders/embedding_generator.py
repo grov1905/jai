@@ -3,6 +3,8 @@ from sentence_transformers import SentenceTransformer
 from typing import List
 import logging
 import torch
+from app.core.config import settings
+
 
 logger = logging.getLogger(__name__)
 
@@ -15,11 +17,13 @@ def get_device():
     return "cpu"
 
 def load_model():
-    model_name = os.getenv("EMBEDDING_MODEL", "BAAI/bge-large-en")
+    model = SentenceTransformer(settings.EMBEDDING_MODEL)
+
+  #  model_name = os.getenv("EMBEDDING_MODEL", "BAAI/bge-large-en")
     device = get_device()
     # Correct initialization parameters
     model = SentenceTransformer(
-        model_name_or_path=model_name,
+        settings.EMBEDDING_MODEL,
         device=device
     )
     
@@ -28,9 +32,7 @@ def load_model():
         'normalize_embeddings': True,
         'batch_size': 32 if device == "cuda" else 8
     }
-    
-    logger.info(f"EMBEDDING_MODEL:  {model_name} ")
-    logger.info(f"EMBEDDING_DIM: {model.get_sentence_embedding_dimension()}")
+
     return model
 
 model = load_model()
@@ -38,7 +40,7 @@ model = load_model()
 def generate_embeddings(texts: List[str]) -> List[List[float]]:
     if not texts:
         return []
-    
+    logger.info(f"EMBEDDING_DIM: {model.get_sentence_embedding_dimension()}")
     try:
         embeddings = model.encode(
             texts,

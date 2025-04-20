@@ -17,7 +17,9 @@ router = APIRouter()
 
 @router.post("/embedding", response_model=EmbeddingResponse)
 async def embedding_endpoint(request: EmbeddingRequest):
+
     vectors = generate_embeddings(request.texts)
+    
     return {"embeddings": vectors}
 
 @router.post("/embeddings", response_model=EmbeddingRead)
