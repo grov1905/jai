@@ -255,7 +255,7 @@ class WhatsAppWebhookHandler:
     async def _get_human_escalation_message(self, language: str = 'es') -> str:
         """Mensaje para transferir a agente humano"""
         messages = {
-            'es': "Un asesor humano se contactará contigo en breve. ¿Podrías confirmarnos tu correo electrónico?",
+            'es': "Hola Voy a transferirte con el especialista. ¿Podrías tu correo electrónico por favor?",
             'en': "A human agent will contact you shortly. Could you confirm your email address?"
         }
         return messages.get(language, messages['es'])
@@ -263,7 +263,7 @@ class WhatsAppWebhookHandler:
     async def _get_fallback_message(self, language: str = 'es') -> str:
         """Mensaje de respaldo genérico"""
         messages = {
-            'es': "Estoy teniendo dificultades técnicas. Por favor intenta nuevamente más tarde.",
+            'es': "Hola, en este momento no me encuentro disponible, me puedes escribir mas tarde por favor",
             'en': "I'm experiencing technical issues. Please try again later."
         }
         return messages.get(language, messages['es'])
