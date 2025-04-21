@@ -166,7 +166,7 @@ class WhatsAppWebhookHandler:
             logger.info("2. Filtrar por umbrals")
 
             # 3. Construir contexto básico con historial
-           # history = await self._get_conversation_context(user)
+            history = await self._get_conversation_context(user)
            # logger.info(f"historial: {history} ")
             if not filtered:
                 logger.info("No se encontraron fragmentos relevantes")
@@ -196,9 +196,10 @@ class WhatsAppWebhookHandler:
                 "- Servicial, paciente y con conocimiento "
                 "- Explica los chunks proporcionados, la moneda es en soles"
                 "- Si preguntan por algo fuera del constexto, responde: 'que no hay de manera empatica'"
-                "Responde con amabilidad y usa solo los datos del contexto, minimo una palabra y maximo en 200 palabras. y termina siempre preguntando como te puedo ayudar o que apoyo neecesistas de mi"
-                "contexto"
+                "Responde con amabilidad y usa solo los datos del contexto e historial, minimo una palabra y maximo en 200 palabras. y termina siempre preguntando como te puedo ayudar o que apoyo neecesistas de mi"
+                "contexto: "
                 f"\n{context}\n"
+                f"historial reciente: \n{history}\n"
             )
            # logger.info(f"MENSAJE IDA: {system_message} ")
             response = await self._ai_provider.get_response(
