@@ -176,6 +176,7 @@ class WhatsAppWebhookHandler:
                 "Responde de manera natural indicando que no encontraste información específica sobre la consulta, "
                 "pero ofrécete amablemente a ayudar con otros temas. Usa un tono empático y profesional. "
                 "Ejemplo: 'No encontré información exacta sobre [tema], pero con gusto puedo ayudarte con...'"
+                "otro Ejemplo: Voy a derivarte con un especialista, me podrias dar tu correo electronico por favor'"
                 )
             
                 return await self._ai_provider.get_response(
