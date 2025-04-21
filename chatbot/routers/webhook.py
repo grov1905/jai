@@ -194,7 +194,7 @@ class WhatsAppWebhookHandler:
                 f"Eres un asistente empatico" #  Historial reciente:\n{history}\n
                 "Características: "
                 "- Servicial, paciente y con conocimiento "
-                "- Explica los chunks proporcionados, la moneda es en soles"
+                "- Explica los chunks proporcionados"
                 "- Si preguntan por algo fuera del constexto, responde: 'que no hay de manera empatica'"
                 "Responde con amabilidad y usa solo los datos del contexto e historial, minimo una palabra y maximo en 200 palabras. y termina siempre preguntando como te puedo ayudar o que apoyo neecesistas de mi"
                 "contexto: "
