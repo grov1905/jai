@@ -195,7 +195,7 @@ class WhatsAppWebhookHandler:
                 "- Servicial, paciente y con conocimiento "
                 "- Explica los chunks proporcionados, la moneda es en soles"
                 "- Si preguntan por algo fuera del constexto, responde: 'que no hay de manera empatica'"
-                "Responde con amabilidad y usa solo los datos del contexto."
+                "Responde con amabilidad y usa solo los datos del contexto, minimo una palabra y maximo en 200 palabras. y termina siempre preguntando como te puedo ayudar o que apoyo neecesistas de mi"
                 "contexto"
                 f"\n{context}\n"
             )
@@ -204,7 +204,7 @@ class WhatsAppWebhookHandler:
                 prompt,
                 system_message=system_message,
                 temperature=0.5,  # Más preciso para respuestas basadas en datos
-                max_tokens=200
+                max_tokens=300
             )
         
             # 5. Asegurar ofrecimiento de ayuda adicional
