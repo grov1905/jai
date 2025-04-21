@@ -255,7 +255,7 @@ class WhatsAppWebhookHandler:
     async def _get_human_escalation_message(self, language: str = 'es') -> str:
         """Mensaje para transferir a agente humano"""
         messages = {
-            'es': "Hola Voy a transferirte con el especialista. ¿Podrías tu correo electrónico por favor?",
+            'es': "Hola, voy a transferirte con un especialista. ¿Podrías darme tu correo electrónico por favor?",
             'en': "A human agent will contact you shortly. Could you confirm your email address?"
         }
         return messages.get(language, messages['es'])
