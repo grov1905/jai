@@ -34,8 +34,6 @@ async def some_endpoint(db: AsyncSession = Depends(get_db)):
         raise HTTPException(status_code=500, detail=f"Error de base de datos: {str(e)}")
 
 
-
-
 @app.on_event("startup")
 async def on_startup():
     print("Creando tablas...")
