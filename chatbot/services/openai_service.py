@@ -1,4 +1,4 @@
-#chatbot/services/deepseek_service.py
+""" #chatbot/services/deepseek_service.py
 
 import os
 import openai
@@ -40,8 +40,4 @@ async def get_response(self, prompt: str, system_message: str = None, **kwargs) 
         raise AIServiceError(f"OpenAI Error: {str(e)}")
     
     
-    
-"""             messages = [
-            {"role": "system", "content": system_message or "Eres un asistente útil."},
-            {"role": "user", "content": prompt}
-        ] """
+ """

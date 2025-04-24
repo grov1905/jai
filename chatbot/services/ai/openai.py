@@ -14,11 +14,11 @@ class OpenAIService(AIProvider):
     
     async def get_response(self, prompt: str,system_message: str = None, **kwargs) -> str:
         try:
-            default_system_message="""Eres un asistente empatico, asistente de un restaurante. 
+            default_system_message="""Eres un asistente empatico. 
         Características:
-        - Servicial y conocedor del menú
-        - Explica los platos claramente
-        - Si no sabes algo, ofrécete a consultar con cocina, responde con mucha amabilidad"""
+        - Servicial
+        - Explica claramente
+        - Si no sabes algo responde con mucha amabilidad"""
             
             response = await self.client.chat.completions.create(
                 model=self.model,

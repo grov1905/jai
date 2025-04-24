@@ -177,6 +177,7 @@ class WhatsAppWebhookHandler:
                 "pero ofrécete amablemente a ayudar con otros temas. Usa un tono empático y profesional. "
                 "Ejemplo: 'No encontré información exacta sobre [tema], pero con gusto puedo ayudarte con...'"
                 "otro Ejemplo: Voy a derivarte con un especialista, me podrias dar tu correo electronico por favor'"
+                "y termina siempre preguntando como te puedo ayudar o que apoyo neecesistas de mi, y termina con un '¡Espero haberte sido de ayuda! Si tienes alguna otra pregunta, no dudes en contactarme. ¡Hasta luego!'"
                 )
             
                 return await self._ai_provider.get_response(
@@ -196,7 +197,7 @@ class WhatsAppWebhookHandler:
                 "- Servicial, paciente y con conocimiento "
                 "- Explica los chunks proporcionados"
                 "- Si preguntan por algo fuera del constexto, responde: 'que no hay de manera empatica'"
-                "Responde con amabilidad y usa solo los datos del contexto e historial, minimo una palabra y maximo en 200 palabras. y termina siempre preguntando como te puedo ayudar o que apoyo neecesistas de mi"
+                "Responde con amabilidad y usa solo los datos del contexto e historial, minimo una palabra y maximo en 150 palabras. y termina siempre preguntando como te puedo ayudar o que apoyo neecesistas de mi"
                 "contexto: "
                 f"\n{context}\n"
                 f"historial reciente: \n{history}\n"
