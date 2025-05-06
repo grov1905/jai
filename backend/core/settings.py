@@ -111,7 +111,10 @@ CORS_ALLOWED_ORIGINS = [
     "https://jai-next.vercel.app"
 ]
 
-
+print("DATABASES:", os.getenv('PGDATABASE'))
+print("DATABASES:", os.getenv('PGUSER'))
+print("DATABASES:", os.getenv('PGPASSWORD'))
+print("DATABASES:", os.getenv('PGHOST'))
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
