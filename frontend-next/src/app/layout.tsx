@@ -93,17 +93,13 @@ export default function RootLayout({
           {children}
         </AuthProvider>
         <script src="/jai-chatbot.js"
-  data-client-id="0531ba25-e2d2-4d94-98f3-8e4d6126a229"                /* Requerido */
   data-color="#1E2A47"                          /* Color principal */
   data-position="bottom-right"                  /* Posición del botón */
   data-style="floating"                         /* Estilo del widget */
-  //data-target="#contenedor"                     /* Para estilo embedded */
   data-title="Asistente Jaiexperts"                /* Título del chat */
   data-welcome="¡Hola! ¿En qué puedo ayudarte?" /* Mensaje bienvenida */
   data-open-on-load="false"                     /* Abrir automáticamente */
-  data-websocket-url="ws://jaiwebsocket-production.up.railway.app/ws/chat"   /* URL del WebSocket */
   data-avatar="/images/logo192.png"                  /* Avatar del bot */
-  //data-typing-text="Escribiendo..."             /* Texto al escribir */
   data-close-after="3000"                        /* Cerrar después de X segundos */
 ></script>
         {/* Google Analytics - Implementación recomendada por Next.js */}
