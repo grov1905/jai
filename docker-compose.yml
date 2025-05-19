@@ -1,69 +1,12 @@
 services:
-  db:
-    image: ankane/pgvector:v0.5.1  # Versión optimizada para ARM
-    platform: linux/arm64
-    environment:
-      POSTGRES_USER: ${PGUSER}
-      POSTGRES_PASSWORD: ${PGPASSWORD}
-      POSTGRES_DB: ${PGDATABASE}
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${PGUSER} -d ${PGDATABASE}"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    deploy:
-      resources:
-        limits:
-          memory: 3G
-    
-
-  chatbot:
-    build: ./chatbot
-    ports:
-      - "8010:8000"
-    env_file:
-      - .env
-    depends_on:
-      - db
-    volumes:
-      - ./chatbot:/app
-    command: sh -c "uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
-
-  embeddings-service:
-    build: ./embeddings-service
-    ports:
-      - "8020:8000"
-    environment:
-      - EMBEDDING_MODEL=BAAI/bge-large-en
-      - EMBEDDING_DIM=1024
-      - PYTORCH_ENABLE_MPS_FALLBACK=1  # Habilita Metal Performance Shaders
-      - PYTORCH_MPS_HIGH_WATERMARK_RATIO=0.0  # Optimiza uso de memoria GPU
-    deploy:
-      resources:
-        limits:
-          cpus: '4'  # Aprovecha los cores de tu M3
-          memory: 12G  # Limita RAM para evitar swap
-    env_file:
-      - .env
-    depends_on:
-      - db
-    volumes:
-      - ./embeddings-service:/app
-      - embeddings_cache:/root/.cache  # Volumen específico para cache de modelos
-    command: sh -c "uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
-
   backend:
     build: ./backend
     ports:
-      - "8000:8000"
+      - "8003:8000"
     env_file:
       - .env
-    depends_on:
-      - db
+    #depends_on:
+    #  - host.docker.internal
     volumes:
       - ./backend:/app
 
@@ -109,10 +52,7 @@ services:
       - CHOKIDAR_USEPOLLING=true # Importante para watch en Docker
       - WATCHPACK_POLLING=true # Necesario para algunos entornos
 
-
-
-
 volumes:
-  embeddings_cache:
+  #embeddings_cache:
   pgdata:
   

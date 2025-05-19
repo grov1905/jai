@@ -92,7 +92,20 @@ export default function RootLayout({
         <AuthProvider>
           {children}
         </AuthProvider>
-
+        <script src="/jai-chatbot.js"
+  data-client-id="d652eaa8-dd23-42f2-9835-283eaa069be0"                /* Requerido */
+  data-color="#1E2A47"                          /* Color principal */
+  data-position="bottom-right"                  /* Posición del botón */
+  data-style="floating"                         /* Estilo del widget */
+  //data-target="#contenedor"                     /* Para estilo embedded */
+  data-title="Asistente Jaiexperts"                /* Título del chat */
+  data-welcome="¡Hola! ¿En qué puedo ayudarte?" /* Mensaje bienvenida */
+  data-open-on-load="false"                     /* Abrir automáticamente */
+  data-websocket-url="ws://localhost:8080/ws/chat"   /* URL del WebSocket */
+  data-avatar="/images/logo192.png"                  /* Avatar del bot */
+  //data-typing-text="Escribiendo..."             /* Texto al escribir */
+  data-close-after="3000"                        /* Cerrar después de X segundos */
+></script>
         {/* Google Analytics - Implementación recomendada por Next.js */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-G6ZFT7T80X" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
