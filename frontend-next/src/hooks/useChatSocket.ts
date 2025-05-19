@@ -4,9 +4,9 @@ import { useEffect, useRef, useState } from 'react';
 export default function useChatSocket(channel: string, externalId: string) {
   const [latestMessage, setLatestMessage] = useState<string | null>(null);
   const ws = useRef<WebSocket | null>(null);
-
+  
   useEffect(() => {
-    ws.current = new WebSocket('ws://localhost:8080/ws/chat');
+    ws.current = new WebSocket(`${process.env.URL_WEBSOCKET}/ws/chat`);
     ws.current.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
