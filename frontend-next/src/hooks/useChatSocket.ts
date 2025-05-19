@@ -6,7 +6,7 @@ export default function useChatSocket(channel: string, externalId: string) {
   const ws = useRef<WebSocket | null>(null);
   
   useEffect(() => {
-    ws.current = new WebSocket(`${process.env.URL_WEBSOCKET}/ws/chat`);
+    ws.current = new WebSocket(`${process.env.NEXT_PUBLIC_URL_WEBSOCKET}/ws/chat`);
     ws.current.onmessage = (event) => {
       try {
         const data = JSON.parse(event.data);
