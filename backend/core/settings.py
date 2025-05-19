@@ -111,8 +111,6 @@ CORS_ALLOWED_ORIGINS = [
     "https://jai-next.vercel.app"
 ]
 
-
-
 print("DATABASES:", os.getenv('PGDATABASE'))
 print("DATABASES:", os.getenv('PGUSER'))
 print("DATABASES:", os.getenv('PGPASSWORD'))
