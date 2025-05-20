@@ -23,7 +23,7 @@ export default function useChatSocket(channel: string, externalId: string) {
       const payload = {
         channel,
         external_id: externalId,
-        business_id: 'd652eaa8-dd23-42f2-9835-283eaa069be0',
+        business_id: '0531ba25-e2d2-4d94-98f3-8e4d6126a229',
         content,
         metadata: { source: 'multicanal-demo' }
       };
