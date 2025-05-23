@@ -4,6 +4,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import './FormUser.css';
 
+// Esquema de validación actualizado
 const userSchema = yup.object().shape({
   username: yup.string().required('El nombre de usuario es requerido').max(150),
   email: yup.string().email('Ingrese un email válido').required('El email es requerido'),
@@ -11,16 +12,22 @@ const userSchema = yup.object().shape({
   last_name: yup.string().max(150),
   estado: yup.string().required('El estado es requerido'),
   is_staff: yup.boolean(),
-  password: yup.string().when('isCreate', {
-    is: true,
-    then: yup.string().required('La contraseña es requerida').min(8),
-    otherwise: yup.string(),
-  }),
-  password_confirmation: yup.string().when('password', {
-    is: val => val && val.length > 0,
-    then: yup.string().oneOf([yup.ref('password')], 'Las contraseñas deben coincidir'),
-    otherwise: yup.string(),
-  }),
+  password: yup
+    .string()
+    .transform(value => (value === '' ? undefined : value))
+    .when('$isCreate', {
+      is: true,
+      then: schema => schema.required('La contraseña es requerida').min(8, 'La contraseña debe tener al menos 8 caracteres'),
+      otherwise: schema => schema.notRequired()
+    }),
+  password_confirmation: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'Las contraseñas deben coincidir')
+    .when('password', {
+      is: value => value && value.length > 0,
+      then: schema => schema.required('Debes confirmar la contraseña'),
+      otherwise: schema => schema.notRequired()
+    })
 });
 
 const FormUser = ({ 
@@ -46,7 +53,7 @@ const FormUser = ({
       password: '',
       password_confirmation: '',
     },
-    context: { isCreate }
+    context: { isCreate } // Contexto para las condiciones
   });
 
   return (
@@ -122,64 +129,36 @@ const FormUser = ({
         </div>
       </div>
       
-      {isCreate && (
-        <>
-          <div className="form-row">
-            <div className="form-group">
-              <label htmlFor="password">Contraseña*</label>
-              <input
-                type="password"
-                id="password"
-                {...register('password')}
-                className={errors.password ? 'error' : ''}
-              />
-              {errors.password && <span className="error-message">{errors.password.message}</span>}
-            </div>
-            
-            <div className="form-group">
-              <label htmlFor="password_confirmation">Confirmar Contraseña</label>
-              <input
-                type="password"
-                id="password_confirmation"
-                {...register('password_confirmation')}
-                className={errors.password_confirmation ? 'error' : ''}
-              />
-              {errors.password_confirmation && (
-                <span className="error-message">{errors.password_confirmation.message}</span>
-              )}
-            </div>
-          </div>
-        </>
-      )}
-      
-      {!isCreate && (
-        <div className="form-row">
-          <div className="form-group">
-            <label htmlFor="password">Nueva Contraseña</label>
-            <input
-              type="password"
-              id="password"
-              {...register('password')}
-              className={errors.password ? 'error' : ''}
-              placeholder="Dejar en blanco para no cambiar"
-            />
-            {errors.password && <span className="error-message">{errors.password.message}</span>}
-          </div>
-          
-          <div className="form-group">
-            <label htmlFor="password_confirmation">Confirmar Nueva Contraseña</label>
-            <input
-              type="password"
-              id="password_confirmation"
-              {...register('password_confirmation')}
-              className={errors.password_confirmation ? 'error' : ''}
-            />
-            {errors.password_confirmation && (
-              <span className="error-message">{errors.password_confirmation.message}</span>
-            )}
-          </div>
+      <div className="form-row">
+        <div className="form-group">
+          <label htmlFor="password">
+            {isCreate ? 'Contraseña*' : 'Nueva Contraseña'}
+          </label>
+          <input
+            type="password"
+            id="password"
+            {...register('password')}
+            className={errors.password ? 'error' : ''}
+            placeholder={!isCreate ? "Dejar en blanco para no cambiar" : ""}
+          />
+          {errors.password && <span className="error-message">{errors.password.message}</span>}
         </div>
-      )}
+        
+        <div className="form-group">
+          <label htmlFor="password_confirmation">
+            {isCreate ? 'Confirmar Contraseña*' : 'Confirmar Nueva Contraseña'}
+          </label>
+          <input
+            type="password"
+            id="password_confirmation"
+            {...register('password_confirmation')}
+            className={errors.password_confirmation ? 'error' : ''}
+          />
+          {errors.password_confirmation && (
+            <span className="error-message">{errors.password_confirmation.message}</span>
+          )}
+        </div>
+      </div>
       
       <div className="form-actions">
         <button type="button" onClick={onCancel} className="cancel-btn">
