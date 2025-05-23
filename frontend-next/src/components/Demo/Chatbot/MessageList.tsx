@@ -1,4 +1,5 @@
-// components/MessageList.tsx
+//frontend-next/src/components/Demo/Chatbot/MessageList.tsx
+
 import React, { useEffect, useRef } from 'react';
 
 interface Message {

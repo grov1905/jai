@@ -30,5 +30,6 @@ export default function Footer() {
         </div>
         <p className="text-sm mt-5">&copy; 2023 JAI. Todos los derechos reservados.</p>
       </footer>
+      
     );
 }

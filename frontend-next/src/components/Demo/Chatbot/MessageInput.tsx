@@ -1,4 +1,5 @@
-// components/MessageInput.tsx
+//frontend-next/src/components/Demo/Chatbot/MessageInput.tsx
+
 import React, { useState } from 'react';
 
 interface Props {

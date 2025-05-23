@@ -1,11 +1,19 @@
-// hooks/useChatSocket.ts
+// hooks/useChatSocket.ts (modificado)
 import { useEffect, useRef, useState } from 'react';
 
-export default function useChatSocket(channel: string, externalId: string) {
+interface UseChatSocketProps {
+  channel: string;
+  externalId: string;
+  businessId: string;
+}
+
+export default function useChatSocket({ channel, externalId, businessId }: UseChatSocketProps) {
   const [latestMessage, setLatestMessage] = useState<string | null>(null);
   const ws = useRef<WebSocket | null>(null);
   
   useEffect(() => {
+    if (!businessId) return;
+
     ws.current = new WebSocket(`${process.env.NEXT_PUBLIC_URL_WEBSOCKET}/ws/chat`);
     ws.current.onmessage = (event) => {
       try {
@@ -15,20 +23,26 @@ export default function useChatSocket(channel: string, externalId: string) {
         console.error('Error parsing message', err);
       }
     };
-    return () => ws.current?.close();
-  }, [channel, externalId]);
+    
+    return () => {
+      if (ws.current?.readyState === 1) {
+        ws.current.close();
+      }
+    };
+  }, [channel, externalId, businessId]);
 
   const sendMessage = (content: string) => {
-    if (ws.current?.readyState === 1) {
+    if (ws.current?.readyState === 1 && businessId) {
       const payload = {
         channel,
         external_id: externalId,
-        business_id: '0531ba25-e2d2-4d94-98f3-8e4d6126a229',
+        business_id: businessId,
         content,
         metadata: { source: 'multicanal-demo' }
       };
       ws.current.send(JSON.stringify(payload));
     }
   };
+
   return { sendMessage, latestMessage };
 }

@@ -2,7 +2,7 @@
 
 import type { Metadata, Viewport } from 'next';
 import { Roboto } from 'next/font/google';
-import './globals.css';
+import '@/app/globals.css';
 import { AuthProvider } from '@/context/AuthContext';
 import Script from 'next/script';
 
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default function DemoLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -94,16 +94,6 @@ export default function RootLayout({
         <AuthProvider>
           {children}
         </AuthProvider>
-        <script src="/jai-chatbot.js"
-  data-color="#1E2A47"                          /* Color principal */
-  data-position="bottom-right"                  /* Posición del botón */
-  data-style="floating"                         /* Estilo del widget */
-  data-title="Asistente Jaiexperts"                /* Título del chat */
-  data-welcome="¡Hola! ¿En qué puedo ayudarte?" /* Mensaje bienvenida */
-  data-open-on-load="false"                     /* Abrir automáticamente */
-  data-avatar="/images/logo192.png"                  /* Avatar del bot */
-  data-close-after="3000"                        /* Cerrar después de X segundos */
-></script>
         {/* Google Analytics - Implementación recomendada por Next.js */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-G6ZFT7T80X" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">

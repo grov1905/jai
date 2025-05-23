@@ -1,3 +1,4 @@
+// frontend-next/src/components/Demo/Chatbot/ChatBox.tsx
 "use client";
 import React, { useEffect, useState } from 'react';
 import useChatSocket from '@/hooks/useChatSocket';
@@ -6,14 +7,17 @@ import MessageList from './MessageList';
 import MessageInput from './MessageInput';
 
 interface ChatBoxProps {
-  channel: string;
-  externalId: string;
-  title: string;
-  color: string;
-  icon?: string;
-}
+    channel: string;
+    externalId: string;
+    title: string;
+    color: string;
+    icon?: string;
+    businessId: string;
+    businessChanged?: boolean;
+    businessName?: string;  // Nueva prop para el nombre del negocio
+  }
 
-// Estilos específicos para cada plataforma (fuera del componente)
+// Estilos específicos para cada plataforma
 const PLATFORM_STYLES = {
   whatsapp: {
     headerBg: '#075E54',
@@ -45,17 +49,30 @@ const PLATFORM_STYLES = {
   },
 };
 
-export default function ChatBox({ channel, externalId, title, color, icon }: ChatBoxProps) {
+export default function ChatBox({ 
+    channel, 
+    externalId, 
+    title, 
+    color, 
+    icon, 
+    businessId, 
+    businessChanged,
+    businessName  // Nueva prop
+  }: ChatBoxProps) {
   const [isMounted, setIsMounted] = useState(false);
   const [messages, setMessages] = useState<{ from: 'user' | 'bot'; content: string; time?: string }[]>([]);
-  const { sendMessage, latestMessage } = useChatSocket(channel, externalId);
+  const { sendMessage, latestMessage } = useChatSocket({ 
+    channel, 
+    externalId, 
+    businessId 
+  });
 
-  // Efecto para marcar cuando el componente está montado (solo cliente)
+  // Efecto para marcar cuando el componente está montado
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  // Formateador de hora consistente
+  // Formateador de hora
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('en-US', {
       hour: '2-digit',
@@ -64,6 +81,23 @@ export default function ChatBox({ channel, externalId, title, color, icon }: Cha
     });
   };
 
+  // Efecto para manejar cambio de negocio
+  useEffect(() => {
+    if (businessChanged && businessId && businessName) {  // Verificamos businessName
+      // Limpiar el chat
+      setMessages([]);
+      
+      // Enviar mensaje de bienvenida con el nombre del negocio
+      const timeString = formatTime(new Date());
+      setMessages([{ 
+        from: 'bot', 
+        content: `¡Bienvenido al chat de ${businessName}! ¿En qué podemos ayudarte hoy?`,
+        time: timeString 
+      }]);
+    }
+  }, [businessId, businessChanged, businessName]);  // Agregamos businessName a las dependencias
+
+  // Efecto para nuevos mensajes del bot
   useEffect(() => {
     if (latestMessage) {
       const timeString = formatTime(new Date());
@@ -75,8 +109,9 @@ export default function ChatBox({ channel, externalId, title, color, icon }: Cha
     }
   }, [latestMessage]);
 
+  // Función para enviar mensajes
   const handleSend = (text: string) => {
-    if (text.trim()) {
+    if (text.trim() && businessId) {
       const timeString = formatTime(new Date());
       sendMessage(text);
       setMessages((prev) => [...prev, { 
@@ -87,7 +122,18 @@ export default function ChatBox({ channel, externalId, title, color, icon }: Cha
     }
   };
 
+  // Obtener estilos según la plataforma
   const currentStyle = PLATFORM_STYLES[channel as keyof typeof PLATFORM_STYLES] || PLATFORM_STYLES.whatsapp;
+
+  // Mostrar advertencia si no hay negocio seleccionado
+  if (!businessId) {
+    return (
+      <div className="relative mx-2 my-4 h-[90vh] max-h-[700px] w-full max-w-[300px] rounded-3xl overflow-hidden shadow-2xl bg-white flex flex-col border-8 border-black items-center justify-center p-4 text-center">
+        <div className="text-red-500 font-bold mb-2">¡Atención!</div>
+        <div className="text-sm">Por favor selecciona un negocio en el panel de configuración para habilitar el chat.</div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative mx-2 my-4 h-[90vh] max-h-[700px] w-full max-w-[300px] rounded-3xl overflow-hidden shadow-2xl bg-white flex flex-col border-8 border-black">
@@ -109,7 +155,7 @@ export default function ChatBox({ channel, externalId, title, color, icon }: Cha
         </div>
       </div>
 
-      {/* Resto del componente... */}
+      {/* Componentes del chat */}
       <ChatHeader 
         title={title} 
         color={color} 
@@ -130,6 +176,7 @@ export default function ChatBox({ channel, externalId, title, color, icon }: Cha
         channel={channel} 
       />
 
+      {/* Indicador de navegación inferior */}
       <div className="absolute bottom-2 left-0 right-0 flex justify-center">
         <div className="h-1 w-20 bg-gray-400 rounded-full"></div>
       </div>

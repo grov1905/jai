@@ -1,4 +1,5 @@
-// components/ChatHeader.tsx
+
+//frontend-next/src/components/Demo/Chatbot/ChatHeader.tsx
 import React from 'react';
 
 interface Props {

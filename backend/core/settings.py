@@ -108,7 +108,8 @@ CORS_ALLOWED_ORIGINS = [
     "https://www.jaiexperts.com",
     "https://jai-production.up.railway.app",
     "https://jai-next-grovs-projects.vercel.app",
-    "https://jai-next.vercel.app"
+    "https://jai-next.vercel.app",
+    "http://localhost:3001"
 ]
 
 print("DATABASES:", os.getenv('PGDATABASE'))
