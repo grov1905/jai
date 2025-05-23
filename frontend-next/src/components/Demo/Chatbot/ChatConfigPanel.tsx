@@ -67,7 +67,7 @@ export default function ChatConfigPanel({ config, setConfig }: { config: ChatCon
           },
           body: JSON.stringify({
             email: process.env.NEXT_PUBLIC_URL_NEGOCIO_EMAIL,
-            password: process.env.NEXT_PUBLIC_URL_NEGOCIO_PASSWORD
+            password: process.env.NEXT_PUBLIC_URL_NEGOCIO_P
           })
         });
 
