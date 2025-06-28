@@ -181,7 +181,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 print("EMAIL_HOST_USER:", os.getenv("EMAIL_HOST_USER"))  # Agrega esta línea temporalmente
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'mail.privateemail.com'  # Servidor SMTP de PrivateEmail
+EMAIL_HOST =   os.getenv('EMAIL_SMTP')  # Servidor SMTP de PROVEEDOR
 EMAIL_PORT = 587  # Puerto recomendado para conexión segura con TLS
 EMAIL_USE_TLS = True  # Habilita TLS para seguridad
 EMAIL_USE_SSL = False  # No uses SSL, usa TLS en su lugar
